@@ -1,0 +1,13 @@
+.oculto{
+    display: none;
+}
+
+.menuItem{
+    height: 100px;
+    width: 100px;
+    display: inline;
+}
+
+.menuDiv{
+    display: inline;
+}

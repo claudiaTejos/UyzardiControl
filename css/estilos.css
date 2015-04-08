@@ -1,0 +1,65 @@
+body{
+	background: rgba(228, 228, 228, 0.76)
+}
+
+.form-signin{
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+	
+}
+
+.form-signin input[type="email"]{
+margin-bottom: 0px;
+border-bottom-right-radius: 0;
+border-bottom-left-radius:0;
+}
+
+.form-signin input [type="password"]{
+	margin-bottom: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.form-signin .form-sign-heading{
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.empresa{
+	  	text-align: center;
+		font-weight: bold;
+}
+
+li{
+	top: 20px;
+	position:relative;
+	text-align: center;
+	display:inline-block;
+	width: 20%;
+	border-right:3px solid rgba(0,0,0, 0.11);
+	font-family:Arial;
+	font-weight:bold;
+	font-size:18px;
+}
+
+.contato{
+	border: 0 !important;
+}
+
+.pesquisa{
+	padding-top: 200px;;
+	margin-left: 33%;
+
+}
+.tabelaInicio{
+	font-weight:bold;
+}
+.tabela{
+	padding-top: 300px;
+}
+
+.oculto{
+    display: none;
+}
+
