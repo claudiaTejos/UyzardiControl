@@ -77,12 +77,10 @@ function mudarOcultoRelatorio() {
     }
 }
 
-console.log("ok");
-
 //Eventos
 btnMatricula.addEventListener("click", mudarOcultoMatricula);
 btnVendas.addEventListener("click", mudarOcultoVendas);
 btnRelatorios.addEventListener("click", mudarOcultoRelatorio);
 btnNovoAluno.addEventListener("click", mudarOcultoNovoAluno);
 btnPesquisaAluno.addEventListener("click", mudarOcultoPesquisaAluno);
-txtNomeAluno.addEventListener("onkeyup", atualizaNomeNovoAluno);
+txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
