@@ -44,6 +44,12 @@ function mudarOcultoMatricula() {
     }
     if (divMatricula.classList.contains("oculto")) {
         divMatricula.classList.toggle("oculto");
+        if (!divNovoAluno.classList.contains("oculto")) {
+            divNovoAluno.classList.toggle("oculto");
+        }
+        if (!divPesquisaAluno.classList.contains("oculto")) {
+            divPesquisaAluno.classList.toggle("oculto");
+        }
     }
 }
 
