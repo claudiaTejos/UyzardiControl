@@ -5,7 +5,7 @@ var btnSubmit = document.getElementById("btnSubmit");
 
 //Funções
 function validateInfo() {
-    if (emailTyped.value == "teste@teste" && passwordTyped.value == "123") {
+    if (emailTyped.getAttribute("value") == "teste@teste" && passwordTyped.getAttribute("value") == "123") {
         document.location.href = "telaPrincipal.html";
     }
 }
