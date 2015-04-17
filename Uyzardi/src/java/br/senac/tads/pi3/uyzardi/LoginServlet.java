@@ -7,6 +7,7 @@ package br.senac.tads.pi3.uyzardi;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,8 +78,17 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("inputEmail");
         String senha = request.getParameter("inputPassword");
         
+        //Testa se o login e senha está correto com o do banco e avança de tela
+        if (Funcionario.login(login, senha)){
+            response.sendRedirect("telaPrincipal.jsp");
+        }
+        //Retorna erro para o jsp
+        else {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            request.setAttribute("lblErro", "Usuário e/ou senha inválidos");
+            rd.forward(request, response);
+        }
         
-        boolean statusLogin = Funcionario.login(login, senha);
     }
 
     /**

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +19,9 @@
 	<input type="email" id="inputEmail"class="form-control" placeholder="Email address" required autofocus>
 	<label for="inputPassword" class="sr-only">Senha</label>
 	<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required >
-	
-	
+        <c:if test="${not empty lblErro}">
+            <script>alert("${lblErro}")</script>
+	</c:if>
 	<button class="btn btn-lg btn-primary btn-block" type="submit"> Entre</button>	
 	</form>
 </body>
