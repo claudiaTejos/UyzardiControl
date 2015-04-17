@@ -10,26 +10,19 @@
  */
 public class Curso {
     
-    private int id_curso;
+    private int idCurso;
+    private String nomeCurso;
+    private int moduloCurso;
+    private int salaCurso;
+    private Unidade unidade;
     private int qtd_vagas;
     private double valor;
-    private int id_unidade;
-    private int cargaHoraria;
-    private int modulo;
-    private int sala;
 
     /**
      * @return the id_curso
      */
     public int getId_curso() {
-        return id_curso;
-    }
-
-    /**
-     * @param id_curso the id_curso to set
-     */
-    public void setId_curso(int id_curso) {
-        this.id_curso = id_curso;
+        return idCurso;
     }
 
     /**
@@ -59,61 +52,74 @@ public class Curso {
     public void setValor(double valor) {
         this.valor = valor;
     }
-
-    /**
-     * @return the id_unidade
-     */
-    public int getId_unidade() {
-        return id_unidade;
-    }
-
-    /**
-     * @param id_unidade the id_unidade to set
-     */
-    public void setId_unidade(int id_unidade) {
-        this.id_unidade = id_unidade;
-    }
-
-    /**
-     * @return the cargaHoraria
-     */
-    public int getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    /**
-     * @param cargaHoraria the cargaHoraria to set
-     */
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
     /**
      * @return the modulo
      */
     public int getModulo() {
-        return modulo;
+        return getModuloCurso();
     }
 
     /**
      * @param modulo the modulo to set
      */
     public void setModulo(int modulo) {
-        this.modulo = modulo;
+        this.setModuloCurso(modulo);
     }
 
     /**
      * @return the sala
      */
     public int getSala() {
-        return sala;
+        return getSalaCurso();
     }
 
     /**
      * @param sala the sala to set
      */
     public void setSala(int sala) {
-        this.sala = sala;
+        this.setSalaCurso(sala);
+    }
+
+    /**
+     * @return the moduloCurso
+     */
+    public int getModuloCurso() {
+        return moduloCurso;
+    }
+
+    /**
+     * @param moduloCurso the moduloCurso to set
+     */
+    public void setModuloCurso(int moduloCurso) {
+        this.moduloCurso = moduloCurso;
+    }
+
+    /**
+     * @return the salaCurso
+     */
+    public int getSalaCurso() {
+        return salaCurso;
+    }
+
+    /**
+     * @param salaCurso the salaCurso to set
+     */
+    public void setSalaCurso(int salaCurso) {
+        this.salaCurso = salaCurso;
+    }
+
+    /**
+     * @return the unidade
+     */
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    /**
+     * @param unidade the unidade to set
+     */
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
     }
      
 }

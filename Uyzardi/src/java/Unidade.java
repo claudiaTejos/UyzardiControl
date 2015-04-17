@@ -10,23 +10,16 @@
  */
 public class Unidade {
     
-    private int id_unidade;
+    private int idUnidade;
     private String nome;
     private String endereco;
-    private int id_gerente;
+    private String cidade;
 
     /**
-     * @return the id_unidade
+     * @return the idUnidade
      */
-    public int getId_unidade() {
-        return id_unidade;
-    }
-
-    /**
-     * @param id_unidade the id_unidade to set
-     */
-    public void setId_unidade(int id_unidade) {
-        this.id_unidade = id_unidade;
+    public int getIdUnidade() {
+        return idUnidade;
     }
 
     /**
@@ -58,17 +51,19 @@ public class Unidade {
     }
 
     /**
-     * @return the id_gerente
+     * @return the cidade
      */
-    public int getId_gerente() {
-        return id_gerente;
+    public String getCidade() {
+        return cidade;
     }
 
     /**
-     * @param id_gerente the id_gerente to set
+     * @param cidade the cidade to set
      */
-    public void setId_gerente(int id_gerente) {
-        this.id_gerente = id_gerente;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
+
+ 
     
 }
