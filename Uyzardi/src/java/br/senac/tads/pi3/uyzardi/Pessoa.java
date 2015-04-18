@@ -16,8 +16,8 @@ import java.util.Date;
 public class Pessoa {
     private int idPessoa;
     private String nome;
-    private String cpf;
-    private String rg;
+    private int cpf;
+    private int rg;
     private String endereco;
     private Date dt_nasc;
     private char genero;
@@ -46,28 +46,28 @@ public class Pessoa {
     /**
      * @return the cpf
      */
-    public String getCpf() {
+    public int getCpf() {
         return cpf;
     }
 
     /**
      * @param cpf the cpf to set
      */
-    public void setCpf(String cpf) {
+    public void setCpf(int cpf) {
         this.cpf = cpf;
     }
 
     /**
      * @return the rg
      */
-    public String getRg() {
+    public int getRg() {
         return rg;
     }
 
     /**
      * @param rg the rg to set
      */
-    public void setRg(String rg) {
+    public void setRg(int rg) {
         this.rg = rg;
     }
 
