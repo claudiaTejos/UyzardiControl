@@ -16,6 +16,14 @@ public class Aluno extends Pessoa{
     private Curso curso;
     private Responsavel responsavel;
 
+    public Aluno(String nome, int cpf, int rg, String endereco, char genero) {
+        super(nome, cpf, rg, endereco, genero);
+    }
+    
+    public Aluno(int idPessoa, String nome, int cpf, int rg, String endereco, char genero) {
+        super(idPessoa, nome, cpf, rg, endereco, genero);
+    }
+    
     /**
      * @return the idAluno
      */
@@ -62,11 +70,6 @@ public class Aluno extends Pessoa{
      */
     public void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
-    }
-    
-    
-    public void login(String email, String senha){
-        
     }
     
 }

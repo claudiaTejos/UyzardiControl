@@ -21,6 +21,24 @@ public class Pessoa {
     private String endereco;
     private Date dt_nasc;
     private char genero;
+    
+    public Pessoa (String nome, int cpf, int rg, String endereco, char genero){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.endereco = endereco;
+        this.genero = genero;
+    }
+    
+    public Pessoa (int idPessoa, String nome, int cpf, int rg, String endereco,
+            char genero){
+        this.idPessoa = idPessoa;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.endereco = endereco;
+        this.genero = genero;
+    }
 
     /**
      * @return the idPessoa
