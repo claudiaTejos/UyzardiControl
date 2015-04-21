@@ -1,5 +1,6 @@
 package br.senac.tads.pi3.uyzardi;
 
+
 import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,10 +21,8 @@ import java.util.logging.Logger;
  * @author Joana
  */
 public class Funcionario extends Pessoa {
- 
     private String cargo;
     private Unidade unidade;
-    private int idFuncionario;
     
     /**
      * @return the cargo
@@ -44,14 +43,6 @@ public class Funcionario extends Pessoa {
      */
     public Unidade getUnidade() {
         return unidade;
-    }
-    
-
-    /**
-     * @return the idFuncionario
-     */
-    public int getIdFuncionario() {
-        return idFuncionario;
     }
 
     /**

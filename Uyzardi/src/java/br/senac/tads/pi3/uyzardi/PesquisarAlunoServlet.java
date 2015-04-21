@@ -44,9 +44,13 @@ public class PesquisarAlunoServlet extends HttpServlet {
             ResultSet resultados = stmt.executeQuery(sql);
             while (resultados.next()){
                 Aluno aluno = new Aluno(resultados.getInt("idAluno"),
-                        resultados.getInt("idUnidade"),
-                        resultados.getInt("idCurso"),
-                        resultados.getInt("idResponsavel"));
+                        resultados.getString("nomePessoa"),
+                        resultados.getInt("cpf"),
+                        resultados.getInt("rg"),
+                        resultados.getString("enderecoPessoa"),
+                        resultados.getDate("dataNescimento"),
+                        (char)resultados.getObject("sexo")
+                        );
                 listaAluno.add(aluno);
             }
         } catch (SQLException ex) {

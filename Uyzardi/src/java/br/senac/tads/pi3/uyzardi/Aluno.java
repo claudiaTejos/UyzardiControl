@@ -1,5 +1,7 @@
 package br.senac.tads.pi3.uyzardi;
 
+import java.util.Date;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,25 +13,21 @@ package br.senac.tads.pi3.uyzardi;
  * @author Joana
  */
 public class Aluno extends Pessoa{
-    private int idAluno;
     private Unidade unidade;
     private Curso curso;
     private Responsavel responsavel;
 
-    public Aluno(String nome, int cpf, int rg, String endereco, char genero) {
-        super(nome, cpf, rg, endereco, genero);
+    public Aluno (){
+        
+    }
+    public Aluno(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+        super(nome, cpf, rg, endereco, dtNasc, genero);
+    }
+
+    public Aluno(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+        super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
     }
     
-    public Aluno(int idPessoa, String nome, int cpf, int rg, String endereco, char genero) {
-        super(idPessoa, nome, cpf, rg, endereco, genero);
-    }
-    
-    /**
-     * @return the idAluno
-     */
-    public int getIdAluno() {
-        return idAluno;
-    }
     /**
      * @return the unidade
      */

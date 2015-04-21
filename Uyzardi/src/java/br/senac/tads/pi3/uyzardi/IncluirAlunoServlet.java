@@ -46,8 +46,8 @@ public class IncluirAlunoServlet extends HttpServlet {
             conn = conexao.obterConexao();
             stmt = conn.prepareStatement(sql);
             stmt.setString(2, aluno.getNome());
-            stmt.setDate(3, new java.sql.Date(aluno.getDt_nasc().getTime()));
-            stmt.setChar(4,aluno.getGenero());
+            stmt.setDate(3, new java.sql.Date(aluno.getDtNasc().getTime()));
+            stmt.setObject(4,(char)aluno.getGenero());
             stmt.setString(5, aluno.getEndereco());
             stmt.setInt(6, aluno.getCpf());
             stmt.setInt(7, aluno.getRg());
@@ -148,9 +148,9 @@ public class IncluirAlunoServlet extends HttpServlet {
         aluno.setNome(nome);
         DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
         try {
-            aluno.setDt_nasc(formatadorData.parse(dtNasc));
+            aluno.setDtNasc(formatadorData.parse(dtNasc));
         } catch (ParseException ex) {
-            aluno.setDt_nasc(new Date());
+            aluno.setDtNasc(new Date());
         }
         aluno.setGenero(Genero);
         aluno.setEndereco(endereco);

@@ -11,21 +11,20 @@ package br.senac.tads.pi3.uyzardi;
  * @author claudia.rgtejos
  */
 public class Responsavel extends Pessoa{
-    private int idResponsavel;
     private int idAluno;
-
-    /**
-     * @return the idResponsavel
-     */
-    public int getIdResponsavel() {
-        return idResponsavel;
-    }
 
     /**
      * @return the idAluno
      */
     public int getIdAluno() {
         return idAluno;
+    }
+
+    /**
+     * @param idAluno the idAluno to set
+     */
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
     
 }

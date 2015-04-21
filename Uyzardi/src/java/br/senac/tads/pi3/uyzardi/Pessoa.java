@@ -13,31 +13,38 @@ import java.util.Date;
  *
  * @author claudia.rgtejos
  */
-public class Pessoa {
+public abstract class Pessoa {
     private int idPessoa;
     private String nome;
     private int cpf;
     private int rg;
     private String endereco;
-    private Date dt_nasc;
+    private Date dtNasc;
     private char genero;
     
-    public Pessoa (String nome, int cpf, int rg, String endereco, char genero){
+    public Pessoa(){
+        
+    }
+    
+    public Pessoa (String nome, int cpf, int rg, String endereco, Date dtNasc,
+            char genero){
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.endereco = endereco;
         this.genero = genero;
+        this.dtNasc = dtNasc;
     }
     
     public Pessoa (int idPessoa, String nome, int cpf, int rg, String endereco,
-            char genero){
+            Date dtNasc, char genero){
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.endereco = endereco;
         this.genero = genero;
+        this.dtNasc = dtNasc;
     }
 
     /**
@@ -106,15 +113,15 @@ public class Pessoa {
     /**
      * @return the dt_nasc
      */
-    public Date getDt_nasc() {
-        return dt_nasc;
+    public Date getDtNasc() {
+        return dtNasc;
     }
 
     /**
      * @param dt_nasc the dt_nasc to set
      */
-    public void setDt_nasc(Date dt_nasc) {
-        this.dt_nasc = dt_nasc;
+    public void setDtNasc(Date dt_nasc) {
+        this.dtNasc = dt_nasc;
     }
 
     /**
@@ -130,9 +137,5 @@ public class Pessoa {
     public void setGenero(char genero) {
         this.genero = genero;
     }
-    
-    
-    
-    
-    
+       
 }
