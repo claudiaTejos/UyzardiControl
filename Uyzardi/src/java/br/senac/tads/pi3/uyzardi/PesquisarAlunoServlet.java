@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PesquisarAluno", urlPatterns = {"/PesquisarAluno"})
 public class PesquisarAlunoServlet extends HttpServlet {
     
-    private ArrayList<Aluno> listaAluno;
+    private ArrayList<Cliente> listaAluno;
     
     public void pesquisarAluno (){
         ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
@@ -43,7 +43,7 @@ public class PesquisarAlunoServlet extends HttpServlet {
             stmt = conn.prepareStatement(sql);
             ResultSet resultados = stmt.executeQuery(sql);
             while (resultados.next()){
-                Aluno aluno = new Aluno(resultados.getInt("idAluno"),
+                Cliente aluno = new Cliente(resultados.getInt("idAluno"),
                         resultados.getString("nomePessoa"),
                         resultados.getInt("cpf"),
                         resultados.getInt("rg"),

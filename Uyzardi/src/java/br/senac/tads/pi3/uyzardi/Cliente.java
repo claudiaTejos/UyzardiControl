@@ -12,19 +12,16 @@ import java.util.Date;
  *
  * @author Joana
  */
-public class Aluno extends Pessoa{
+public class Cliente extends Pessoa{
     private Unidade unidade;
     private Curso curso;
-    private Responsavel responsavel;
+    private Cliente responsavel;
 
-    public Aluno (){
-        
-    }
-    public Aluno(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Cliente(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(nome, cpf, rg, endereco, dtNasc, genero);
     }
 
-    public Aluno(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Cliente(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
     }
     
@@ -72,15 +69,16 @@ public class Aluno extends Pessoa{
     /**
      * @return the responsavel
      */
-    public Responsavel getResponsavel() {
+    public Cliente getResponsavel() {
         return responsavel;
     }
 
     /**
      * @param responsavel the responsavel to set
      */
-    public void setResponsavel(Responsavel responsavel) {
+    public void setResponsavel(Cliente responsavel) {
         this.responsavel = responsavel;
     }
+    
     
 }

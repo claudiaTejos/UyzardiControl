@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,14 @@ import java.util.logging.Logger;
 public class Funcionario extends Pessoa {
     private String cargo;
     private Unidade unidade;
+
+    public Funcionario(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+        super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
+    }
+    
+    public Funcionario(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+        super(nome, cpf, rg, endereco, dtNasc, genero);
+    }
     
     /**
      * @return the cargo

@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "IncluirAlunoServlet", urlPatterns = {"/IncluirAlunoServlet"})
 public class IncluirAlunoServlet extends HttpServlet {
 
-    private void incluirAluno(Aluno aluno){
+    private void incluirAluno(Cliente aluno){
         ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -134,32 +134,31 @@ public class IncluirAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+
         String nome = request.getParameter("nome");
         String dtNasc = request.getParameter("dt_Nascimento");
-        char Genero = request.getParameter('m');
+        String genero = request.getParameter("inlineRadioOptions");
         String endereco = request.getParameter("endereco");
-        int cpf = request.getParameter(9);
-        int rg = request.getParameter(10);
+        String cpf = request.getParameter("cpf");
+        String rg = request.getParameter("rg");
         
-        Aluno aluno = new Aluno();
-        aluno.setNome(nome);
+        
         DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
+        Date dtNascimento;
         try {
-            aluno.setDtNasc(formatadorData.parse(dtNasc));
+            dtNascimento = formatadorData.parse(dtNasc);
         } catch (ParseException ex) {
-            aluno.setDtNasc(new Date());
+            Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            dtNascimento = null;
         }
-        aluno.setGenero(Genero);
-        aluno.setEndereco(endereco);
-        aluno.setCpf(cpf);
-        aluno.setRg(rg);
+        char generoAluno = genero.charAt(0);
+        int cpfAluno = Integer.parseInt(cpf);
+        int rgAluno = Integer.parseInt(rg);
         
-        incluirAluno(aluno);
+        Cliente aluno = new Cliente(nome,cpfAluno, rgAluno,endereco,dtNascimento, generoAluno);
         
-    
+        
         processRequest(request, response);
     }
 

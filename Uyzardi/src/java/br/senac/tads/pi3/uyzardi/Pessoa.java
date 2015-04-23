@@ -21,10 +21,7 @@ public abstract class Pessoa {
     private String endereco;
     private Date dtNasc;
     private char genero;
-    
-    public Pessoa(){
-        
-    }
+
     
     public Pessoa (String nome, int cpf, int rg, String endereco, Date dtNasc,
             char genero){
