@@ -28,6 +28,19 @@ public class Aluno extends Pessoa{
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
     }
     
+    public void atualizarAluno(Aluno atualizado){
+        this.setNome(atualizado.getNome());
+        this.setCpf(atualizado.getCpf());
+        this.setDtNasc(atualizado.getDtNasc());
+        this.setRg(atualizado.getRg());
+        this.setEndereco(atualizado.getEndereco());
+        this.setGenero(atualizado.getGenero());
+        this.setResponsavel(atualizado.getResponsavel());
+        this.setUnidade(atualizado.getUnidade());
+        this.setCurso(atualizado.getCurso());
+        
+    }
+    
     /**
      * @return the unidade
      */
