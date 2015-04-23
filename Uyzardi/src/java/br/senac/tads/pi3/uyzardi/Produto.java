@@ -18,6 +18,20 @@ public class Produto {
     private String moduloProduto;
     private double valorProduto;
 
+    public Produto(String nome, String idioma, String modulo, Double valor){
+        this.nomeProduto = nome;
+        this.idiomaProduto = idioma;
+        this.moduloProduto = modulo;
+        this.valorProduto = valor;
+    }
+    
+    public Produto(int idProduto, String nome, String idioma, String modulo, Double valor){
+        this.idProduto = idProduto;
+        this.nomeProduto = nome;
+        this.idiomaProduto = idioma;
+        this.moduloProduto = modulo;
+        this.valorProduto = valor;
+    }
     /**
      * @return the idProduto
      */
