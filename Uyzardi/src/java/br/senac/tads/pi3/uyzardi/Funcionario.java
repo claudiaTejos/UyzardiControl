@@ -1,9 +1,8 @@
 package br.senac.tads.pi3.uyzardi;
 
 
-import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -62,19 +61,19 @@ public class Funcionario extends Pessoa {
     }
     
     public static boolean login (String email, String senha){
-        ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
+        ConnMysql conexao = new ConnMysql();
         Statement stmt = null;
         Connection conn = null;
     
-        String sql = "SELECT * EMAIL,SENHA FROM TB_FUNCIONARIO";
+        String sql = "SELECT `login`, `senha` FROM `Funcionario`";
         try {
-            conn = conexao.obterConexao();
+            conn = conexao.getConnection();
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
             
             while(resultados.next()){
-                if(resultados.getString("EMAIL").equalsIgnoreCase(email) &&
-                        resultados.getString("SENHA").equals(senha)){
+                if(resultados.getString("login").equalsIgnoreCase(email) &&
+                        resultados.getString("senha").equals(senha)){
                     return true;
                     
                 }
@@ -86,8 +85,6 @@ public class Funcionario extends Pessoa {
             
         
         } catch (SQLException ex) {
-            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             if(stmt != null){

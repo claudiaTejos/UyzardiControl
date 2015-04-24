@@ -13,12 +13,12 @@
 <link href="css/estilos.css" rel="stylesheet">
 </head>
 <body>
-	<form class="form-signin" action="LoginServlet" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+	<form class="form-signin" action="login" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<h2 class="form-signin-heading">Uyzardi Control</h2>
 	<label for="inputEmail" class="sr-only"> Email</label>
-	<input type="email" id="inputEmail"class="form-control" placeholder="Email address" required autofocus>
+	<input type="email" id="inputEmail"class="form-control" placeholder="Email address" name="inputEmail" required autofocus>
 	<label for="inputPassword" class="sr-only">Senha</label>
-	<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required >
+	<input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="inputPassword" required >
         <c:if test="${not empty lblErro}">
             <script>alert("${lblErro}")</script>
 	</c:if>
