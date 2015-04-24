@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author senac2012
+ * @author Claudio
  */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -81,52 +81,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
         String login = request.getParameter("inputEmail");
         String senha = request.getParameter("inputPassword");
         
-        ConnMysql conexao = new ConnMysql();
-        Statement stmt = null;
-        Connection conn = null;
-    
-        String sql = "SELECT `login`, `senha` FROM `Funcionario`";
-        try {
-            conn = conexao.getConnection();
-            stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
-            
-            while(resultados.next()){
-                if(resultados.getString("login").equalsIgnoreCase(login) &&
-                        resultados.getString("senha").equals(senha)){
-                    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                    request.setAttribute("lblErro", "Usuário e/ou senha inválidos");
-                    rd.forward(request, response);   
-                }
-            }
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            request.setAttribute("lblErro", "Usuário e/ou senha inválidos");
-            rd.forward(request, response);
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        
-        /*
         //Testa se o login e senha está correto com o do banco e avança de tela
         if (Funcionario.login(login, senha)){
             response.sendRedirect("telaPrincipal.jsp");
@@ -137,7 +94,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("lblErro", "Usuário e/ou senha inválidos");
             rd.forward(request, response);
         }
-        */
+        
     }
 
     /**

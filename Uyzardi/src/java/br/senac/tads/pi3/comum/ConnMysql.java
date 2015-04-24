@@ -18,11 +18,11 @@ public static java.sql.Connection getConnection() {
         String driverName = "com.mysql.jdbc.Driver";   
         Class.forName(driverName); 
         // Configuração da conexão com um banco de dados//
-        String serverName = "$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT";    //caminho do servidor do BD
-        String mydatabase ="pi3tads";        //nome do seu banco de dados
+        String serverName = "db4free.net";    //caminho do servidor do BD
+        String mydatabase ="uyzardi";        //nome do seu banco de dados
         String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-        String user = "adminYBMA73g";        //nome de um usuário de seu BD      
-        String key = "ItJFdBCmmdv8";      //sua senha de acesso
+        String user = "pitads";        //nome de um usuário de seu BD      
+        String key = "senha123";      //sua senha de acesso
         conn = DriverManager.getConnection(url, user, key);         
 
         //Testa sua conexão// 
