@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,12 +25,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudia
+ * @author joana.omsilva
  */
-@WebServlet(name = "IncluirAlunoServlet", urlPatterns = {"/IncluirAlunoServlet"})
-public class IncluirAlunoServlet extends HttpServlet {
+@WebServlet(name = "IncluirFuncionarioServlet", urlPatterns = {"/IncluirFuncionarioServlet"})
+public class IncluirFuncionarioServlet extends HttpServlet {
 
-    private void incluirAluno(Cliente aluno){
+    private void incluirFuncionario(Funcionario funcionario){
+        
         ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -41,46 +41,39 @@ public class IncluirAlunoServlet extends HttpServlet {
                 + "SEXO,ENDERECOPESSOA, CPF, RG) VALUES"
                 + "(?,?,?,?,?,?)";
         
-        
         try {
             conn = conexao.obterConexao();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, aluno.getNome());
-            stmt.setDate(3, new java.sql.Date(aluno.getDtNasc().getTime()));
-            stmt.setObject(4,(char)aluno.getGenero());
-            stmt.setString(5, aluno.getEndereco());
-            stmt.setInt(6, aluno.getCpf());
-            stmt.setInt(7, aluno.getRg());
+            stmt.setString(2, funcionario.getNome());
+            stmt.setDate(3, new java.sql.Date(funcionario.getDtNasc().getTime()));
+            stmt.setObject(4,(char)funcionario.getGenero());
+            stmt.setString(5, funcionario.getEndereco());
+            stmt.setInt(6, funcionario.getCpf());
+            stmt.setInt(7, funcionario.getRg());
             stmt.executeUpdate();
             System.out.println("Incluido com sucesso");
-            
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+            Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }    
+            
     }
-
-    
-    
-    
-    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -99,10 +92,10 @@ public class IncluirAlunoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirAlunoServlet</title>");            
+            out.println("<title>Servlet IncluirFuncionarioServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirAlunoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet IncluirFuncionarioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -134,7 +127,7 @@ public class IncluirAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String nome = request.getParameter("nome");
         String dtNasc = request.getParameter("dt_Nascimento");
         String genero = request.getParameter("inlineRadioOptions");
@@ -148,19 +141,20 @@ public class IncluirAlunoServlet extends HttpServlet {
         try {
             dtNascimento = formatadorData.parse(dtNasc);
         } catch (ParseException ex) {
-            Logger.getLogger(IncluirAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             dtNascimento = null;
         }
-        char generoAluno = genero.charAt(0);
-        int cpfAluno = Integer.parseInt(cpf);
-        int rgAluno = Integer.parseInt(rg);
+        char generoC = genero.charAt(0);
+        int cpfI = Integer.parseInt(cpf);
+        int rgI = Integer.parseInt(rg);
         
-        Cliente aluno = new Cliente(nome,cpfAluno, rgAluno,endereco,dtNascimento, generoAluno);
+        Funcionario funcionario = new Funcionario(nome,cpfI, rgI,endereco,dtNascimento, generoC);
         
-        incluirAluno(aluno);
+        incluirFuncionario(funcionario);
         
         processRequest(request, response);
+
     }
 
     /**

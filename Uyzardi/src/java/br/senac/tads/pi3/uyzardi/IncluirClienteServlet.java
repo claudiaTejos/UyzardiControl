@@ -11,64 +11,75 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jboss.logging.Logger;
 
 /**
  *
- * @author joana.omsilva
+ * @author Claudia
  */
-@WebServlet(name = "IncluirProdutoServlet", urlPatterns = {"/IncluirProdutoServlet"})
-public class IncluirProdutoServlet extends HttpServlet {
+@WebServlet(name = "IncluirClienteServlet", urlPatterns = {"/IncluirClienteServlet"})
+public class IncluirClienteServlet extends HttpServlet {
 
-    private void incluirProduto(Produto produto){
-        
+    private void incluirCliente(Cliente cliente){
         ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO TB_PRODUTO"
-                + "(NOMEPRODUTO, IDIOMAPRODUTO, "
-                + "MODULOPRODUTO, VALORPRODUTO) VALUES "
-                + "(?,?,?,?)";
+        String sql = "INSERT INTO TB_PESSOA"
+                + "(NOMEPESSOA, DATANASCIMENTO,"
+                + "SEXO,ENDERECOPESSOA, CPF, RG) VALUES"
+                + "(?,?,?,?,?,?)";
         
         
         try {
             conn = conexao.obterConexao();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, produto.getNomeProduto());
-            stmt.setString(3, produto.getIdiomaProduto());
-            stmt.setString(4, produto.getModuloProduto());
-            stmt.setDouble(5, produto.getValorProduto());
+            stmt.setString(2, cliente.getNome());
+            stmt.setDate(3, new java.sql.Date(cliente.getDtNasc().getTime()));
+            stmt.setObject(4,(char)cliente.getGenero());
+            stmt.setString(5, cliente.getEndereco());
+            stmt.setInt(6, cliente.getCpf());
+            stmt.setInt(7, cliente.getRg());
             stmt.executeUpdate();
-            System.out.println("Incluído com sucesso");
+            System.out.println("Incluido com sucesso");
+            
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }    
-        
     }
+
+    
+    
+    
     
     
     /**
@@ -88,10 +99,10 @@ public class IncluirProdutoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirProdutoServlet</title>");            
+            out.println("<title>Servlet IncluirAlunoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirProdutoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet IncluirAlunoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -123,17 +134,31 @@ public class IncluirProdutoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String nome = request.getParameter("nome");
-        String idioma = request.getParameter("idioma");
-        String modulo = request.getParameter("modulo");
-        String valorString = request.getParameter("valor");
+        String dtNasc = request.getParameter("dt_Nascimento");
+        String genero = request.getParameter("inlineRadioOptions");
+        String endereco = request.getParameter("endereco");
+        String cpf = request.getParameter("cpf");
+        String rg = request.getParameter("rg");
         
-        double valorDouble = Double.parseDouble(valorString);
         
-        Produto produto = new Produto(nome, idioma, modulo, valorDouble);
+        DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
+        Date dtNascimento;
+        try {
+            dtNascimento = formatadorData.parse(dtNasc);
+        } catch (ParseException ex) {
+            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            dtNascimento = null;
+        }
+        char generoCliente = genero.charAt(0);
+        int cpfCliente = Integer.parseInt(cpf);
+        int rgCliente = Integer.parseInt(rg);
         
-        incluirProduto(produto);
+        Cliente cliente = new Cliente(nome,cpfCliente, rgCliente,endereco,dtNascimento, generoCliente);
+        
+        incluirCliente(cliente);
         
         processRequest(request, response);
     }

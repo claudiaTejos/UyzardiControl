@@ -25,7 +25,7 @@ public class Cliente extends Pessoa{
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
     }
     
-    public void atualizarAluno(Aluno atualizado){
+    public void atualizarCliente(Cliente atualizado){
         this.setNome(atualizado.getNome());
         this.setCpf(atualizado.getCpf());
         this.setDtNasc(atualizado.getDtNasc());
