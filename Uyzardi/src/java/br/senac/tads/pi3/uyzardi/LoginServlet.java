@@ -86,6 +86,7 @@ public class LoginServlet extends HttpServlet {
         
         //Testa se o login e senha está correto com o do banco e avança de tela
         if (Funcionario.login(login, senha)){
+            request.setAttribute("emailFuncionario", login);
             response.sendRedirect("telaPrincipal.jsp");
         }
         //Retorna erro para o jsp

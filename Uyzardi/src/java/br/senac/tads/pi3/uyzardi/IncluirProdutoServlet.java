@@ -5,7 +5,7 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -27,8 +27,6 @@ import org.jboss.logging.Logger;
 public class IncluirProdutoServlet extends HttpServlet {
 
     private void incluirProduto(Produto produto){
-        
-        ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
         
@@ -39,7 +37,7 @@ public class IncluirProdutoServlet extends HttpServlet {
         
         
         try {
-            conn = conexao.obterConexao();
+            conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(2, produto.getNomeProduto());
             stmt.setString(3, produto.getIdiomaProduto());
@@ -49,9 +47,7 @@ public class IncluirProdutoServlet extends HttpServlet {
             System.out.println("Incluído com sucesso");
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();

@@ -5,7 +5,7 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -31,8 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 public class IncluirFuncionarioServlet extends HttpServlet {
 
     private void incluirFuncionario(Funcionario funcionario){
-        
-        ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
         
@@ -42,7 +40,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
                 + "(?,?,?,?,?,?)";
         
         try {
-            conn = conexao.obterConexao();
+            conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(2, funcionario.getNome());
             stmt.setDate(3, new java.sql.Date(funcionario.getDtNasc().getTime()));
@@ -54,9 +52,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
             System.out.println("Incluido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();

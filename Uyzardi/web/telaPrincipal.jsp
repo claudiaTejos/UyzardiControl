@@ -4,6 +4,7 @@
     Author     : senac2012
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +28,7 @@
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
               </div>
-              <div id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
+                <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
               <div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
             </form>
@@ -36,20 +37,17 @@
         <div id="listaAluno" class="alunos-na-lista oculto">
             <table class="table table-striped">
               <tr class="tabelaInicio">
-                <td>Nome</td>
                 <td>Matricula</td>
-                <td>Modulo</td>
+                <td>Nome</td>
+                <td>Ações</td>
               </tr>
-              <tr>
-                <td>Jena</td>
-                <td>Jane</td>
-                <td>Doe</td>
-              </tr>
-              <tr>
-                <td>Jena</td>
-                <td>Jane</td>
-                <td>Doe</td>
-              </tr>
+              <c:forEach items="${listaAluno}" var="aluno" varStatus="stat">
+                    <tr>
+                        <td><c:out value="${aluno.idPessoa}" /></td>
+                        <td><c:out value="${aluno.nome}" /></td>
+                        <td></td>
+                    </tr>
+              </c:forEach>
             </table>
         </div> 
 

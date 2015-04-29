@@ -61,13 +61,12 @@ public class Funcionario extends Pessoa {
     }
     
     public static boolean login (String email, String senha){
-        ConnMysql conexao = new ConnMysql();
         Statement stmt = null;
         Connection conn = null;
     
         String sql = "SELECT `login`, `senha` FROM `Funcionario`";
         try {
-            conn = conexao.getConnection();
+            conn = ConnMysql.getConnection();
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
             
@@ -86,7 +85,7 @@ public class Funcionario extends Pessoa {
         
         } catch (SQLException ex) {
             Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();

@@ -5,16 +5,18 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,15 +33,14 @@ public class PesquisarAlunoServlet extends HttpServlet {
     private ArrayList<Cliente> listaAluno;
     
     public void pesquisarAluno (){
-        ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
         
-        String sql = "SELECT * FROM TB_ALUNO";
+        String sql = "SELECT * FROM 'Cliente'";
         listaAluno = new ArrayList();
         
         try {
-            conn = conexao.obterConexao();
+            conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             ResultSet resultados = stmt.executeQuery(sql);
             while (resultados.next()){
@@ -55,10 +56,7 @@ public class PesquisarAlunoServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+        } finally{
             if(stmt != null){
                 try {
                     stmt.close();
@@ -128,7 +126,11 @@ public class PesquisarAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        pesquisarAluno();
+        if (!listaAluno.isEmpty()) {
+            request.setAttribute("listaAluno", listaAluno);
+        }
+
     }
 
     /**

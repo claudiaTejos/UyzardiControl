@@ -5,7 +5,7 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConexaoBDJavaDB;
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 public class IncluirClienteServlet extends HttpServlet {
 
     private void incluirCliente(Cliente cliente){
-        ConexaoBDJavaDB conexao = new ConexaoBDJavaDB("Uyzardi");
         PreparedStatement stmt = null;
         Connection conn = null;
         
@@ -43,7 +42,7 @@ public class IncluirClienteServlet extends HttpServlet {
         
         
         try {
-            conn = conexao.obterConexao();
+            conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(2, cliente.getNome());
             stmt.setDate(3, new java.sql.Date(cliente.getDtNasc().getTime()));
@@ -56,10 +55,7 @@ public class IncluirClienteServlet extends HttpServlet {
             
         } catch (SQLException ex) {
             Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();
