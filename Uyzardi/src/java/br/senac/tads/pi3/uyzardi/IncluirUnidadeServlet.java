@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author joana.omsilva
+ * @author Cauê Camargo
  */
 @WebServlet(name = "IncluirUnidadeServlet", urlPatterns = {"/IncluirUnidadeServlet"})
 public class IncluirUnidadeServlet extends HttpServlet {
