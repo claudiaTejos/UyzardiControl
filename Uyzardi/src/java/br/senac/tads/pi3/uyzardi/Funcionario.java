@@ -59,7 +59,7 @@ public class Funcionario extends Pessoa {
     public void setUnidade(Unidade unidade) {
         this.unidade = unidade;
     }
-    
+     
     public static boolean login (String email, String senha){
         Statement stmt = null;
         Connection conn = null;
