@@ -109,11 +109,16 @@
                 <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
                 <select class="form-control">
                     <option value="1">Rio de Janeiro</option>
-                    <option value="2">Sao Paulo</option>
-                    <option value="3">Brasilia</option>
-                    <option value="4">Bahia</option>
-                    <option value="5">Pernambuco</option>
-                    <option value="6">Para</option>
+                    <option value="2">Belo Horizonte </option>
+                    <option value="3">Curitiba</option>
+                    <option value="4">Porto Alegre</option>
+                    <option value="5">Florianopolis</option>
+                    <option value="6">Salvador</option>
+                    <option value="7">Recife</option>
+                    <option value="8">Goiania</option>
+                    <option value="9">Manaus</option>
+                    <option value="10">Belem</option>
+                    <option value="11">Brasilia</option>
                 </select>
                 <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
             </form>
