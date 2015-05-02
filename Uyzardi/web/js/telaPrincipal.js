@@ -21,6 +21,9 @@ var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
 var divCadastrarProduto = document.getElementById("cadastrarProduto");
 var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
+var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
+var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
+
 
 //Funcoes
 function atualizaNomeNovoAluno() {
@@ -83,6 +86,7 @@ function mudarOcultoVendas() {
 }
 
 //mudei - claudia
+
 function mudarOcultoGerenciamento() {
     if (!divMatricula.classList.contains("oculto")) {
         divMatricula.classList.toggle("oculto");
@@ -99,13 +103,16 @@ function mudarOcultoGerenciamento() {
 }
 
 
-
+//mudei
 function mudarOcultoCadastrarFuncionario(){
     if (!divCadastrarProduto.classList.contains("oculto")) {
         divCadastrarProduto.classList.toggle("oculto");
     }
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
+    }
+    if (!divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
     }
     if (divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
@@ -120,6 +127,9 @@ function mudarOcultoCadastrarProduto(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
+    if (!divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
+    }
     if (divCadastrarProduto.classList.contains("oculto")) {
         divCadastrarProduto.classList.toggle("oculto");
     }
@@ -132,8 +142,27 @@ function mudarOcultoRelatorios(){
     if (!divCadastrarProduto.classList.contains("oculto")) {
         divCadastrarProduto.classList.toggle("oculto");
     }
+    if (!divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
+    }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
+    }
+    
+}
+
+function mudarOcultoNovaUnidade(){
+    if (!divCadastroFuncionario.classList.contains("oculto")) {
+        divCadastroFuncionario.classList.toggle("oculto");
+    }
+    if (!divCadastrarProduto.classList.contains("oculto")) {
+        divCadastrarProduto.classList.toggle("oculto");
+    }
+    if (!divRelatorios.classList.contains("oculto")) {
+        divRelatorios.classList.toggle("oculto");
+    }
+    if (divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
     }
     
 }
@@ -150,3 +179,4 @@ txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
 btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario);
 btnCadastrarProduto.addEventListener("click",mudarOcultoCadastrarProduto);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
+btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
