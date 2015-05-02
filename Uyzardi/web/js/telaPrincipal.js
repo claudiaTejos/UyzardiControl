@@ -5,6 +5,7 @@ var btnVendas = document.getElementById("btnVendas");
 var divVendas = document.getElementById("vendas");
 var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
+var divProdutos = document.getElementById("produtos");
 var btnNovoAluno = document.getElementById("btnAlunoNovo");
 var divNovoAluno = document.getElementById("dadosAluno");
 var btnPesquisaAluno = document.getElementById("btnAlunoPesquisa");
@@ -51,6 +52,9 @@ function mudarOcultoMatricula() {
             divPesquisaAluno.classList.toggle("oculto");
         }
     }
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
+    }
 }
 
 function mudarOcultoVendas() {
@@ -63,6 +67,9 @@ function mudarOcultoVendas() {
     if (divVendas.classList.contains("oculto")) {
         divVendas.classList.toggle("oculto");
     }
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
+    }
 }
 
 function mudarOcultoRelatorio() {
@@ -74,6 +81,9 @@ function mudarOcultoRelatorio() {
     }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
+    }
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
 }
 

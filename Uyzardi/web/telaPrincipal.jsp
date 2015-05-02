@@ -19,6 +19,7 @@
             <li><a id="btnMatricula">Matricula</a></li>
             <li><a id="btnVendas">Vendas</a></li>
             <li><a id="btnRelatorios">Relatorios</a></li>
+            <li><a id="btnProdutos" href="PesquisarProdutosServlet">Produtos</a></li>
         </ul>
     </div>
 
@@ -129,6 +130,33 @@
           <li role="presentation"><a href="#">Modulo</a></li>
         </ul>
     </div>
+    <c:if test='${paginaAtual == "produtos"}'>
+        <div id="produtos">
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Idioma</th>
+                        <th>Módulo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${produtos}" var="produto">
+                    <tr>
+                        <td><c:out value="${produto.nomeProduto}" /></td>
+                        <td><c:out value="${produto.idiomaProduto}" /></td>
+                        <td><c:out value="${produto.moduloProduto}" /></td>
+                        <td><c:out value="${produto.valorProduto}" /></td>
+                        <td></td>
+                    </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
  
     <script src="js/telaPrincipal.js"></script>
 </body>
