@@ -68,7 +68,7 @@ li{
 }
 
 .total{
-    margin-left:80%
+    margin-left:60%
 }
 #dadosAluno .form-control{
     width: 600px;
@@ -126,4 +126,24 @@ li{
     margin-top:20px;
     width:400px;
     display:block;
+}
+.table{
+    display:block;
+    width: 800px;
+    margin-left:20%;
+    margin-top:100px;
+}
+#btnAdicao{
+    margin-left:20%;
+    
+}
+.form-group .form-control{
+    width: 600px;
+    margin-left:25%;
+    
+}
+#pesquisa{
+    width: 600px;
+    margin-left:25%;
+    
 }

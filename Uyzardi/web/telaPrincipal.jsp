@@ -19,7 +19,7 @@
     	<ul class="nav nav-pills nav-justified">
             <li><a id="btnMatricula">Matricula</a></li>
             <li><a id="btnVendas">Vendas</a></li>
-            <li><a id="btnRelatorios">Gerenciamento</a></li>
+            <li><a id="btnGerenciamento">Gerenciamento</a></li>
             <li><a id="btnProdutos" href="PesquisarProdutosServlet">Produtos</a></li>
         </ul>
     </div>
@@ -114,6 +114,7 @@
                     <option value="5">Pernambuco</option>
                     <option value="6">Para</option>
                 </select>
+                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
             </form>
         </div>
     </div>
@@ -150,7 +151,7 @@
         
         <form>
             <div>
-                <button type="button" class="btn btn-default" aria-label="Left Align">
+                <button id="btnAdicao" type="button" class="btn btn-default" aria-label="Left Align">
                 <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                 <div>
@@ -200,27 +201,30 @@
         <!-- fim parte nova-->
     </div>
     
-    <div id="relatorios" class="relatorios oculto">
+    <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
         <div id="btnCadastroFuncionario" class="btn btn-default">Cadastrar Funcionario</div>
         <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
-        <div id="btnRelatórios" class="btn btn-primary">Relatorios</div>
+        <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
         </div>
         
-        
-        <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="#">Data de Inicio</a></li>
-          <li role="presentation"><a href="#">Data de Fim</a></li>
-          <li role="presentation"><a href="#">Unidade</a></li>
-          <li role="presentation"><a href="#">Curso</a></li>
-          <li role="presentation"><a href="#">Modulo</a></li>
-        </ul>
+        <div id="relatorios" class="relatorios oculto">
+            <div class="botoesDeGerencia">
+                <ul class="nav nav-tabs">
+                  <li role="presentation" class="active"><a href="#">Data de Inicio</a></li>
+                  <li role="presentation"><a href="#">Data de Fim</a></li>
+                  <li role="presentation"><a href="#">Unidade</a></li>
+                  <li role="presentation"><a href="#">Curso</a></li>
+                  <li role="presentation"><a href="#">Modulo</a></li>
+                </ul>
+            </div>
+        </div>
         
         <!--parte nova  -->
-    <div>
+    <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
         <form id="dadosFuncionario">
             <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
-            <input type="text" id="inputNomeFuncionario" class="form-control" name="nomeFuncionario" required>
+            <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
             <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
             <input type="date" id="inputNascimentoFuncionario"  class="form-control" name="dtNascimento" required>
             <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
@@ -239,7 +243,7 @@
     </div>
     
     
-    <div>
+    <div  id="cadastrarProduto" class="cadastrarProduto oculto">
         <form id="dadosProduto">
             <label for="inputNomeProduto" class="form-label">Nome do produto</label>
             <input type="text" id="inputNomeProduto" class="form-control" placeholder="nome do produto"name="nomeProduto" required>
