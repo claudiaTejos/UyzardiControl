@@ -31,7 +31,6 @@
                 <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
               </div>
                 <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
-              <div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
             </form>
         </div>
@@ -47,7 +46,8 @@
                     <tr>
                         <td><c:out value="${aluno.idPessoa}" /></td>
                         <td><c:out value="${aluno.nome}" /></td>
-                        <td></td>
+                        <!--Parte nova --> 
+                        <td><div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div></td>
                     </tr>
               </c:forEach>
             </table>
@@ -228,7 +228,7 @@
             <label for="inputCPFFuncionario" class="form-label">CPF</label>
             <input type="text" id="inputCPFFuncionario"  class="form-control" placeholder="CPF" name="cpfFuncionario" required >
             <label for="inputRGFuncionario" class="form-label">RG</label>
-            <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rg" required >
+            <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario" required >
             <h4 class="genero">Genero</h4>
             <label for="inputGeneroFuncionario" class="genero">   
             <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>

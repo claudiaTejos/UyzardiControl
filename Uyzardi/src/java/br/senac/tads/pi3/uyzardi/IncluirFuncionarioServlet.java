@@ -124,12 +124,12 @@ public class IncluirFuncionarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nome = request.getParameter("nome");
-        String dtNasc = request.getParameter("dt_Nascimento");
+        String nome = request.getParameter("nomeFuncionario");
+        String dtNasc = request.getParameter("dtNascimento");
         String genero = request.getParameter("inlineRadioOptions");
-        String endereco = request.getParameter("endereco");
-        String cpf = request.getParameter("cpf");
-        String rg = request.getParameter("rg");
+        String endereco = request.getParameter("enderecoFuncionario");
+        String cpf = request.getParameter("cpfFuncionario");
+        String rg = request.getParameter("rgFuncionario");
         
         
         DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
