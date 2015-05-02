@@ -30,7 +30,7 @@ public class IncluirUnidadeServlet extends HttpServlet {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO TB_PESSOA"
+        String sql = "INSERT INTO TB_UNIDADE"
                 + "(NOMEUNIDADE,ENDERECOUNIDADE, CIDADEUNIDADE) VALUES"
                 + "(?,?,?,?)";
 
@@ -115,9 +115,9 @@ public class IncluirUnidadeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nome = request.getParameter("nome");
-        String endereco = request.getParameter("endereco");
-        String cidade = request.getParameter("cidade");
+        String nome = request.getParameter("nomeUnidade");
+        String endereco = request.getParameter("enderecoUnidade");
+        String cidade = request.getParameter("cidadeUnidade");
 
         Unidade unidade = new Unidade(nome, endereco, cidade);
 

@@ -28,7 +28,7 @@
         <div id="pesquisa" class="pesquisa">
             <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
+                <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno" name="nomeAluno" >
               </div>
                 <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
@@ -93,14 +93,15 @@
         <div id="dadosAluno" class="oculto">
             <form>
                 <h3 class="form-signin-heading" id="nomeNovoAluno">Nome do aluno</h3>
+                <inpu type="hidden" name="nome"/>
                 <label for="inputDtNascimento" class="sr-only"> Data de nascimento</label>
-                <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" required>
+                <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" name="dt_Nascimento"required>
                 <label for="inputEndereco" class="sr-only">Endereco</label>
-                <input type="text" id="inputEndereco" class="form-control" placeholder="Endereco" required >
+                <input type="text" id="inputEndereco" class="form-control" placeholder="Endereco" name="endereco" required >
                 <label for="inputCPF" class="sr-only">CPF</label>
-                <input type="text" id="inputCPF" class="form-control" placeholder="CPF" required >
+                <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf"required >
                 <label for="inputRG" class="sr-only">RG</label>
-                <input type="text" id="inputRG" class="form-control" placeholder="RG" required >
+                <input type="text" id="inputRG" class="form-control" placeholder="RG" name="rg" required >
                 <h4>Genero</h4>
                 <label for="inputGenero" class="radio-inline">   
                 <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
@@ -125,7 +126,7 @@
         <div class="produto">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="pesquisa" placeholder="Nome do Aluno">
+                    <input type="text" class="form-control" id="pesquisa" placeholder="Nome do Aluno" name="pesquisarNomeAluno">
                 </div>
                 <div class="btn btn-default" id="btnPesquisarAluno"> Pesquisa</div>
             </form> 
@@ -203,9 +204,10 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-        <div id="btnCadastroFuncionario" class="btn btn-default">Cadastrar Funcionario</div>
+        <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
         <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
-        <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
+        <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
+        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -219,6 +221,8 @@
                 </ul>
             </div>
         </div>
+        
+        
         
         <!--parte nova  -->
     <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
@@ -256,6 +260,19 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
+        
+    <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
+        <form id="dadosUnidade">
+            <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
+            <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
+            <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
+            <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
+            <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
+            <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
+            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+        </form> 
+    </div>
+        
     <!-- fim parte nova-->
     
     </div>
