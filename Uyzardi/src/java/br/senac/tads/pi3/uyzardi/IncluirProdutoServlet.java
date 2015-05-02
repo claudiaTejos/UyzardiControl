@@ -30,23 +30,23 @@ public class IncluirProdutoServlet extends HttpServlet {
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO TB_PRODUTO"
-                + "(NOMEPRODUTO, IDIOMAPRODUTO, "
-                + "MODULOPRODUTO, VALORPRODUTO) VALUES "
+        String sql = "INSERT INTO `Produto`"
+                + "(`nomeProduto`, `idiomaProduto`, "
+                + "`moduloProduto`, `valorProduto`) VALUES "
                 + "(?,?,?,?)";
         
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, produto.getNomeProduto());
-            stmt.setString(3, produto.getIdiomaProduto());
-            stmt.setString(4, produto.getModuloProduto());
-            stmt.setDouble(5, produto.getValorProduto());
+            stmt.setString(1, produto.getNomeProduto());
+            stmt.setString(2, produto.getIdiomaProduto());
+            stmt.setString(3, produto.getModuloProduto());
+            stmt.setDouble(4, produto.getValorProduto());
             stmt.executeUpdate();
             System.out.println("Incluído com sucesso");
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         } finally {
             if(stmt != null){
                 try {
@@ -129,9 +129,16 @@ public class IncluirProdutoServlet extends HttpServlet {
         
         Produto produto = new Produto(nome, idioma, modulo, valorDouble);
         
-        incluirProduto(produto);
+        try {
+            incluirProduto(produto);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<script>alert(Erro!)</script>");
+            }
+        }
         
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
