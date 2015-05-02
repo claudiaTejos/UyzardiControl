@@ -62,4 +62,65 @@ li{
 .oculto{
     display: none;
 }
+.Produtos{
+    font-weight:bold;
+}
 
+.total{
+    margin-left:80%
+}
+#dadosAluno .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.genero{
+    margin-left:25%;
+}
+.genero2{
+    margin-left:10px;
+}
+#dadosFuncionario .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+#dadosProduto .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.relatorio{
+    margin-top:200px;
+}
+#dadosAluno .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosAluno #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#pesquisa{
+    width:600px;
+    margin-left:25%;
+}
+#btnPesquisarAluno{
+     margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#dadosFuncionario .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosProduto .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosProduto #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#botoesGerenciamento{
+    margin-top:50px;
+}
