@@ -27,19 +27,16 @@
     <div id="matricula" class="oculto">
         <div id="pesquisa" class="pesquisa">
             <form class="navbar-form navbar-left" role="search">
-<<<<<<< HEAD
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
                 </div>
                 <form formmethod="POST" formaction="pesquisarAluno" ><button id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</button></form>
                 <button type="button" id="btnAlunoNovo" class="btn btn-primary">Novo</button>
-=======
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno" name="nomeAluno" >
               </div>
                 <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
->>>>>>> origin/master
             </form>
         </div>
 
@@ -52,16 +49,13 @@
               </tr>
               <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
                     <tr>
-<<<<<<< HEAD
                         <td><c:out value="${cliente.idPessoa}" /></td>
                         <td><c:out value="${cliente.nome}" /></td>
                         <td><button type="button" id="btnAlunoAtualiza" class="btn btn-info" value="${aluno.idPessoa}">Atualizar</button></td>
-=======
                         <td><c:out value="${aluno.idPessoa}" /></td>
                         <td><c:out value="${aluno.nome}" /></td>
                         <!--Parte nova --> 
                         <td><div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div></td>
->>>>>>> origin/master
                     </tr>
               </c:forEach>
             </table>
