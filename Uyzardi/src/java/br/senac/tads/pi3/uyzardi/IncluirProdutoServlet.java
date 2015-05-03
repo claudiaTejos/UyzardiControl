@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -138,7 +139,9 @@ public class IncluirProdutoServlet extends HttpServlet {
             }
         }
         
-        //processRequest(request, response);
+        request.setAttribute("paginaAtual", "produtos");
+        RequestDispatcher rd = request.getRequestDispatcher("ListarProdutosServlet");
+        rd.forward(request, response);
     }
 
     /**

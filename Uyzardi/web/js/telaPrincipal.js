@@ -23,6 +23,8 @@ var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
 var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
 var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
+var btnExcluiProduto = document.getElementById("btnExcluiProduto");
+var divExcluirProduto = document.getElementById("excluirProduto");
 
 
 //Funcoes
@@ -114,6 +116,9 @@ function mudarOcultoCadastrarFuncionario(){
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
     }
+    if (!divExcluirProduto.classList.contains("oculto")) {
+        divExcluirProduto.classList.toggle("oculto");
+    }
     if (divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
@@ -130,6 +135,9 @@ function mudarOcultoCadastrarProduto(){
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
     }
+    if (!divExcluirProduto.classList.contains("oculto")) {
+        divExcluirProduto.classList.toggle("oculto");
+    }
     if (divCadastrarProduto.classList.contains("oculto")) {
         divCadastrarProduto.classList.toggle("oculto");
     }
@@ -144,6 +152,9 @@ function mudarOcultoRelatorios(){
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
+    }
+    if (!divExcluirProduto.classList.contains("oculto")) {
+        divExcluirProduto.classList.toggle("oculto");
     }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
@@ -161,10 +172,30 @@ function mudarOcultoNovaUnidade(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
+    if (!divExcluirProduto.classList.contains("oculto")) {
+        divExcluirProduto.classList.toggle("oculto");
+    }
     if (divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
+    }    
+}
+
+function mudarOcultoExcluirProduto(){
+    if (!divCadastroFuncionario.classList.contains("oculto")) {
+        divCadastroFuncionario.classList.toggle("oculto");
     }
-    
+    if (!divCadastrarProduto.classList.contains("oculto")) {
+        divCadastrarProduto.classList.toggle("oculto");
+    }
+    if (!divRelatorios.classList.contains("oculto")) {
+        divRelatorios.classList.toggle("oculto");
+    }
+    if (divExcluirProduto.classList.contains("oculto")) {
+        divExcluirProduto.classList.toggle("oculto");
+    }
+    if (!divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
+    }    
 }
 
 //Eventos
@@ -174,6 +205,7 @@ btnGerenciamento.addEventListener("click", mudarOcultoGerenciamento);
 btnNovoAluno.addEventListener("click", mudarOcultoNovoAluno);
 btnPesquisaAluno.addEventListener("click", mudarOcultoPesquisaAluno);
 txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
+btnExcluiProduto.addEventListener("click",mudarOcultoExcluirProduto);
 
 // mudei- claudia
 btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario);

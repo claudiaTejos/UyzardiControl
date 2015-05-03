@@ -20,6 +20,7 @@
             <li><a id="btnMatricula">Matricula</a></li>
             <li><a id="btnVendas">Vendas</a></li>
             <li><a id="btnGerenciamento">Gerenciamento</a></li>
+            <!--Esse botão produtos é temporário, estou utilizando, depois eu retiro -->
             <li><a id="btnProdutos" href="ListarProdutosServlet">Produtos</a></li>
         </ul>
     </div>
@@ -138,7 +139,7 @@
             </form> 
         </div>
         
-        <div class="PesuisaAlunos">
+        <div class="PesquisaAlunos">
             <table class="table table-striped">
                 <tr class="Produtos">
                     <td>Nome</td>
@@ -214,6 +215,7 @@
         <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
         <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
+        <div id="btnExcluiProduto" class="btn btn-primary">Excluir Produtos</div>
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -279,6 +281,11 @@
         </form> 
     </div>
         
+    <div id="excluirProduto" class="excluirProduto oculto">
+        JOana
+        
+    </div>
+        
     <!-- fim parte nova-->
     
     </div>
@@ -286,6 +293,7 @@
         <div id="produtos" >
             <br>
             <br>
+            <h3>Produtos Disponíveis:</h3>
             <table class="table">
                 <thead>
                     <tr>
