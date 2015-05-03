@@ -94,20 +94,21 @@
             <form>
                 <h3 class="form-signin-heading" id="nomeNovoAluno">Nome do aluno</h3>
                 <inpu type="hidden" name="nome"/>
-                <label for="inputDtNascimento" class="sr-only"> Data de nascimento</label>
+                <label for="inputDtNascimento" class="form-label"> Data de nascimento</label>
                 <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" name="dt_Nascimento"required>
-                <label for="inputEndereco" class="sr-only">Endereco</label>
+                <label for="inputEndereco" class="form-label">Endereco</label>
                 <input type="text" id="inputEndereco" class="form-control" placeholder="Endereco" name="endereco" required >
-                <label for="inputCPF" class="sr-only">CPF</label>
+                <label for="inputCPF" class="form-label">CPF</label>
                 <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf"required >
-                <label for="inputRG" class="sr-only">RG</label>
+                <label for="inputRG" class="form-label">RG</label>
                 <input type="text" id="inputRG" class="form-control" placeholder="RG" name="rg" required >
-                <h4>Genero</h4>
-                <label for="inputGenero" class="radio-inline">   
+                <h4 class="genero">Genero</h4>
+                <label for="inputGenero" class="genero">   
                 <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
-                <label for="inputGenero" class="radio-inline">
+                <label for="inputGenero" class="genero2">
                 <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
-                <select class="form-control">
+                <label for="unidade" class="form-label unidade">Unidade</label>
+                <select class="form-control" id="unidade">
                     <option value="1">Rio de Janeiro</option>
                     <option value="2">Belo Horizonte </option>
                     <option value="3">Curitiba</option>
@@ -131,9 +132,9 @@
         <div class="produto">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="pesquisa" placeholder="Nome do Aluno" name="pesquisarNomeAluno">
+                    <input type="text" class="form-control" id="pesquisar" placeholder="Nome do Aluno" name="pesquisarNomeAluno">
                 </div>
-                <div class="btn btn-default" id="btnPesquisarAluno"> Pesquisa</div>
+                <div class="btn btn-primary" id="btnPesquisarAluno"> Pesquisa</div>
             </form> 
         </div>
         
@@ -282,7 +283,7 @@
     
     </div>
     <c:if test='${paginaAtual == "produtos"}'>
-        <div id="produtos">
+        <div id="produtos" >
             <br>
             <br>
             <table class="table">

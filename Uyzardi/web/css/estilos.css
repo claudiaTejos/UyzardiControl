@@ -47,10 +47,10 @@ li{
 	border: 0 !important;
 }
 
-.pesquisa{
-	padding-top: 200px;;
-        margin-left: 36%;
-        width:600px;
+#pesquisa{
+    padding-top: 200px;;
+    margin-left: 36%;
+    width:600px;
 
 }
 .tabelaInicio{
@@ -101,9 +101,8 @@ li{
     width:400px;
 }
 #btnPesquisarAluno{
-     margin-left:33%;
-    margin-top:20px;
-    width:400px;
+     margin-left:38%;
+    width:360px;
 }
 #dadosFuncionario .form-label{
     margin-left:25%;
@@ -137,14 +136,10 @@ li{
     margin-left:20%;
     
 }
-.form-group .form-control{
-    width: 600px;
-    margin-left:25%;
-    
-}
-#pesquisa{
-    width: 600px;
-    margin-left:25%;
+
+#pesquisar{
+    width: 470px;
+    margin-left:34%;
     
 }
 #dadosUnidade .form-label{
@@ -159,4 +154,10 @@ li{
 #dadosUnidade .form-control{
     width: 600px;
     margin-left:25%;
+}
+.unidade{
+    display: block;
+}
+#nomeNovoAluno{
+    margin-left: 25%;
 }
