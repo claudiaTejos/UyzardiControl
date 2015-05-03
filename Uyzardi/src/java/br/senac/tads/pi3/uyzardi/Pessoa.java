@@ -16,14 +16,14 @@ import java.util.Date;
 public abstract class Pessoa {
     private int idPessoa;
     private String nome;
-    private int cpf;
+    private long cpf;
     private int rg;
     private String endereco;
     private Date dtNasc;
     private char genero;
 
     
-    public Pessoa (String nome, int cpf, int rg, String endereco, Date dtNasc,
+    public Pessoa (String nome, long cpf, int rg, String endereco, Date dtNasc,
             char genero){
         this.nome = nome;
         this.cpf = cpf;
@@ -33,7 +33,7 @@ public abstract class Pessoa {
         this.dtNasc = dtNasc;
     }
     
-    public Pessoa (int idPessoa, String nome, int cpf, int rg, String endereco,
+    public Pessoa (int idPessoa, String nome, long cpf, int rg, String endereco,
             Date dtNasc, char genero){
         this.idPessoa = idPessoa;
         this.nome = nome;
@@ -68,14 +68,14 @@ public abstract class Pessoa {
     /**
      * @return the cpf
      */
-    public int getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
     /**
      * @param cpf the cpf to set
      */
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 

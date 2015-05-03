@@ -25,12 +25,11 @@
     <div id="matricula" class="oculto">
         <div id="pesquisa" class="pesquisa">
             <form class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
-              </div>
-                <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
-              <div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div>
-              <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
+                </div>
+                <form formmethod="POST" formaction="pesquisarAluno" ><button id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</button></form>
+                <button type="button" id="btnAlunoNovo" class="btn btn-primary">Novo</button>
             </form>
         </div>
 
@@ -41,11 +40,11 @@
                 <td>Nome</td>
                 <td>Ações</td>
               </tr>
-              <c:forEach items="${listaAluno}" var="aluno" varStatus="stat">
+              <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
                     <tr>
-                        <td><c:out value="${aluno.idPessoa}" /></td>
-                        <td><c:out value="${aluno.nome}" /></td>
-                        <td></td>
+                        <td><c:out value="${cliente.idPessoa}" /></td>
+                        <td><c:out value="${cliente.nome}" /></td>
+                        <td><button type="button" id="btnAlunoAtualiza" class="btn btn-info" value="${aluno.idPessoa}">Atualizar</button></td>
                     </tr>
               </c:forEach>
             </table>

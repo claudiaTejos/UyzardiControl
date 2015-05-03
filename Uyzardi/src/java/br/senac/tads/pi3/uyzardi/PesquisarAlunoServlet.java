@@ -9,7 +9,6 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,53 +26,55 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Claudio
  */
-@WebServlet(name = "PesquisarAluno", urlPatterns = {"/PesquisarAluno"})
+@WebServlet(name = "pesquisarAluno", urlPatterns = {"/pesquisarAluno"})
 public class PesquisarAlunoServlet extends HttpServlet {
     
-    private ArrayList<Cliente> listaAluno;
-    
-    public void pesquisarAluno (){
+    public ArrayList<Cliente> pesquisarClientes (){
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        ResultSet resultados = null;
         Statement stmt = null;
         Connection conn = null;
         
-        String sql = "SELECT * FROM 'Cliente'";
-        listaAluno = new ArrayList();
-        
+        String sql = "SELECT * FROM Cliente";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            ResultSet resultados = stmt.executeQuery(sql);
-            while (resultados.next()){
-                Cliente aluno = new Cliente(resultados.getInt("idAluno"),
-                        resultados.getString("nomePessoa"),
-                        resultados.getInt("cpf"),
-                        resultados.getInt("rg"),
-                        resultados.getString("enderecoPessoa"),
-                        resultados.getDate("dataNescimento"),
-                        (char)resultados.getObject("sexo")
-                        );
-                listaAluno.add(aluno);
+            resultados = stmt.executeQuery(sql);
+            
+            if (resultados != null) {
+                while (resultados.next()){
+                    Cliente cliente = new Cliente(resultados.getInt("idCliente"),
+                            resultados.getString("nomeCliente"),
+                            resultados.getLong("cpfCliente"),
+                            resultados.getInt("rgCliente"),
+                            resultados.getString("enderecoCliente"),
+                            resultados.getDate("dataNascimentoCliente"),
+                            resultados.getString("sexoCliente").charAt(0)
+                    );
+                    listaClientes.add(cliente);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
+        }finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+        
+        return listaClientes;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -85,6 +86,7 @@ public class PesquisarAlunoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -94,7 +96,10 @@ public class PesquisarAlunoServlet extends HttpServlet {
             out.println("<title>Servlet PesquisarAluno</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PesquisarAluno at " + request.getContextPath() + "</h1>");
+            ArrayList<Cliente> lista = pesquisarClientes();
+            for (int i = 0; i < lista.size(); i++) {
+                out.println(lista.get(i).getNome());
+            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -126,11 +131,9 @@ public class PesquisarAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        pesquisarAluno();
-        if (!listaAluno.isEmpty()) {
-            request.setAttribute("listaAluno", listaAluno);
-        }
-
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        request.setAttribute("listaClientes", pesquisarClientes() );
+        rd.forward(request, response);
     }
 
     /**

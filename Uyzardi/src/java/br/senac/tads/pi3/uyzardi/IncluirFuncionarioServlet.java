@@ -46,7 +46,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
             stmt.setDate(3, new java.sql.Date(funcionario.getDtNasc().getTime()));
             stmt.setObject(4,(char)funcionario.getGenero());
             stmt.setString(5, funcionario.getEndereco());
-            stmt.setInt(6, funcionario.getCpf());
+            stmt.setLong(6, funcionario.getCpf());
             stmt.setInt(7, funcionario.getRg());
             stmt.executeUpdate();
             System.out.println("Incluido com sucesso");

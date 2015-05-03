@@ -1,5 +1,9 @@
 package br.senac.tads.pi3.uyzardi;
 
+import br.senac.tads.pi3.comum.ConnMysql;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /*
@@ -17,11 +21,11 @@ public class Cliente extends Pessoa{
     private Curso curso;
     private Cliente responsavel;
 
-    public Cliente(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Cliente(String nome, long cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(nome, cpf, rg, endereco, dtNasc, genero);
     }
 
-    public Cliente(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Cliente(int idPessoa, String nome, long cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
     }
     
@@ -80,5 +84,22 @@ public class Cliente extends Pessoa{
         this.responsavel = responsavel;
     }
     
-    
+    public static ArrayList<Cliente> pesquisarCliente () throws SQLException{
+        ArrayList<Cliente> listaAluno = new ArrayList<>();
+        ResultSet resultados = ConnMysql.selectAll("Cliente");
+        if (resultados != null) {
+            while (resultados.next()){
+                Cliente aluno = new Cliente(resultados.getInt("idAluno"),
+                            resultados.getString("nomePessoa"),
+                            resultados.getInt("cpf"),
+                            resultados.getInt("rg"),
+                            resultados.getString("enderecoPessoa"),
+                            resultados.getDate("dataNescimento"),
+                            (char)resultados.getObject("sexo")
+                );
+                listaAluno.add(aluno);
+            }
+        }
+        return listaAluno;
+    }
 }
