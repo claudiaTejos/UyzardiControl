@@ -5,10 +5,17 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +27,50 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Joana
  */
-@WebServlet(name = "PesquisarProdutosServlet", urlPatterns = {"/PesquisarProdutosServlet"})
-public class PesquisarProdutosServlet extends HttpServlet {
+@WebServlet(name = "ListarProdutosServlet", urlPatterns = {"/ListarProdutosServlet"})
+public class ListarProdutosServlet extends HttpServlet {
 
+    private ArrayList<Produto> listaProduto;
+    
+    public void listarProdutos (){
+        Statement stmt = null;
+        Connection conn = null;
+        
+        String sql = "SELECT * FROM `Produto`";
+        listaProduto = new ArrayList();
+        
+        try {
+            conn = ConnMysql.getConnection();
+            stmt = conn.prepareStatement(sql);
+            ResultSet resultados = stmt.executeQuery(sql);
+            while (resultados.next()){
+                Produto produto = new Produto(resultados.getInt("idProduto"),
+                        resultados.getString("nomeProduto"),
+                        resultados.getString("idiomaProduto"),
+                        resultados.getString("moduloProduto"),
+                        resultados.getDouble("valorProduto")
+                        );
+                listaProduto.add(produto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListarProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListarProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,13 +82,11 @@ public class PesquisarProdutosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Produto> produtos = new ArrayList<Produto> ();
-        Produto produto1 = new Produto("Hello Book", "English", "1", 120.00);
-        Produto produto2 = new Produto("Hello Book", "English", "2", 50.00);
-        produtos.add(produto1);
-        produtos.add(produto2);
+       
+        listarProdutos();
+        request.setAttribute("listaProduto", listaProduto);
+
         request.setAttribute("paginaAtual", "produtos");
-        request.setAttribute("produtos", produtos); 
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         
         rd.forward(request, response);

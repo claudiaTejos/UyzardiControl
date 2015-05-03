@@ -20,7 +20,7 @@
             <li><a id="btnMatricula">Matricula</a></li>
             <li><a id="btnVendas">Vendas</a></li>
             <li><a id="btnGerenciamento">Gerenciamento</a></li>
-            <li><a id="btnProdutos" href="PesquisarProdutosServlet">Produtos</a></li>
+            <li><a id="btnProdutos" href="ListarProdutosServlet">Produtos</a></li>
         </ul>
     </div>
 
@@ -295,7 +295,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${produtos}" var="produto">
+                    <c:forEach items="${listaProduto}" var="produto">
                     <tr>
                         <td><c:out value="${produto.nomeProduto}" /></td>
                         <td><c:out value="${produto.idiomaProduto}" /></td>
