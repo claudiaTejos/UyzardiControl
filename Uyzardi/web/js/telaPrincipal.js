@@ -97,6 +97,9 @@ function mudarOcultoGerenciamento() {
     if (divGerenciamento.classList.contains("oculto")) {
         divGerenciamento.classList.toggle("oculto");
     }
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
+    }
 }
 
 

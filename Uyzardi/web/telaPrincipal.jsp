@@ -254,15 +254,15 @@
     
     
     <div  id="cadastrarProduto" class="cadastrarProduto oculto">
-        <form id="dadosProduto">
+        <form id="dadosProduto" action="IncluirProdutoServlet" method="post">
             <label for="inputNomeProduto" class="form-label">Nome do produto</label>
-            <input type="text" id="inputNomeProduto" class="form-control" placeholder="nome do produto"name="nomeProduto" required>
+            <input type="text" id="inputNomeProduto" class="form-control" placeholder="Nome" name="nome" required>
             <label for="inputIdioma" class="form-label">Idioma do Produto</label>
-            <input id="inputIdioma" placeholder="idioma" class="form-control" name="idiomaProduto" required>
+            <input id="inputIdioma" placeholder="Idioma" class="form-control" name="idioma" required>
             <label for="moduloProduto"class="form-label">Modulo do Produto</label>
-            <input id="moduloModulo" placeholder="modulo do produto" class="form-control" name="moduloProduto">
+            <input id="moduloModulo" placeholder="Módulo" class="form-control" name="modulo">
             <label for="inputPreco" class="form-label">Preco</label>
-            <input type="text" id="inputPreco" class="form-control" placeholder="preco" name="precoProduto" required >
+            <input type="text" id="inputPreco" class="form-control" placeholder="Preço" name="valor" required >
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
