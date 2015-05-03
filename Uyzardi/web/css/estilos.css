@@ -47,9 +47,10 @@ li{
 	border: 0 !important;
 }
 
-.pesquisa{
-	padding-top: 200px;;
-	margin-left: 33%;
+#pesquisa{
+    padding-top: 200px;;
+    margin-left: 36%;
+    width:600px;
 
 }
 .tabelaInicio{
@@ -62,4 +63,101 @@ li{
 .oculto{
     display: none;
 }
+.Produtos{
+    font-weight:bold;
+}
 
+.total{
+    margin-left:60%
+}
+#dadosAluno .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.genero{
+    margin-left:25%;
+}
+.genero2{
+    margin-left:10px;
+}
+#dadosFuncionario .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+#dadosProduto .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.relatorio{
+    margin-top:200px;
+}
+#dadosAluno .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosAluno #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#btnPesquisarAluno{
+     margin-left:38%;
+    width:360px;
+}
+#dadosFuncionario .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosProduto .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosProduto #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#botoesGerenciamento{
+    margin-top:50px;
+}
+#dadosFuncionario #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+    display:block;
+}
+.table{
+    display:block;
+    width: 800px;
+    margin-left:20%;
+    margin-top:100px;
+}
+#btnAdicao{
+    margin-left:20%;
+    
+}
+
+#pesquisar{
+    width: 470px;
+    margin-left:34%;
+    
+}
+#dadosUnidade .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosUnidade #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#dadosUnidade .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.unidade{
+    display: block;
+}
+#nomeNovoAluno{
+    margin-left: 25%;
+}
