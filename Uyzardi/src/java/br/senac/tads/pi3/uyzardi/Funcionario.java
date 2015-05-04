@@ -61,6 +61,7 @@ public class Funcionario extends Pessoa {
     }
      
     public static boolean login (String email, String senha){
+        boolean login = false;
         Statement stmt = null;
         Connection conn = null;
     
@@ -73,16 +74,9 @@ public class Funcionario extends Pessoa {
             while(resultados.next()){
                 if(resultados.getString("login").equalsIgnoreCase(email) &&
                         resultados.getString("senha").equals(senha)){
-                    return true;
-                    
-                }
-                else{
-                    return false;
+                    login = true;
                 }
             }
-            
-            
-        
         } catch (SQLException ex) {
             Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -101,7 +95,7 @@ public class Funcionario extends Pessoa {
                 }
             }
         }
-        return false;
+        return login;
     }
 
 

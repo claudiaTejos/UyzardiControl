@@ -48,7 +48,7 @@ public class IncluirClienteServlet extends HttpServlet {
             stmt.setDate(3, new java.sql.Date(cliente.getDtNasc().getTime()));
             stmt.setObject(4,(char)cliente.getGenero());
             stmt.setString(5, cliente.getEndereco());
-            stmt.setInt(6, cliente.getCpf());
+            stmt.setLong(6, cliente.getCpf());
             stmt.setInt(7, cliente.getRg());
             stmt.executeUpdate();
             System.out.println("Incluido com sucesso");
