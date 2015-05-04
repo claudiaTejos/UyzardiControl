@@ -26,16 +26,22 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Claudio
  */
-@WebServlet(name = "pesquisarAluno", urlPatterns = {"/pesquisarAluno"})
-public class PesquisarAlunoServlet extends HttpServlet {
+@WebServlet(name = "pesquisarCliente", urlPatterns = {"/pesquisarCliente"})
+public class PesquisarClienteServlet extends HttpServlet {
     
-    public ArrayList<Cliente> pesquisarClientes (){
+    public ArrayList<Cliente> pesquisarClientes (String pesquisa){
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         ResultSet resultados = null;
         Statement stmt = null;
         Connection conn = null;
         
-        String sql = "SELECT * FROM Cliente";
+        String sql;
+        if (pesquisa.equals("")) {
+             sql = "SELECT * FROM Cliente";
+        }
+        else{
+            sql = "SELECT * FROM `Cliente` WHERE `nomeCliente` LIKE '%"+pesquisa+"%'";
+        }
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -55,7 +61,7 @@ public class PesquisarAlunoServlet extends HttpServlet {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisarAlunoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if(stmt != null){
                 try {
@@ -86,19 +92,19 @@ public class PesquisarAlunoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            // TODO output your page here. You may use following sample code. 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet PesquisarAluno</title>");            
             out.println("</head>");
             out.println("<body>");
-            ArrayList<Cliente> lista = pesquisarClientes();
+            ArrayList<Cliente> lista = pesquisarClientes("");
             for (int i = 0; i < lista.size(); i++) {
-                out.println(lista.get(i).getNome());
+                out.print(lista.get(i).getIdPessoa());
+                out.print(lista.get(i).getNome());
             }
             out.println("</body>");
             out.println("</html>");
@@ -131,8 +137,10 @@ public class PesquisarAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setAttribute("listaClientes", pesquisarClientes((String)request.getParameter("nomeAluno")));
+        request.setAttribute("clickBtnPesquisa","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
-        request.setAttribute("listaClientes", pesquisarClientes() );
         rd.forward(request, response);
     }
 

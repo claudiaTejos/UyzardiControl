@@ -14,7 +14,10 @@
         <title>Uizardy Control</title>
 </head>
 <body>
-	<div class="empresa"><h1>Uizardy Control</h1></div>
+    <c:if test="${not empty clickBtnPesquisa}">
+        <input type="hidden" id="hiddenPesquisa" value="true">
+    </c:if>
+    <div class="empresa"><h1>Uizardy Control</h1></div>
     <div class="menu-geral">
     	<ul class="nav nav-pills nav-justified">
             <li><a id="btnMatricula">Matricula</a></li>
@@ -27,40 +30,37 @@
     <div id="matricula" class="oculto">
         <div id="pesquisa" class="pesquisa">
             <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno">
-                </div>
-                <form formmethod="POST" formaction="pesquisarAluno" ><button id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</button></form>
-                <button type="button" id="btnAlunoNovo" class="btn btn-primary">Novo</button>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno" name="nomeAluno" >
               </div>
-                <div formaction="PesquisarAluno" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</div>
+                <button formaction="pesquisarCliente" formmethod="POST" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</button>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
             </form>
         </div>
 
         <div id="listaAluno" class="alunos-na-lista oculto">
-            <table class="table table-striped">
-              <tr class="tabelaInicio">
-                <td>Matricula</td>
-                <td>Nome</td>
-                <td>Ações</td>
-              </tr>
-              <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
-                    <tr>
-                        <td><c:out value="${cliente.idPessoa}" /></td>
-                        <td><c:out value="${cliente.nome}" /></td>
-                        <td><button type="button" id="btnAlunoAtualiza" class="btn btn-info" value="${aluno.idPessoa}">Atualizar</button></td>
-                        <td><c:out value="${aluno.idPessoa}" /></td>
-                        <td><c:out value="${aluno.nome}" /></td>
-                        <!--Parte nova --> 
-                        <td><div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div></td>
-                    </tr>
-              </c:forEach>
-            </table>
+            <c:if test="${not empty listaClientes}">
+                <table class="table table-striped">
+                  <tr class="tabelaInicio">
+                    <td>Matricula</td>
+                    <td>Nome</td>
+                    <td>Ações</td>
+                  </tr>
+                  <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
+                        <tr>
+                            <td><c:out value="${cliente.idPessoa}" /></td>
+                            <td><c:out value="${cliente.nome}" /></td>
+                            <td><div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div></td>
+                        </tr>
+                  </c:forEach>
+                </table>
+            </c:if>
+            <c:if test="${empty listaClientes}">
+                <div class="aviso">Não foi encontrado nenhum resultados.</div>
+            </c:if>
         </div> 
 
+        
         <div id="selecionaCurso" class="matricula-aluno oculto">
             <form>
                 <h2 id=""nomeAlunoMatricula>Nome do aluno</h2>
@@ -290,8 +290,8 @@
     <!-- fim parte nova-->
     
     </div>
-    <c:if test='${paginaAtual == "produtos"}'>
-        <div id="produtos" >
+    <div id="produtos" >
+        <c:if test='${paginaAtual == "produtos"}'>
             <br>
             <br>
             <table class="table">
@@ -315,8 +315,8 @@
                     </c:forEach>
                 </tbody>
             </table>
-        </div>
-    </c:if>
+        </c:if>
+    </div>
  
     <script src="js/telaPrincipal.js"></script>
 </body>

@@ -3,10 +3,8 @@ var btnMatricula = document.getElementById("btnMatricula");
 var divMatricula = document.getElementById("matricula");
 var btnVendas = document.getElementById("btnVendas");
 var divVendas = document.getElementById("vendas");
-//mudei - claudia
 var btnGerenciamento = document.getElementById("btnGerenciamento");
 var divGerenciamento = document.getElementById("gerenciamento");
-
 var divProdutos = document.getElementById("produtos");
 var btnNovoAluno = document.getElementById("btnAlunoNovo");
 var divNovoAluno = document.getElementById("dadosAluno");
@@ -23,7 +21,7 @@ var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
 var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
 var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
-
+var inpHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
 
 //Funcoes
 function atualizaNomeNovoAluno() {
@@ -41,6 +39,7 @@ function mudarOcultoNovoAluno() {
 }
 
 function mudarOcultoPesquisaAluno() {
+    mudarOcultoMatricula();
     if (!divNovoAluno.classList.contains("oculto")) {
         divNovoAluno.classList.toggle("oculto");
     }
@@ -85,8 +84,6 @@ function mudarOcultoVendas() {
     }
 }
 
-//mudei - claudia
-
 function mudarOcultoGerenciamento() {
     if (!divMatricula.classList.contains("oculto")) {
         divMatricula.classList.toggle("oculto");
@@ -102,8 +99,6 @@ function mudarOcultoGerenciamento() {
     }
 }
 
-
-//mudei
 function mudarOcultoCadastrarFuncionario(){
     if (!divCadastrarProduto.classList.contains("oculto")) {
         divCadastrarProduto.classList.toggle("oculto");
@@ -172,11 +167,12 @@ btnMatricula.addEventListener("click", mudarOcultoMatricula);
 btnVendas.addEventListener("click", mudarOcultoVendas);
 btnGerenciamento.addEventListener("click", mudarOcultoGerenciamento);
 btnNovoAluno.addEventListener("click", mudarOcultoNovoAluno);
-btnPesquisaAluno.addEventListener("click", mudarOcultoPesquisaAluno);
 txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
-
-// mudei- claudia
 btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario);
 btnCadastrarProduto.addEventListener("click",mudarOcultoCadastrarProduto);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
 btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
+if(inpHiddenPesquisaAluno !== null){
+    mudarOcultoPesquisaAluno();
+    inpHiddenPesquisaAluno = null;
+}
