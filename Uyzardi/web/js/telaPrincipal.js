@@ -15,19 +15,23 @@ var txtNomeAluno = document.getElementById("nomeAluno");
 // variaveis de gerenciamento
 var btnCadastroFuncionario = document.getElementById("btnCadastroFuncionario");
 var divCadastroFuncionario = document.getElementById("cadastrarFuncionario");
-var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
-var divCadastrarProduto = document.getElementById("cadastrarProduto");
 var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
 var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
 var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
-<<<<<<< HEAD
+var btnProdutos = document.getElementById("btnProdutos2");
+var divProdutos2 = document.getElementById("produtos2");
+
+
+//variaveis de produto
 var btnExcluiProduto = document.getElementById("btnExcluiProduto");
 var divExcluirProduto = document.getElementById("excluirProduto");
+var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
+var divCadastrarProduto = document.getElementById("cadastrarProduto");
 
-=======
+
 var inpHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
->>>>>>> 98fd30176c1d44d4105ffa53c8afd270a29514ca
+
 
 //Funcoes
 function atualizaNomeNovoAluno() {
@@ -106,17 +110,14 @@ function mudarOcultoGerenciamento() {
 }
 
 function mudarOcultoCadastrarFuncionario(){
-    if (!divCadastrarProduto.classList.contains("oculto")) {
-        divCadastrarProduto.classList.toggle("oculto");
+    if (!divProdutos2.classList.contains("oculto")) {
+        divProdutos2.classList.toggle("oculto");
     }
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
-    }
-    if (!divExcluirProduto.classList.contains("oculto")) {
-        divExcluirProduto.classList.toggle("oculto");
     }
     if (divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
@@ -124,7 +125,7 @@ function mudarOcultoCadastrarFuncionario(){
     
 }
 
-function mudarOcultoCadastrarProduto(){
+function mudarOcultoProdutos(){
     if (!divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
@@ -134,26 +135,21 @@ function mudarOcultoCadastrarProduto(){
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
     }
-    if (!divExcluirProduto.classList.contains("oculto")) {
-        divExcluirProduto.classList.toggle("oculto");
+    if (divProdutos2.classList.contains("oculto")) {
+        divProdutos2.classList.toggle("oculto");
     }
-    if (divCadastrarProduto.classList.contains("oculto")) {
-        divCadastrarProduto.classList.toggle("oculto");
-    }
-    
+   
 }
+
 function mudarOcultoRelatorios(){
     if (!divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
-    if (!divCadastrarProduto.classList.contains("oculto")) {
-        divCadastrarProduto.classList.toggle("oculto");
+    if (!divProdutos2.classList.contains("oculto")) {
+        divProdutos2.classList.toggle("oculto");
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
-    }
-    if (!divExcluirProduto.classList.contains("oculto")) {
-        divExcluirProduto.classList.toggle("oculto");
     }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
@@ -165,37 +161,17 @@ function mudarOcultoNovaUnidade(){
     if (!divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
-    if (!divCadastrarProduto.classList.contains("oculto")) {
-        divCadastrarProduto.classList.toggle("oculto");
-    }
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divExcluirProduto.classList.contains("oculto")) {
-        divExcluirProduto.classList.toggle("oculto");
+    if (!divProdutos2.classList.contains("oculto")) {
+        divProdutos2.classList.toggle("oculto");
     }
     if (divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
     }    
 }
-
-function mudarOcultoExcluirProduto(){
-    if (!divCadastroFuncionario.classList.contains("oculto")) {
-        divCadastroFuncionario.classList.toggle("oculto");
-    }
-    if (!divCadastrarProduto.classList.contains("oculto")) {
-        divCadastrarProduto.classList.toggle("oculto");
-    }
-    if (!divRelatorios.classList.contains("oculto")) {
-        divRelatorios.classList.toggle("oculto");
-    }
-    if (divExcluirProduto.classList.contains("oculto")) {
-        divExcluirProduto.classList.toggle("oculto");
-    }
-    if (!divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
-    }    
-}
+   
 
 //Eventos
 btnMatricula.addEventListener("click", mudarOcultoMatricula);
@@ -203,16 +179,18 @@ btnVendas.addEventListener("click", mudarOcultoVendas);
 btnGerenciamento.addEventListener("click", mudarOcultoGerenciamento);
 btnNovoAluno.addEventListener("click", mudarOcultoNovoAluno);
 txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
-<<<<<<< HEAD
-btnExcluiProduto.addEventListener("click",mudarOcultoExcluirProduto);
+
 
 // mudei- claudia
-=======
->>>>>>> 98fd30176c1d44d4105ffa53c8afd270a29514ca
+
 btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario);
-btnCadastrarProduto.addEventListener("click",mudarOcultoCadastrarProduto);
+btnProdutos.addEventListener("click",mudarOcultoProdutos);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
 btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
+
+//Eventos de Produtos
+
+
 if(inpHiddenPesquisaAluno !== null){
     mudarOcultoPesquisaAluno();
     inpHiddenPesquisaAluno = null;

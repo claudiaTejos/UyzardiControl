@@ -220,10 +220,9 @@
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
         <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
-        <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
+        <div id="btnProdutos2" class="btn btn-info">Produtos</div>
         <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
-        <div id="btnExcluiProduto" class="btn btn-primary">Excluir Produtos</div>
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -236,6 +235,14 @@
                   <li role="presentation"><a href="#">Modulo</a></li>
                 </ul>
             </div>
+        </div>
+        
+        <div id="produtos2" class="produtos2 oculto">
+                <div class="btn-group-vertical" role="group" id="botoesProduto">
+                    <div id="btnListarProdutos" class="btn btn-primary">Listar Produtos</div>
+                    <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
+                    <div id="btnExcluiProduto" class="btn btn-primary">Excluir Produtos</div>
+                </div>
         </div>
         
         
