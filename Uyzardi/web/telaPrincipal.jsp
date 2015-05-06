@@ -17,6 +17,9 @@
     <c:if test="${not empty clickBtnPesquisa}">
         <input type="hidden" id="hiddenPesquisa" value="true">
     </c:if>
+    <c:if test="${resultadoIncluir}">
+        <input type="hidden" id="hiddenSelecionaCurso" value="true">
+    </c:if>
     <div class="empresa"><h1>Uizardy Control</h1></div>
     <div class="menu-geral">
     	<ul class="nav nav-pills nav-justified">
@@ -51,7 +54,9 @@
                         <tr>
                             <td><c:out value="${cliente.idPessoa}" /></td>
                             <td><c:out value="${cliente.nome}" /></td>
-                            <td><div id="btnAlunoAtualiza" class="btn btn-info">Atualizar</div></td>
+                            <td><a id="btnAlunoAtualiza" class="btn btn-info">Atualizar</a> 
+                                <a id="btnAlunoMatricula" class="btn btn-info">Matricula</a>
+                            </td>
                         </tr>
                   </c:forEach>
                 </table>
@@ -100,9 +105,9 @@
         <br>
 
         <div id="dadosAluno" class="oculto">
-            <form>
+            <form formaction="incluirCliente" formmethod="POST">
                 <h3 class="form-signin-heading" id="nomeNovoAluno">Nome do aluno</h3>
-                <inpu type="hidden" name="nome"/>
+                <input type="hidden" name="nomeAlunoIncluir" id="nomeAlunoIncluir"></input>
                 <label for="inputDtNascimento" class="form-label"> Data de nascimento</label>
                 <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" name="dt_Nascimento"required>
                 <label for="inputEndereco" class="form-label">Endereco</label>
@@ -117,20 +122,21 @@
                 <label for="inputGenero" class="genero2">
                 <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
                 <label for="unidade" class="form-label unidade">Unidade</label>
-                <select class="form-control" id="unidade">
-                    <option value="1">Rio de Janeiro</option>
-                    <option value="2">Belo Horizonte </option>
-                    <option value="3">Curitiba</option>
-                    <option value="4">Porto Alegre</option>
-                    <option value="5">Florianopolis</option>
-                    <option value="6">Salvador</option>
-                    <option value="7">Recife</option>
-                    <option value="8">Goiania</option>
-                    <option value="9">Manaus</option>
-                    <option value="10">Belem</option>
-                    <option value="11">Brasilia</option>
+                <select class="form-control" id="unidade" name="unidadeCliente">
+                    <option value="1">São Paulo</option>
+                    <option value="2">Rio de Janeiro</option>
+                    <option value="5">Belo Horizonte </option>
+                    <option value="6">Curitiba</option>
+                    <option value="7">Porto Alegre</option>
+                    <option value="8">Florianopolis</option>
+                    <option value="9">Salvador</option>
+                    <option value="10">Recife</option>
+                    <option value="11">Goiania</option>
+                    <option value="12">Manaus</option>
+                    <option value="13">Belem</option>
+                    <option value="14">Brasilia</option>
                 </select>
-                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+                <button  class="btn btn-success" id="concluir" formaction="incluirCliente" formmethod="POST">Concluir</button>
             </form>
         </div>
     </div>

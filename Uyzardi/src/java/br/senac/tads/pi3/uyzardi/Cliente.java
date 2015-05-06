@@ -20,13 +20,24 @@ public class Cliente extends Pessoa{
     private Unidade unidade;
     private Curso curso;
     private Cliente responsavel;
+    private int idUnidade;
 
     public Cliente(String nome, long cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(nome, cpf, rg, endereco, dtNasc, genero);
     }
 
+    public Cliente(String nome, long cpf, int rg, String endereco, Date dtNasc, char genero, int idUnidade) {
+        super(nome, cpf, rg, endereco, dtNasc, genero);
+        this.idUnidade = idUnidade;
+    }
+    
     public Cliente(int idPessoa, String nome, long cpf, int rg, String endereco, Date dtNasc, char genero) {
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
+    }
+    
+    public Cliente(int idPessoa, String nome, long cpf, int rg, String endereco, Date dtNasc, char genero, int idUnidade) {
+        super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
+        this.idUnidade = idUnidade;
     }
     
     public void atualizarCliente(Cliente atualizado){
@@ -101,5 +112,19 @@ public class Cliente extends Pessoa{
             }
         }
         return listaAluno;
+    }
+
+    /**
+     * @return the idUnidade
+     */
+    public int getIdUnidade() {
+        return idUnidade;
+    }
+
+    /**
+     * @param idUnidade the idUnidade to set
+     */
+    public void setIdUnidade(int idUnidade) {
+        this.idUnidade = idUnidade;
     }
 }

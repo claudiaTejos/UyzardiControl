@@ -1,5 +1,6 @@
 body{
-	background: rgba(228, 228, 228, 0.76)
+    background: rgba(228, 228, 228, 0.76);
+    width: 95%; 
 }
 
 .form-signin{

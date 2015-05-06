@@ -11,6 +11,7 @@ var divNovoAluno = document.getElementById("dadosAluno");
 var btnPesquisaAluno = document.getElementById("btnAlunoPesquisa");
 var divPesquisaAluno = document.getElementById("listaAluno");
 var txtNomeAluno = document.getElementById("nomeAluno");
+var inputNomeAluno = document.getElementById("nomeAlunoIncluir");
 
 // variaveis de gerenciamento
 var btnCadastroFuncionario = document.getElementById("btnCadastroFuncionario");
@@ -30,12 +31,24 @@ var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
 var divCadastrarProduto = document.getElementById("cadastrarProduto");
 
 
-var inpHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
+var inputHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
+var divSelecionaCurso = document.getElementById("selecionaCurso");
+var inputHiddenSelecionaCurso = document.getElementById("hiddenSelecionaCurso");
+var btnSelecionaCurso = document.getElementById("btnAlunoMatricula");
 
 
 //Funcoes
+function mudarOcultoSelecionaCurso(){
+    mudarOcultoMatricula();
+    if (!divPesquisaAluno.classList.contains("oculto")) {
+        divPesquisaAluno.classList.toggle("oculto");
+    }
+    divSelecionaCurso.classList.toggle("oculto");
+}
+
 function atualizaNomeNovoAluno() {
     document.getElementById("nomeNovoAluno").innerHTML = txtNomeAluno.value;
+    inputNomeAluno.value = txtNomeAluno.value;
 }
 
 function mudarOcultoNovoAluno() {
@@ -187,11 +200,16 @@ btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario
 btnProdutos.addEventListener("click",mudarOcultoProdutos);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
 btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
+btnSelecionaCurso.addEventListener("click", mudarOcultoSelecionaCurso);
 
 //Eventos de Produtos
 
 
-if(inpHiddenPesquisaAluno !== null){
+if(inputHiddenPesquisaAluno !== null){
     mudarOcultoPesquisaAluno();
-    inpHiddenPesquisaAluno = null;
+    inputHiddenPesquisaAluno = null;
+}
+if(inputHiddenSelecionaCurso !== null){
+    mudarOcultoSelecionaCurso();
+    inputHiddenSelecionaCurso = null;
 }

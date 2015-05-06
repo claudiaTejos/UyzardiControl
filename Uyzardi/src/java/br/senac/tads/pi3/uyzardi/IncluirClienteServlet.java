@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,30 +29,32 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Claudia
  */
-@WebServlet(name = "IncluirClienteServlet", urlPatterns = {"/IncluirClienteServlet"})
+@WebServlet(name = "incluirCliente", urlPatterns = {"/incluirCliente"})
 public class IncluirClienteServlet extends HttpServlet {
 
-    private void incluirCliente(Cliente cliente){
+    private boolean incluirCliente(Cliente cliente){
+        boolean controle = false;
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO TB_PESSOA"
-                + "(NOMEPESSOA, DATANASCIMENTO,"
-                + "SEXO,ENDERECOPESSOA, CPF, RG) VALUES"
-                + "(?,?,?,?,?,?)";
+        String sql = "INSERT INTO `Cliente`"
+                + "(nomeCliente, dataNascimentoCliente,"
+                + "sexoCliente,enderecoCliente, cpfCliente, rgCliente, idUnidade) VALUES"
+                + "(?,?,?,?,?,?,?)";
         
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, cliente.getNome());
-            stmt.setDate(3, new java.sql.Date(cliente.getDtNasc().getTime()));
-            stmt.setObject(4,(char)cliente.getGenero());
-            stmt.setString(5, cliente.getEndereco());
-            stmt.setLong(6, cliente.getCpf());
-            stmt.setInt(7, cliente.getRg());
+            stmt.setString(1, cliente.getNome());
+            stmt.setDate(2, new java.sql.Date(cliente.getDtNasc().getTime()));
+            stmt.setObject(3, cliente.getGenero(), java.sql.Types.VARCHAR);
+            stmt.setString(4, cliente.getEndereco());
+            stmt.setLong(5, cliente.getCpf());
+            stmt.setInt(6, cliente.getRg());
+            stmt.setInt(7, cliente.getIdUnidade());
             stmt.executeUpdate();
-            System.out.println("Incluido com sucesso");
+            controle = true;
             
         } catch (SQLException ex) {
             Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +73,8 @@ public class IncluirClienteServlet extends HttpServlet {
                     Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }    
+        }
+        return controle;
     }
 
     
@@ -131,32 +135,33 @@ public class IncluirClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nome = request.getParameter("nome");
+        String nome = request.getParameter("nomeAlunoIncluir");
         String dtNasc = request.getParameter("dt_Nascimento");
-        String genero = request.getParameter("inlineRadioOptions");
+        char generoCliente = request.getParameter("inlineRadioOptions").charAt(0);
         String endereco = request.getParameter("endereco");
-        String cpf = request.getParameter("cpf");
-        String rg = request.getParameter("rg");
+        long cpfCliente = Long.parseLong(request.getParameter("cpf"));
+        int rgCliente = Integer.parseInt(request.getParameter("rg"));
+        int unidade = Integer.parseInt(request.getParameter("unidadeCliente"));
+        Date dtNascimento = null;
         
-        
-        DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
-        Date dtNascimento;
+        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
         try {
             dtNascimento = formatadorData.parse(dtNasc);
         } catch (ParseException ex) {
             Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            dtNascimento = null;
         }
-        char generoCliente = genero.charAt(0);
-        int cpfCliente = Integer.parseInt(cpf);
-        int rgCliente = Integer.parseInt(rg);
         
-        Cliente cliente = new Cliente(nome,cpfCliente, rgCliente,endereco,dtNascimento, generoCliente);
+        Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
         
-        incluirCliente(cliente);
-        
-        processRequest(request, response);
+        if (incluirCliente(cliente)) {
+            request.setAttribute("resultadoIncluir", true);
+            request.setAttribute("cliente", cliente);
+        }
+        else{
+            request.setAttribute("resultadoIncluir", false);
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        rd.forward(request, response);
     }
 
     /**
