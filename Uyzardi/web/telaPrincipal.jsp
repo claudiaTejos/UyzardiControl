@@ -291,7 +291,7 @@
     </div>
         
     <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
-        <form id="dadosUnidade">
+        <form id="dadosUnidade" action="IncluirUnidadeServlet" method="post">
             <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
             <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
             <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>

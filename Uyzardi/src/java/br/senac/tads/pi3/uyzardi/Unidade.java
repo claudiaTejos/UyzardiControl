@@ -17,8 +17,16 @@ public class Unidade {
     private String endereco;
     private String cidade;
 
-    Unidade(String nome, String endereco, String cidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Unidade(String nome, String endereco, String cidade) {
+            this.nome = nome;
+            this.endereco = endereco;
+            this.cidade = cidade;
+    }
+    public Unidade(int idUnidade, String nome, String endereco, String cidade){
+        this.idUnidade = idUnidade;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cidade = cidade;
     }
 
     /**
