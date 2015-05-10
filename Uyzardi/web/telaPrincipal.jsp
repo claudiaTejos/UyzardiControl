@@ -226,7 +226,7 @@
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
         <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
-        <div id="btnProdutos2" class="btn btn-info">Produtos</div>
+        <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
         <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
@@ -244,11 +244,52 @@
         </div>
         
         <div id="produtos2" class="produtos2 oculto">
-                <div class="btn-group-vertical" role="group" id="botoesProduto">
-                    <div id="btnListarProdutos" class="btn btn-primary">Listar Produtos</div>
-                    <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
-                    <div id="btnExcluiProduto" class="btn btn-primary">Excluir Produtos</div>
-                </div>
+            <div class="btn-group-vertical" role="group" id="botoesProduto">
+                <div id="btnCadastroProduto" class="btn btn-info">Cadastrar Produtos</div>
+            </div>
+            
+            <div id="prod" >
+                <c:if test='${paginaAtual == "produtos"}'>
+                    <br>
+                    <br>
+                    <h3>Produtos Disponíveis:</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Idioma</th>
+                                <th>Módulo</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${listaProduto}" var="produto">
+                                <tr>
+                                    <td><c:out value="${produto.nomeProduto}" /></td>
+                                    <td><c:out value="${produto.idiomaProduto}" /></td>
+                                    <td><c:out value="${produto.moduloProduto}" /></td>
+                                    <td><c:out value="${produto.valorProduto}" /></td>
+                                    <td></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+            </div>
+            
+            <div  id="cadastrarProduto" class="cadastrarProduto">
+                <form id="dadosProduto" action="IncluirProdutoServlet" method="post">
+                    <label for="inputNomeProduto" class="form-label">Nome do produto</label>
+                    <input type="text" id="inputNomeProduto" class="form-control" placeholder="Nome" name="nome" required>
+                    <label for="inputIdioma" class="form-label">Idioma do Produto</label>
+                    <input id="inputIdioma" placeholder="Idioma" class="form-control" name="idioma" required>
+                    <label for="moduloProduto"class="form-label">Modulo do Produto</label>
+                    <input id="moduloModulo" placeholder="Módulo" class="form-control" name="modulo">
+                    <label for="inputPreco" class="form-label">Preco</label>
+                    <input type="text" id="inputPreco" class="form-control" placeholder="Preço" name="valor" required >
+                    <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+                </form> 
+            </div>
         </div>
         
         
@@ -274,21 +315,6 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
-    
-    
-    <div  id="cadastrarProduto" class="cadastrarProduto oculto">
-        <form id="dadosProduto" action="IncluirProdutoServlet" method="post">
-            <label for="inputNomeProduto" class="form-label">Nome do produto</label>
-            <input type="text" id="inputNomeProduto" class="form-control" placeholder="Nome" name="nome" required>
-            <label for="inputIdioma" class="form-label">Idioma do Produto</label>
-            <input id="inputIdioma" placeholder="Idioma" class="form-control" name="idioma" required>
-            <label for="moduloProduto"class="form-label">Modulo do Produto</label>
-            <input id="moduloModulo" placeholder="Módulo" class="form-control" name="modulo">
-            <label for="inputPreco" class="form-label">Preco</label>
-            <input type="text" id="inputPreco" class="form-control" placeholder="Preço" name="valor" required >
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
-    </div>
         
     <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
         <form id="dadosUnidade" action="IncluirUnidadeServlet" method="post">
@@ -309,10 +335,10 @@
         
     <!-- fim parte nova-->
     
-    </div>
+    
+    
     <div id="produtos" >
-        <c:if test='${paginaAtual == "produtos"}'>
-            <br>
+        <c:if test='${paginaAtual == ""}'>
             <br>
             <h3>Produtos Disponíveis:</h3>
             <table class="table">
@@ -340,5 +366,11 @@
     </div>
  
     <script src="js/telaPrincipal.js"></script>
+    <c:if test='${paginaAtual == "produtos"}'>
+        <script>
+            mudarOcultoGerenciamento();
+            mudarOcultoProdutos();
+        </script>
+    </c:if>
 </body>
 </html>
