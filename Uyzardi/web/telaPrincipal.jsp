@@ -54,8 +54,9 @@
                         <tr>
                             <td><c:out value="${cliente.idPessoa}" /></td>
                             <td><c:out value="${cliente.nome}" /></td>
-                            <td><a id="btnAlunoAtualiza" class="btn btn-info">Atualizar</a> 
-                                <a id="btnAlunoMatricula" class="btn btn-info">Matricula</a>
+                            <td>
+                                <a id="btnAlunoAtualizaID${cliente.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</a> 
+                                <button id="btnMatriculaID" value="${cliente.idPessoa}" name="idAlunoMatricula" class="btn btn-info" formmethod="POST" formaction="listaMatricula">Matricula</button>
                             </td>
                         </tr>
                   </c:forEach>

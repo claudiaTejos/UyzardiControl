@@ -12,8 +12,6 @@ var btnPesquisaAluno = document.getElementById("btnAlunoPesquisa");
 var divPesquisaAluno = document.getElementById("listaAluno");
 var txtNomeAluno = document.getElementById("nomeAluno");
 var inputNomeAluno = document.getElementById("nomeAlunoIncluir");
-
-// variaveis de gerenciamento
 var btnCadastroFuncionario = document.getElementById("btnCadastroFuncionario");
 var divCadastroFuncionario = document.getElementById("cadastrarFuncionario");
 var btnRelatorios = document.getElementById("btnRelatorios");
@@ -22,19 +20,17 @@ var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
 var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
 var btnProdutos = document.getElementById("btnProdutos2");
 var divProdutos2 = document.getElementById("produtos2");
-
+var divSelecionaCurso = document.getElementById("selecionaCurso");
+var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
 
 //variaveis de produto
 var btnExcluiProduto = document.getElementById("btnExcluiProduto");
 var divExcluirProduto = document.getElementById("excluirProduto");
 var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
 var divCadastrarProduto = document.getElementById("cadastrarProduto");
-
-
 var inputHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var inputHiddenSelecionaCurso = document.getElementById("hiddenSelecionaCurso");
-var btnSelecionaCurso = document.getElementById("btnAlunoMatricula");
 
 
 //Funcoes
@@ -200,7 +196,6 @@ btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario
 btnProdutos.addEventListener("click",mudarOcultoProdutos);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
 btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
-btnSelecionaCurso.addEventListener("click", mudarOcultoSelecionaCurso);
 
 //Eventos de Produtos
 
@@ -212,4 +207,11 @@ if(inputHiddenPesquisaAluno !== null){
 if(inputHiddenSelecionaCurso !== null){
     mudarOcultoSelecionaCurso();
     inputHiddenSelecionaCurso = null;
+}
+
+if (btnSelecionaCurso !== null){
+    var i;
+    for(i=0; i < btnSelecionaCurso.length; i++){
+        btnSelecionaCurso[i].addEventListener("click", mudarOcultoSelecionaCurso);
+    }
 }
