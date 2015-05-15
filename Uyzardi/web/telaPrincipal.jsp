@@ -228,9 +228,20 @@
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
         <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
         <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
+        <div id="btnUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
+    </div>
+    
+    <div id="pesquisaUnidade" class="pesquisa oculto" >
+        <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
+        </div>
+        <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default">Pesquisa</button>
+        <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
+        </form>
+    </div>
         
         <div id="relatorios" class="relatorios oculto">
             <div class="botoesDeGerencia">
@@ -328,6 +339,30 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
+        
+    <div id="listarUnidade">
+        <c:if test="${not empty listaUnidade}">
+        <table class="table table-striped">
+            <tr class="tabelaInicio">
+                <td>Nome</td>
+                <td>Endereço</td>
+            </tr>
+            <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
+            <tr>
+                <td><c:out value="${unidade.nome}" /></td>
+                <td><c:out value="${unidade.endereco}" /></td>
+                <!--<td>
+                    <a id="btnAlunoAtualizaID${cliente.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</a> 
+                    <button id="btnMatriculaID" value="${cliente.idPessoa}" name="idAlunoMatricula" class="btn btn-info" formmethod="POST" formaction="listaMatricula">Matricula</button>
+                </td>-->
+            </tr>
+            </c:forEach>
+        </table>
+        </c:if>
+        <c:if test="${empty listaUnidade}">
+            <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
+        </c:if>
+    </div> 
         
     <div id="excluirProduto" class="excluirProduto oculto">
         JOana

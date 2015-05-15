@@ -16,8 +16,13 @@ var btnCadastroFuncionario = document.getElementById("btnCadastroFuncionario");
 var divCadastroFuncionario = document.getElementById("cadastrarFuncionario");
 var btnRelatorios = document.getElementById("btnRelatorios");
 var divRelatorios = document.getElementById("relatorios");
-var btnCadastrarUnidade = document.getElementById("btnNovaUnidade");
-var divCadastrarUnidade = document.getElementById("cadastrarUnidade");
+var btnUnidade = document.getElementById("btnUnidade");
+var divUnidade = document.getElementById("pesquisaUnidade");
+var btnPesquisarUnidade = document.getElementById("btnUnidadePesquisa");
+var divPesquisarUnidade = document.getElementById("listarUnidade");
+var btnNovaUnidade = document.getElementById("btnNovaUnidade");
+var divNovaUnidade = document.getElementById("cadastrarUnidade");
+
 var btnProdutos = document.getElementById("btnProdutos2");
 var divProdutos2 = document.getElementById("produtos2");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
@@ -125,8 +130,8 @@ function mudarOcultoCadastrarFuncionario(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
+    if (!divUnidade.classList.contains("oculto")) {
+        divUnidade.classList.toggle("oculto");
     }
     if (divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
@@ -141,8 +146,8 @@ function mudarOcultoProdutos(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
+    if (!divUnidade.classList.contains("oculto")) {
+        divUnidade.classList.toggle("oculto");
     }
     if (divProdutos2.classList.contains("oculto")) {
         divProdutos2.classList.toggle("oculto");
@@ -157,8 +162,8 @@ function mudarOcultoRelatorios(){
     if (!divProdutos2.classList.contains("oculto")) {
         divProdutos2.classList.toggle("oculto");
     }
-    if (!divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
+    if (!divUnidade.classList.contains("oculto")) {
+        divUnidade.classList.toggle("oculto");
     }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
@@ -166,7 +171,7 @@ function mudarOcultoRelatorios(){
     
 }
 
-function mudarOcultoNovaUnidade(){
+function mudarOcultoUnidade(){
     if (!divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
@@ -176,9 +181,27 @@ function mudarOcultoNovaUnidade(){
     if (!divProdutos2.classList.contains("oculto")) {
         divProdutos2.classList.toggle("oculto");
     }
-    if (divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
+    if (divUnidade.classList.contains("oculto")) {
+        divUnidade.classList.toggle("oculto");
     }    
+}
+
+function mudarOcultoNovaUnidade() {
+    if (!divPesquisarUnidade.classList.contains("oculto")) {
+        divPesquisarUnidade.classList.toggle("oculto");
+    }
+    if (divNovaUnidade.classList.contains("oculto")) {
+        divNovaUnidade.classList.toggle("oculto");
+    }
+}
+
+function mudarOcultoPesquisaUnidade() {
+    if (!divNovaUnidade.classList.contains("oculto")) {
+        divNovaUnidade.classList.toggle("oculto");
+    }
+    if (divPesquisarUnidade.classList.contains("oculto")) {
+        divPesquisarUnidade.classList.toggle("oculto");
+    }
 }
    
 
@@ -195,7 +218,9 @@ txtNomeAluno.addEventListener("keyup", atualizaNomeNovoAluno);
 btnCadastroFuncionario.addEventListener("click", mudarOcultoCadastrarFuncionario);
 btnProdutos.addEventListener("click",mudarOcultoProdutos);
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
-btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
+btnUnidade.addEventListener("click", mudarOcultoUnidade);
+btnPesquisarUnidade.addEventListener("click", mudarOcultoPesquisaUnidade);
+btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 
 //Eventos de Produtos
 
