@@ -22,14 +22,26 @@ import java.util.logging.Logger;
  */
 public class Funcionario extends Pessoa {
     private String cargo;
-    private Unidade unidade;
+    private int idUnidade;
+    private String login;
+    private String senha;
 
-    public Funcionario(int idPessoa, String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Funcionario(int idPessoa, String nome, long cpf, int rg, String endereco, Date dtNasc, char genero,
+            String cargo, int unidade, String login,String senha) {
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
+        this.cargo = cargo;
+        this.idUnidade = unidade;
+        this.login = login; 
+        this.senha = senha;
     }
     
-    public Funcionario(String nome, int cpf, int rg, String endereco, Date dtNasc, char genero) {
+    public Funcionario(String nome, long cpf, int rg, String endereco, Date dtNasc, char genero,
+            String cargo, int unidade, String login,String senha) {
         super(nome, cpf, rg, endereco, dtNasc, genero);
+        this.cargo = cargo;
+        this.idUnidade = unidade;
+        this.login = login; 
+        this.senha = senha;
     }
     
     /**
@@ -49,15 +61,15 @@ public class Funcionario extends Pessoa {
     /**
      * @return the idUnidade
      */
-    public Unidade getUnidade() {
-        return unidade;
+    public int getUnidade() {
+        return idUnidade;
     }
 
     /**
      * @param unidade the unidade to set
      */
-    public void setUnidade(Unidade unidade) {
-        this.unidade = unidade;
+    public void setUnidade(int unidade) {
+        this.idUnidade = unidade;
     }
      
     public static boolean login (String email, String senha){
@@ -96,6 +108,34 @@ public class Funcionario extends Pessoa {
             }
         }
         return login;
+    }
+
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the senha
+     */
+    public String getSenha() {
+        return senha;
+    }
+
+    /**
+     * @param senha the senha to set
+     */
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 

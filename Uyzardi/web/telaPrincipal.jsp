@@ -305,7 +305,7 @@
         
         <!--parte nova  -->
     <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
-        <form id="dadosFuncionario">
+        <form id="dadosFuncionario" action="IncluirFuncionarioServlet" method="POST">
             <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
             <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
             <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
@@ -321,6 +321,27 @@
             <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
             <label for="inputGenero" class="genero2">
             <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
+            <label for="inputCargoFuncionario" class="form-label" id="cargo">Cargo</label>
+            <input type="text" id="inputCargoFuncionario"  class="form-control" placeholder="Cargo" name="cargoFuncionario" required >
+            <label for="unidade" class="form-label unidade">Unidade</label>
+                <select class="form-control" id="unidade" name="unidadeFuncionario">
+                    <option value="1">São Paulo</option>
+                    <option value="2">Rio de Janeiro</option>
+                    <option value="5">Belo Horizonte </option>
+                    <option value="6">Curitiba</option>
+                    <option value="7">Porto Alegre</option>
+                    <option value="8">Florianopolis</option>
+                    <option value="9">Salvador</option>
+                    <option value="10">Recife</option>
+                    <option value="11">Goiania</option>
+                    <option value="12">Manaus</option>
+                    <option value="13">Belem</option>
+                    <option value="14">Brasilia</option>
+                </select>
+            <label for="inputLoginFuncionario" class="form-label">Login</label>
+            <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario" required >
+            <label for="inputSenhaFuncionario" class="form-label">Senha</label>
+            <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" required >
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
