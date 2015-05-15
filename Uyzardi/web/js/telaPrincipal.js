@@ -5,7 +5,6 @@ var btnVendas = document.getElementById("btnVendas");
 var divVendas = document.getElementById("vendas");
 var btnGerenciamento = document.getElementById("btnGerenciamento");
 var divGerenciamento = document.getElementById("gerenciamento");
-var divProdutos = document.getElementById("produtos");
 var btnNovoAluno = document.getElementById("btnAlunoNovo");
 var divNovoAluno = document.getElementById("dadosAluno");
 var btnPesquisaAluno = document.getElementById("btnAlunoPesquisa");
@@ -23,14 +22,13 @@ var divPesquisarUnidade = document.getElementById("listarUnidade");
 var btnNovaUnidade = document.getElementById("btnNovaUnidade");
 var divNovaUnidade = document.getElementById("cadastrarUnidade");
 
-var btnProdutos = document.getElementById("btnProdutos2");
-var divProdutos2 = document.getElementById("produtos2");
+var btnProdutos = document.getElementById("btnProdutos");
+var divProdutos = document.getElementById("produtos");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
 
 //variaveis de produto
-var btnExcluiProduto = document.getElementById("btnExcluiProduto");
-var divExcluirProduto = document.getElementById("excluirProduto");
+var divListarProduto = document.getElementById("listarProdutos");
 var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
 var divCadastrarProduto = document.getElementById("cadastrarProduto");
 var inputHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
@@ -89,9 +87,6 @@ function mudarOcultoMatricula() {
             divPesquisaAluno.classList.toggle("oculto");
         }
     }
-    if (!divProdutos.classList.contains("oculto")) {
-        divProdutos.classList.toggle("oculto");
-    }
 }
 
 function mudarOcultoVendas() {
@@ -103,9 +98,6 @@ function mudarOcultoVendas() {
     }
     if (divVendas.classList.contains("oculto")) {
         divVendas.classList.toggle("oculto");
-    }
-    if (!divProdutos.classList.contains("oculto")) {
-        divProdutos.classList.toggle("oculto");
     }
 }
 
@@ -119,14 +111,11 @@ function mudarOcultoGerenciamento() {
     if (divGerenciamento.classList.contains("oculto")) {
         divGerenciamento.classList.toggle("oculto");
     }
-    if (!divProdutos.classList.contains("oculto")) {
-        divProdutos.classList.toggle("oculto");
-    }
 }
 
 function mudarOcultoCadastrarFuncionario(){
-    if (!divProdutos2.classList.contains("oculto")) {
-        divProdutos2.classList.toggle("oculto");
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
@@ -150,9 +139,11 @@ function mudarOcultoProdutos(){
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
-    if (divProdutos2.classList.contains("oculto")) {
-        divProdutos2.classList.toggle("oculto");
+    if (divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
+        divListarProduto.classList.toggle(("oculto"));
     }
+    
    
 }
 
@@ -160,8 +151,8 @@ function mudarOcultoRelatorios(){
     if (!divCadastroFuncionario.classList.contains("oculto")) {
         divCadastroFuncionario.classList.toggle("oculto");
     }
-    if (!divProdutos2.classList.contains("oculto")) {
-        divProdutos2.classList.toggle("oculto");
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
@@ -179,8 +170,8 @@ function mudarOcultoUnidade(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divProdutos2.classList.contains("oculto")) {
-        divProdutos2.classList.toggle("oculto");
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
     if (divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
@@ -206,6 +197,17 @@ function mudarOcultoPesquisaUnidade() {
         divPesquisarUnidade.classList.toggle("oculto");
     }
 }
+
+function mudarOcultoCadastrarProduto() {
+    
+    if (!divListarProduto.classList.contains("oculto")){
+        divListarProduto.classList.toggle("oculto");
+    }
+    
+    if (divCadastrarProduto.classList.contains("oculto")){
+        divCadastrarProduto.classList.toggle("oculto");
+    }
+}
    
 
 //Eventos
@@ -227,6 +229,7 @@ btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 
 //Eventos de Produtos
 
+btnCadastrarProduto.addEventListener("click", mudarOcultoCadastrarProduto);
 
 if(inputHiddenPesquisaAluno !== null){
     mudarOcultoPesquisaAluno();
