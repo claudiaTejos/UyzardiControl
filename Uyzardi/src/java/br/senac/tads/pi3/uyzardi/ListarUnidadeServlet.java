@@ -137,7 +137,7 @@ public class ListarUnidadeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("listaUnidade", pesquisarUnidade((String) request.getParameter("cidadeUnidade")));
-        //request.setAttribute("clickBtnPesquisaUnidade","true");
+        request.setAttribute("clickBtnPesquisaUnidade","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

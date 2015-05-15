@@ -34,6 +34,7 @@ var divExcluirProduto = document.getElementById("excluirProduto");
 var btnCadastrarProduto = document.getElementById("btnCadastroProduto");
 var divCadastrarProduto = document.getElementById("cadastrarProduto");
 var inputHiddenPesquisaAluno = document.getElementById("hiddenPesquisa");
+var inputHiddenPesquisaUnidade = document.getElementById("hiddenPesquisaUnidade");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var inputHiddenSelecionaCurso = document.getElementById("hiddenSelecionaCurso");
 
@@ -196,6 +197,8 @@ function mudarOcultoNovaUnidade() {
 }
 
 function mudarOcultoPesquisaUnidade() {
+    mudarOcultoGerenciamento();
+    mudarOcultoUnidade();
     if (!divNovaUnidade.classList.contains("oculto")) {
         divNovaUnidade.classList.toggle("oculto");
     }
@@ -239,4 +242,9 @@ if (btnSelecionaCurso !== null){
     for(i=0; i < btnSelecionaCurso.length; i++){
         btnSelecionaCurso[i].addEventListener("click", mudarOcultoSelecionaCurso);
     }
+}
+
+if(inputHiddenPesquisaUnidade !== null){
+    mudarOcultoPesquisaUnidade();
+    inputHiddenPesquisaUnidade = null;
 }

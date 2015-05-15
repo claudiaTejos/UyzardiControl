@@ -17,6 +17,9 @@
     <c:if test="${not empty clickBtnPesquisa}">
         <input type="hidden" id="hiddenPesquisa" value="true">
     </c:if>
+        <c:if test="${not empty clickBtnPesquisaUnidade}">
+        <input type="hidden" id="hiddenPesquisaUnidade" value="true">
+    </c:if>
     <c:if test="${resultadoIncluir}">
         <input type="hidden" id="hiddenSelecionaCurso" value="true">
     </c:if>
@@ -231,7 +234,7 @@
         <div id="btnUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
-    </div>
+    
     
     <div id="pesquisaUnidade" class="pesquisa oculto" >
         <form class="navbar-form navbar-left" role="search">
@@ -340,7 +343,7 @@
         </form> 
     </div>
         
-    <div id="listarUnidade">
+    <div id="listarUnidade" class="oculto">
         <c:if test="${not empty listaUnidade}">
         <table class="table table-striped">
             <tr class="tabelaInicio">
@@ -351,10 +354,6 @@
             <tr>
                 <td><c:out value="${unidade.nome}" /></td>
                 <td><c:out value="${unidade.endereco}" /></td>
-                <!--<td>
-                    <a id="btnAlunoAtualizaID${cliente.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</a> 
-                    <button id="btnMatriculaID" value="${cliente.idPessoa}" name="idAlunoMatricula" class="btn btn-info" formmethod="POST" formaction="listaMatricula">Matricula</button>
-                </td>-->
             </tr>
             </c:forEach>
         </table>
@@ -363,7 +362,7 @@
             <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
         </c:if>
     </div> 
-        
+     
     <div id="excluirProduto" class="excluirProduto oculto">
         JOana
         
@@ -408,5 +407,7 @@
             mudarOcultoProdutos();
         </script>
     </c:if>
+        
+    </div>
 </body>
 </html>
