@@ -48,7 +48,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
             stmt.setLong(2,funcionario.getCpf());
             stmt.setInt(3,funcionario.getRg());
             stmt.setString(4, funcionario.getEndereco());
-            stmt.setObject(5,(char)funcionario.getGenero());
+            stmt.setObject(5,funcionario.getGenero(), java.sql.Types.VARCHAR);
             stmt.setDate(6, new java.sql.Date(funcionario.getDtNasc().getTime()));
             stmt.setString(7, funcionario.getCargo());
             stmt.setInt(8, funcionario.getUnidade());
@@ -151,7 +151,8 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         }
 
         
-        Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento, genero, cargo, unidade, login, senha);
+        Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
+                genero, cargo, unidade, login, senha);
         
         incluirFuncionario(funcionario);
         
