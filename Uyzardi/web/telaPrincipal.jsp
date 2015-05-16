@@ -31,7 +31,7 @@
     <div class="menu-geral">
     	<ul class="nav nav-pills nav-justified">
             <li><a id="btnMatricula">Matricula</a></li>
-            <li><a id="btnVendas">Vendas</a></li>
+            <li><a id="btnVendas" href="ListarProdutosVenda">Vendas</a></li>
             <li><a id="btnGerenciamento">Gerenciamento</a></li>
         </ul>
     </div>
@@ -148,6 +148,49 @@
     </div>
     
     <div id="vendas" class="oculto">
+        <c:if test='${etapa == "listarProdutosAVenda"}'>
+            <div id="listarProdutosVenda" class="listarProdutosVenda">
+                <br>
+                <br>
+                <h3>Produtos Disponíveis para Venda:</h3>
+                <form>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Idioma</th>
+                                <th>Módulo</th>
+                                <th>Valor</th>
+                                <th>Quantidade Disponível</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${listaProdutoVenda}" var="produto">
+                                <tr>
+                                    <td><c:out value="${produto.nomeProduto}" /></td>
+                                    <td><c:out value="${produto.idiomaProduto}" /></td>
+                                    <td><c:out value="${produto.moduloProduto}" /></td>
+                                    <td><c:out value="${produto.valorProduto}" /></td>
+                                    <td><c:out value="${produto.quantidadeProduto}" /></td>
+                                    <td>
+                                        <input type="number"  min="0" max="${produto.quantidadeProduto}" placeholder="0" 
+                                               name="quantidade${produto.idProduto}" >    
+                                        </input>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <input type="submit" class="btn btn-success" id="btnComprar" value="Comprar">
+                </form>
+            </div>
+            
+        </c:if>
+        
+        
+        
         <div class="produto">
             <form>
                 <div class="form-group">
@@ -272,7 +315,7 @@
             </div>
             
             <div id="listarProdutos" class="listarProdutos oculto">
-                    <h3>Produtos Disponíveis:</h3>
+                    <h3>Produtos Cadastrados:</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -294,7 +337,7 @@
                                     <td><c:out value="${produto.quantidadeProduto}" /></td>
                                     <td>
                                         <form action="AlterarQuantidadeProduto" method="POST" id="alterarQuantProd">
-                                            <input type="hidden" value="${produto.idProduto}" name="idProduto"</input>
+                                            <input type="hidden" value="${produto.idProduto}" name="idProduto">
                                             <input type="text" id="inputNovaQuantidadeProd" class="form-control" placeholder="Nova Quantidade" name="novaQuantidadeProduto" required>
                                             <input type="submit" class="btn btn-success" id="alterarQuantidade" value="Salvar">
                                         </form>
@@ -432,6 +475,11 @@
         <script>
             mudarOcultoGerenciamento();
             mudarOcultoProdutos();
+        </script>
+    </c:if>
+    <c:if test='${paginaAtual == "venda"}'>
+        <script>
+            mudarOcultoVendas();
         </script>
     </c:if>
         
