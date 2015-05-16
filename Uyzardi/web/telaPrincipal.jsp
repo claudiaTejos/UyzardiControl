@@ -20,6 +20,10 @@
         <c:if test="${not empty clickBtnPesquisaUnidade}">
         <input type="hidden" id="hiddenPesquisaUnidade" value="true">
     </c:if>
+    <c:if test="${not empty clickBtnPesquisaFuncionario}">
+        <input type="hidden" id="hiddenPesquisaFuncionario" value="true">
+    </c:if>
+    
     <c:if test="${resultadoIncluir}">
         <input type="hidden" id="hiddenSelecionaCurso" value="true">
     </c:if>
@@ -227,13 +231,22 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-        <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
+        <div id="btnFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
         <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
         <div id="btnUnidade" class="btn btn-primary">Nova Unidade</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
     
-    
+   
+    <div id="pesquisaFuncionario" class="pesquisa oculto" >
+        <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nome funcionário " id="nomeFuncionario" name="nomeFuncionario" >
+        </div>
+        <button formaction="ListarFuncionariosServlet" formmethod="POST" id="btnFuncionarioPesquisa" class="btn btn-default">Pesquisa</button>
+        <div id="btnNovoFuncionario" class="btn btn-primary">Novo</div>
+        </form>
+    </div>
     <div id="pesquisaUnidade" class="pesquisa oculto" >
         <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -345,6 +358,25 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
+    <div id="listarFuncionario" class="">
+        <c:if test="${not empty listaFuncionario}">
+        <table class="table table-striped">
+            <tr class="tabelaInicio">
+                <td>Nome</td>
+                <td>Cargo</td>
+            </tr>
+            <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
+            <tr>
+                <td><c:out value="${funcionario.nome}" /></td>
+                <td><c:out value="${funcionario.cargo}" /></td>
+            </tr>
+            </c:forEach>
+        </table>
+        </c:if>
+        <c:if test="${empty listaFuncionario}">
+            <div class="aviso">Não foi encontrado nenhum resultados funcionario.</div>
+        </c:if>
+    </div> 
         
     <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
         <form id="dadosUnidade" action="IncluirUnidadeServlet" method="post">

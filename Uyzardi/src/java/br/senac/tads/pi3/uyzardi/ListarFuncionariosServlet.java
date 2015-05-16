@@ -24,23 +24,23 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author claudia.rgtejos
+ * @author Elisabete
  */
-@WebServlet(name = "ListarUnidadeServlet", urlPatterns = {"/ListarUnidadeServlet"})
-public class ListarUnidadeServlet extends HttpServlet {
+@WebServlet(name = "ListarFuncionariosServlet", urlPatterns = {"/ListarFuncionariosServlet"})
+public class ListarFuncionariosServlet extends HttpServlet {
     
-      public ArrayList<Unidade> pesquisarUnidade (String pesquisa){
-        ArrayList<Unidade> listaUnidade = new ArrayList<>();
+        public ArrayList<Funcionario> pesquisarFuncionario (String pesquisa){
+        ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
         ResultSet resultados = null;
         Statement stmt = null;
         Connection conn = null;
         
         String sql;
         if (pesquisa.equals("")) {
-             sql = "SELECT * FROM Unidade";
+             sql = "SELECT * FROM Funcionario";
         }
         else{
-            sql = "SELECT * FROM `Unidade` WHERE `cidade` LIKE '%"+pesquisa+"%'";
+            sql = "SELECT * FROM `Funcionario` WHERE `nomeFuncionario` LIKE '%"+pesquisa+"%'";
         }
         try {
             conn = ConnMysql.getConnection();
@@ -49,16 +49,22 @@ public class ListarUnidadeServlet extends HttpServlet {
             
             if (resultados != null) {
                 while (resultados.next()){
-                    Unidade unidade = new Unidade(resultados.getInt("idUnidade"),
-                            resultados.getString("nomeUnidade"),
-                            resultados.getString("enderecoUnidade"),
-                            resultados.getString("cidade")
-                    );
-                    listaUnidade.add(unidade);
+                    Funcionario funcionario = new Funcionario(resultados.getInt("idFuncionario"),
+                            resultados.getString("nomeFuncionario"),
+                            resultados.getLong("cpfFuncionario"),
+                            resultados.getInt("rgFuncionario"),
+                            resultados.getString("endFuncionario"),
+                            resultados.getDate("dataNascFuncionario"),
+                            resultados.getString("generoFuncionario").charAt(0),
+                            resultados.getString("cargo"),
+                            resultados.getInt("idUnidade"),
+                            resultados.getString("login"),
+                            resultados.getString("senha"));
+                    listaFuncionario.add(funcionario);
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ListarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListarFuncionariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if(stmt != null){
                 try {
@@ -76,8 +82,10 @@ public class ListarUnidadeServlet extends HttpServlet {
             }
         }
         
-        return listaUnidade;
+        return listaFuncionario;
     }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -96,17 +104,17 @@ public class ListarUnidadeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListarUnidadeServlet</title>");            
+            out.println("<title>Servlet ListarFuncionariosServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            ArrayList<Unidade> lista = pesquisarUnidade("");
+            ArrayList<Funcionario> lista = pesquisarFuncionario("");
             for (int i = 0; i < lista.size(); i++) {
-                //out.print(lista.get(i).getIdUnidade());
+                //out.print(lista.get(i).getIdPessoa());
                 out.print(lista.get(i).getNome());
-                out.print(lista.get(i).getEndereco());
+                out.print(lista.get(i).getCargo());
+            }
             out.println("</body>");
             out.println("</html>");
-            }
         }
     }
 
@@ -136,10 +144,11 @@ public class ListarUnidadeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaUnidade", pesquisarUnidade((String) request.getParameter("cidadeUnidade")));
-        request.setAttribute("clickBtnPesquisaUnidade","true");
+        request.setAttribute("listaFuncionario", pesquisarFuncionario((String)request.getParameter("nomeFuncionario")));
+        request.setAttribute("clickBtnPesquisaFuncionario","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
+       
     }
 
     /**
@@ -151,4 +160,5 @@ public class ListarUnidadeServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
