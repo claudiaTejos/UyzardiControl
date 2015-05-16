@@ -42,7 +42,7 @@
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Nome aluno" id="nomeAluno" name="nomeAluno" >
               </div>
-                <button formaction="pesquisarCliente" formmethod="POST" id="btnAlunoPesquisa" class="btn btn-default">Pesquisa</button>
+                <button formaction="pesquisarCliente" formmethod="POST" id="btnAlunoPesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
               <div id="btnAlunoNovo" class="btn btn-primary">Novo</div>
             </form>
         </div>
@@ -111,7 +111,7 @@
         <br>
 
         <div id="dadosAluno" class="oculto">
-            <form formaction="incluirCliente" formmethod="POST">
+            <form formaction="incluirCliente" formmethod="POST" id="controle">
                 <h3 class="form-signin-heading" id="nomeNovoAluno">Nome do aluno</h3>
                 <input type="hidden" name="nomeAlunoIncluir" id="nomeAlunoIncluir"></input>
                 <label for="inputDtNascimento" class="form-label"> Data de nascimento</label>
@@ -148,8 +148,6 @@
     </div>
     
     <div id="vendas" class="oculto">
-        <br><br>Vendas
-        <!-- Parte nova-->
         <div class="produto">
             <form>
                 <div class="form-group">
@@ -226,40 +224,39 @@
                </table>
             </div> 
         </div>  
-        <!-- fim parte nova-->
     </div>
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-        <div id="btnFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
+        <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
         <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnUnidade" class="btn btn-primary">Nova Unidade</div>
+        <div id="btnUnidade" class="btn btn-primary">Unidades</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
     
    
-    <div id="pesquisaFuncionario" class="pesquisa oculto" >
+    <div id="pesquisaFuncionario" class="pesquisa campo oculto" >
         <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Nome funcionário " id="nomeFuncionario" name="nomeFuncionario" >
         </div>
-        <button formaction="ListarFuncionariosServlet" formmethod="POST" id="btnFuncionarioPesquisa" class="btn btn-default">Pesquisa</button>
+        <button formaction="ListarFuncionariosServlet" formmethod="POST" id="btnFuncionarioPesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
         <div id="btnNovoFuncionario" class="btn btn-primary">Novo</div>
         </form>
     </div>
-    <div id="pesquisaUnidade" class="pesquisa oculto" >
+    <div id="pesquisaUnidade" class="pesquisa campo oculto" >
         <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
         </div>
-        <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default">Pesquisa</button>
+        <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
         <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
         </form>
     </div>
         
         <div id="relatorios" class="relatorios oculto">
             <div class="botoesDeGerencia">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-pills nav-justified">
                   <li role="presentation" class="active"><a href="#">Data de Inicio</a></li>
                   <li role="presentation"><a href="#">Data de Fim</a></li>
                   <li role="presentation"><a href="#">Unidade</a></li>
@@ -300,7 +297,7 @@
             </div>
             
             <div  id="cadastrarProduto" class="cadastrarProduto oculto">
-                <form id="dadosProduto" action="IncluirProdutoServlet" method="post">
+                <form  id="controle" action="IncluirProdutoServlet" method="post">
                     <label for="inputNomeProduto" class="form-label">Nome do produto</label>
                     <input type="text" id="inputNomeProduto" class="form-control" placeholder="Nome" name="nome" required>
                     <label for="inputIdioma" class="form-label">Idioma do Produto</label>
@@ -316,9 +313,8 @@
         
         
         
-        <!--parte nova  -->
     <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
-        <form id="dadosFuncionario" action="IncluirFuncionarioServlet" method="POST">
+        <form  id="controle" action="IncluirFuncionarioServlet" method="POST">
             <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
             <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
             <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
@@ -364,11 +360,16 @@
             <tr class="tabelaInicio">
                 <td>Nome</td>
                 <td>Cargo</td>
+                <td> </td>
             </tr>
             <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
             <tr>
                 <td><c:out value="${funcionario.nome}" /></td>
                 <td><c:out value="${funcionario.cargo}" /></td>
+                <td>
+                    <button id="btnFuncionarioAtualizaID${funcionario.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</button> 
+                    <button id="btnRemoverFuncionarioID" value="${funcionario.idPessoa}" name="idRemoverFuncionario" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                </td>
             </tr>
             </c:forEach>
         </table>
@@ -379,7 +380,7 @@
     </div> 
         
     <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
-        <form id="dadosUnidade" action="IncluirUnidadeServlet" method="post">
+        <form  id="controle" action="IncluirUnidadeServlet" method="post">
             <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
             <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
             <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
@@ -396,11 +397,16 @@
             <tr class="tabelaInicio">
                 <td>Nome</td>
                 <td>Endereço</td>
+                <td> </td>
             </tr>
             <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
             <tr>
                 <td><c:out value="${unidade.nome}" /></td>
                 <td><c:out value="${unidade.endereco}" /></td>
+                <td>
+                    <button id="btnUnidadeAtualizaID${unidade.idUnidade}" class="btn btn-info btnAtualiza">Atualizar</button> 
+                    <button id="btnRemoverUnidadeID" value="${unidade.idUnidade}" name="idRemoverUnidade" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                </td>
             </tr>
             </c:forEach>
         </table>
