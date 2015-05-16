@@ -281,6 +281,7 @@
                                 <th>Módulo</th>
                                 <th>Valor</th>
                                 <th>Quantidade</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -291,7 +292,13 @@
                                     <td><c:out value="${produto.moduloProduto}" /></td>
                                     <td><c:out value="${produto.valorProduto}" /></td>
                                     <td><c:out value="${produto.quantidadeProduto}" /></td>
-                                    <td></td>
+                                    <td>
+                                        <form action="AlterarQuantidadeProduto" method="POST" id="alterarQuantProd">
+                                            <input type="hidden" value="${produto.idProduto}" name="idProduto"</input>
+                                            <input type="text" id="inputNovaQuantidadeProd" class="form-control" placeholder="Nova Quantidade" name="novaQuantidadeProduto" required>
+                                            <input type="submit" class="btn btn-success" id="alterarQuantidade" value="Salvar">
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
