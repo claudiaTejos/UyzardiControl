@@ -280,6 +280,7 @@
                                 <th>Idioma</th>
                                 <th>Módulo</th>
                                 <th>Valor</th>
+                                <th>Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -289,6 +290,7 @@
                                     <td><c:out value="${produto.idiomaProduto}" /></td>
                                     <td><c:out value="${produto.moduloProduto}" /></td>
                                     <td><c:out value="${produto.valorProduto}" /></td>
+                                    <td><c:out value="${produto.quantidadeProduto}" /></td>
                                     <td></td>
                                 </tr>
                             </c:forEach>
@@ -306,6 +308,8 @@
                     <input id="moduloModulo" placeholder="Módulo" class="form-control" name="modulo">
                     <label for="inputPreco" class="form-label">Preco</label>
                     <input type="text" id="inputPreco" class="form-control" placeholder="Preço" name="valor" required >
+                    <label for="inputQuantidade" class="form-label">Quantidade</label>
+                    <input type="text" id="inputQuantidade" class="form-control" placeholder="Quantidade" name="quantidade" required >
                     <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
                 </form> 
             </div>

@@ -33,8 +33,8 @@ public class IncluirProdutoServlet extends HttpServlet {
         
         String sql = "INSERT INTO `Produto`"
                 + "(`nomeProduto`, `idiomaProduto`, "
-                + "`moduloProduto`, `valorProduto`) VALUES "
-                + "(?,?,?,?)";
+                + "`moduloProduto`, `valorProduto`, `quantidade`) VALUES "
+                + "(?,?,?,?,?)";
         
         
         try {
@@ -44,6 +44,7 @@ public class IncluirProdutoServlet extends HttpServlet {
             stmt.setString(2, produto.getIdiomaProduto());
             stmt.setString(3, produto.getModuloProduto());
             stmt.setDouble(4, produto.getValorProduto());
+            stmt.setInt(5, produto.getQuantidadeProduto());
             stmt.executeUpdate();
             System.out.println("Incluído com sucesso");
         } catch (SQLException ex) {
@@ -125,10 +126,12 @@ public class IncluirProdutoServlet extends HttpServlet {
         String idioma = request.getParameter("idioma");
         String modulo = request.getParameter("modulo");
         String valorString = request.getParameter("valor");
+        String quantidadeString = request.getParameter("quantidade");
         
         double valorDouble = Double.parseDouble(valorString);
+        int quantidadeInt = Integer.parseInt(quantidadeString);
         
-        Produto produto = new Produto(nome, idioma, modulo, valorDouble);
+        Produto produto = new Produto(nome, idioma, modulo, valorDouble, quantidadeInt);
         
         try {
             incluirProduto(produto);

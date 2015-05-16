@@ -17,20 +17,23 @@ public class Produto {
     private String idiomaProduto;
     private String moduloProduto;
     private double valorProduto;
+    private int quantidadeProduto;
 
-    public Produto(String nome, String idioma, String modulo, Double valor){
+    public Produto(String nome, String idioma, String modulo, Double valor, int quantidade){
         this.nomeProduto = nome;
         this.idiomaProduto = idioma;
         this.moduloProduto = modulo;
         this.valorProduto = valor;
+        this.quantidadeProduto = quantidade;
     }
     
-    public Produto(int idProduto, String nome, String idioma, String modulo, Double valor){
+    public Produto(int idProduto, String nome, String idioma, String modulo, Double valor, int quantidade){
         this.idProduto = idProduto;
         this.nomeProduto = nome;
         this.idiomaProduto = idioma;
         this.moduloProduto = modulo;
         this.valorProduto = valor;
+        this.quantidadeProduto = quantidade;
     }
     /**
      * @return the idProduto
@@ -93,6 +96,20 @@ public class Produto {
      */
     public void setValorProduto(double valorProduto) {
         this.valorProduto = valorProduto;
+    }
+
+    /**
+     * @return the quantidadeProduto
+     */
+    public int getQuantidadeProduto() {
+        return quantidadeProduto;
+    }
+
+    /**
+     * @param quantidadeProduto the quantidadeProduto to set
+     */
+    public void setQuantidadeProduto(int quantidadeProduto) {
+        this.quantidadeProduto = quantidadeProduto;
     }
     
     
