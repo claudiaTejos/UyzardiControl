@@ -93,6 +93,7 @@ public class ListaMatriculaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            ArrayList<Matricula> listaMatricula = listaMatricula(null);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -101,6 +102,11 @@ public class ListaMatriculaServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ListaMatriculaServlet at " + request.getContextPath() + "</h1>");
+            for (int i = 0; i < listaMatricula.size(); i++) {
+                out.println(listaMatricula.get(i).getIdMatricula());
+                out.println(listaMatricula.get(i).getDataMatricula());
+                out.println(listaMatricula.get(i).getStatusMatricula());
+            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -134,7 +140,7 @@ public class ListaMatriculaServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setAttribute("listaMatricula", listaMatricula(
                 request.getAttribute("idAlunoMatricula")));
-        request.setAttribute("clickBtnMatricula", "true");
+        request.setAttribute("clickBtnListaMatricula", "true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
         

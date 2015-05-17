@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,34 +26,33 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudia
+ * @author Claudio
  */
-@WebServlet(name = "incluirCliente", urlPatterns = {"/incluirCliente"})
-public class IncluirClienteServlet extends HttpServlet {
-
-    private boolean incluirCliente(Cliente cliente){
-        boolean controle = false;
+@WebServlet(name = "incluirMatricula", urlPatterns = {"/incluirMatricula"})
+public class IncluirMatriculaServlet extends HttpServlet {
+    
+    public boolean incluirMatricula(Matricula novaMatricula){
+        boolean resultado = false;
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO `Cliente`"
-                + "(nomeCliente, dataNascimentoCliente,"
-                + "sexoCliente,enderecoCliente, cpfCliente, rgCliente, idUnidade) VALUES"
-                + "(?,?,?,?,?,?,?)";
-        
+        String sql = "INSERT INTO `Matricula`"
+                + "(idCliente, idFuncionario,idCurso, "
+                + "dataHoraMatricula, StatusMatricula) VALUES"
+                + "(?,?,?,?,?)";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setDate(2, new java.sql.Date(cliente.getDtNasc().getTime()));
-            stmt.setObject(3, cliente.getGenero(), java.sql.Types.VARCHAR);
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setLong(5, cliente.getCpf());
-            stmt.setInt(6, cliente.getRg());
-            stmt.setInt(7, cliente.getIdUnidade());
+            stmt.setInt(1, novaMatricula.getIdCliente());
+            stmt.setInt(2, novaMatricula.getIdFuncionario());
+            stmt.setInt(3, novaMatricula.getIdCurso());
+            stmt.setDate(4, new java.sql.Date(novaMatricula.getDataMatricula().getTime()));
+            stmt.setString(5, novaMatricula.getStatusMatricula());
+            
+            
             stmt.executeUpdate();
-            controle = true;
+            resultado = true;
             
         } catch (SQLException ex) {
             Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,14 +72,10 @@ public class IncluirClienteServlet extends HttpServlet {
                 }
             }
         }
-        return controle;
+        
+        return resultado;
     }
 
-    
-    
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -99,10 +93,9 @@ public class IncluirClienteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirAlunoServlet</title>");            
+            out.println("<title>Servlet IncluirMatriculaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirAlunoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -134,34 +127,21 @@ public class IncluirClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nome = request.getParameter("nomeAlunoIncluir");
-        String dtNasc = request.getParameter("dt_Nascimento");
-        char generoCliente = request.getParameter("inlineRadioOptions").charAt(0);
-        String endereco = request.getParameter("endereco");
-        long cpfCliente = Long.parseLong(request.getParameter("cpf"));
-        int rgCliente = Integer.parseInt(request.getParameter("rg"));
+        
+        int cliente = Integer.parseInt(request.getParameter("hiddenCliente"));
+        int opcaoCurso = Integer.parseInt(request.getParameter("optionCurso"));
         int unidade = Integer.parseInt(request.getParameter("unidadeCliente"));
-        Date dtNascimento = null;
+        Date data = new Date();
         
-        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            dtNascimento = formatadorData.parse(dtNasc);
-        } catch (ParseException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Matricula novaMatricula = new Matricula(cliente, data, unidade, opcaoCurso, "A");
         
-        Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
-        
-        if (incluirCliente(cliente)) {
+        if (incluirMatricula(novaMatricula)) {
             request.setAttribute("resultadoIncluir", true);
-            request.setAttribute("novoCliente", cliente);
+            request.setAttribute("matricula", novaMatricula);
         }
         else{
             request.setAttribute("resultadoIncluir", false);
         }
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

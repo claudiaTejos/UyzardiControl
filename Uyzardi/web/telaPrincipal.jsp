@@ -17,16 +17,16 @@
     <c:if test="${not empty clickBtnPesquisa}">
         <input type="hidden" id="hiddenPesquisa" value="true">
     </c:if>
-        <c:if test="${not empty clickBtnPesquisaUnidade}">
+    <c:if test="${not empty clickBtnPesquisaUnidade}">
         <input type="hidden" id="hiddenPesquisaUnidade" value="true">
     </c:if>
     <c:if test="${not empty clickBtnPesquisaFuncionario}">
         <input type="hidden" id="hiddenPesquisaFuncionario" value="true">
     </c:if>
-    
     <c:if test="${resultadoIncluir}">
         <input type="hidden" id="hiddenSelecionaCurso" value="true">
     </c:if>
+        
     <div class="empresa"><h1>Uizardy Control</h1></div>
     <div class="menu-geral">
     	<ul class="nav nav-pills nav-justified">
@@ -71,12 +71,14 @@
                 <div class="aviso">Não foi encontrado nenhum resultados.</div>
             </c:if>
         </div> 
-
         
         <div id="selecionaCurso" class="matricula-aluno oculto">
             <form>
-                <h2 id=""nomeAlunoMatricula>Nome do aluno</h2>
-                <select class="form-control">
+                <h2 id="nomeAlunoMatricula">Nome do aluno</h2>
+                <c:if test="${not empty novoCliente}">
+                    <input type="hidden" id="hiddenPesquisa" value="${cliente.idCliente}">
+                </c:if>
+                <select class="form-control" name="optionCurso">
                     <option >Curso</option>
                     <option value="ingles">Ingles</option>
                     <option value="frances">Frances</option>
