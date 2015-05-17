@@ -38,12 +38,10 @@ public class ConnMysql {
         return conn; 
 
         } catch (ClassNotFoundException e) {  //Driver não encontrado 
-                System.out.println("O driver expecificado nao foi encontrado.");
-                return null;
+                throw new RuntimeException("O driver expecificado nao foi encontrado.", e);
         } catch (SQLException e) {
         //Não conseguindo se conectar ao banco
-            System.out.println("Nao foi possivel conectar ao Banco de Dados.");
-            return null;
+            throw new RuntimeException("Nao foi possivel conectar ao Banco de Dados.",e);
         }
     }
     
