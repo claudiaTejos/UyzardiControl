@@ -53,12 +53,14 @@ li{
     margin-left: 36%;
     width:600px;
 }
-.campo.pesquisa{
+#campo{
     padding-top: 10px;;
     margin-left: 36%;
     width:600px;
+    margin-bottom: 50px;
 
 }
+
 .tabelaInicio{
     font-weight:bold;
 }

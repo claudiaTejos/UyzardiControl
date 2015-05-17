@@ -276,26 +276,6 @@
         <div id="btnUnidade" class="btn btn-primary">Unidades</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
-    
-   
-    <div id="pesquisaFuncionario" class="pesquisa campo oculto" >
-        <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nome funcionário " id="nomeFuncionario" name="nomeFuncionario" >
-        </div>
-        <button formaction="ListarFuncionariosServlet" formmethod="POST" id="btnFuncionarioPesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
-        <div id="btnNovoFuncionario" class="btn btn-primary">Novo</div>
-        </form>
-    </div>
-    <div id="pesquisaUnidade" class="pesquisa campo oculto" >
-        <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
-        </div>
-        <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
-        <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
-        </form>
-    </div>
         
         <div id="relatorios" class="relatorios oculto">
             <div class="botoesDeGerencia">
@@ -366,109 +346,133 @@
         </div>
         
         
-        
-    <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
-        <form  id="controle" action="IncluirFuncionarioServlet" method="POST">
-            <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
-            <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
-            <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
-            <input type="date" id="inputNascimentoFuncionario"  class="form-control" name="dtNascimento" required>
-            <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
-            <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
-            <label for="inputCPFFuncionario" class="form-label">CPF</label>
-            <input type="text" id="inputCPFFuncionario"  class="form-control" placeholder="CPF" name="cpfFuncionario" required >
-            <label for="inputRGFuncionario" class="form-label">RG</label>
-            <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario" required >
-            <h4 class="genero">Genero</h4>
-            <label for="inputGeneroFuncionario" class="genero">   
-            <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
-            <label for="inputGenero" class="genero2">
-            <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
-            <label for="inputCargoFuncionario" class="form-label" id="cargo">Cargo</label>
-            <input type="text" id="inputCargoFuncionario"  class="form-control" placeholder="Cargo" name="cargoFuncionario" required >
-            <label for="unidade" class="form-label unidade">Unidade</label>
-                <select class="form-control" id="unidade" name="unidadeFuncionario">
-                    <option value="1">São Paulo</option>
-                    <option value="2">Rio de Janeiro</option>
-                    <option value="5">Belo Horizonte </option>
-                    <option value="6">Curitiba</option>
-                    <option value="7">Porto Alegre</option>
-                    <option value="8">Florianopolis</option>
-                    <option value="9">Salvador</option>
-                    <option value="10">Recife</option>
-                    <option value="11">Goiania</option>
-                    <option value="12">Manaus</option>
-                    <option value="13">Belem</option>
-                    <option value="14">Brasilia</option>
-                </select>
-            <label for="inputLoginFuncionario" class="form-label">Login</label>
-            <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario" required >
-            <label for="inputSenhaFuncionario" class="form-label">Senha</label>
-            <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" required >
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
-    </div>
-    <div id="listarFuncionario" class="oculto">
-        <c:if test="${not empty listaFuncionario}">
-        <table class="table table-striped">
-            <tr class="tabelaInicio">
-                <td>Nome</td>
-                <td>Cargo</td>
-                <td> </td>
-            </tr>
-            <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
-            <tr>
-                <td><c:out value="${funcionario.nome}" /></td>
-                <td><c:out value="${funcionario.cargo}" /></td>
-                <td>
-                    <button id="btnFuncionarioAtualizaID${funcionario.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</button> 
-                    <button id="btnRemoverFuncionarioID" value="${funcionario.idPessoa}" name="idRemoverFuncionario" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
-                </td>
-            </tr>
-            </c:forEach>
-        </table>
-        </c:if>
-        <c:if test="${empty listaFuncionario}">
-            <div class="aviso">Não foi encontrado nenhum resultados funcionario.</div>
-        </c:if>
+     <div id="pesquisaFuncionario" class="pesquisa  oculto" >
+         <div id="campo">
+            <form class="navbar-form navbar-left " role="search" >
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nome funcionário " id="nomeFuncionario" name="nomeFuncionario" >
+            </div>
+            <button formaction="ListarFuncionariosServlet" formmethod="POST" id="btnFuncionarioPesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
+            <div id="btnNovoFuncionario" class="btn btn-primary">Novo</div>
+            </form>
+         </div>
+      
+        <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
+            <form  id="controle" action="IncluirFuncionarioServlet" method="POST">
+                <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
+                <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
+                <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
+                <input type="date" id="inputNascimentoFuncionario"  class="form-control" name="dtNascimento" required>
+                <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
+                <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
+                <label for="inputCPFFuncionario" class="form-label">CPF</label>
+                <input type="text" id="inputCPFFuncionario"  class="form-control" placeholder="CPF" name="cpfFuncionario" required >
+                <label for="inputRGFuncionario" class="form-label">RG</label>
+                <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario" required >
+                <h4 class="genero">Genero</h4>
+                <label for="inputGeneroFuncionario" class="genero">   
+                <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
+                <label for="inputGenero" class="genero2">
+                <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
+                <label for="inputCargoFuncionario" class="form-label" id="cargo">Cargo</label>
+                <input type="text" id="inputCargoFuncionario"  class="form-control" placeholder="Cargo" name="cargoFuncionario" required >
+                <label for="unidade" class="form-label unidade">Unidade</label>
+                    <select class="form-control" id="unidade" name="unidadeFuncionario">
+                        <option value="1">São Paulo</option>
+                        <option value="2">Rio de Janeiro</option>
+                        <option value="5">Belo Horizonte </option>
+                        <option value="6">Curitiba</option>
+                        <option value="7">Porto Alegre</option>
+                        <option value="8">Florianopolis</option>
+                        <option value="9">Salvador</option>
+                        <option value="10">Recife</option>
+                        <option value="11">Goiania</option>
+                        <option value="12">Manaus</option>
+                        <option value="13">Belem</option>
+                        <option value="14">Brasilia</option>
+                    </select>
+                <label for="inputLoginFuncionario" class="form-label">Login</label>
+                <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario" required >
+                <label for="inputSenhaFuncionario" class="form-label">Senha</label>
+                <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" required >
+                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+            </form> 
+        </div>
+        <div id="listarFuncionario" class="oculto">
+            <c:if test="${not empty listaFuncionario}">
+            <table class="table table-striped">
+                <tr class="tabelaInicio">
+                    <td>Nome</td>
+                    <td>Cargo</td>
+                    <td> </td>
+                </tr>
+                <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
+                <tr>
+                    <td><c:out value="${funcionario.nome}" /></td>
+                    <td><c:out value="${funcionario.cargo}" /></td>
+                    <td>
+                        <button id="btnFuncionarioAtualizaID${funcionario.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</button> 
+                        <button id="btnRemoverFuncionarioID" value="${funcionario.idPessoa}" name="idRemoverFuncionario" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                    </td>
+                </tr>
+                </c:forEach>
+            </table>
+            </c:if>
+            <c:if test="${empty listaFuncionario}">
+                <div class="aviso">Não foi encontrado nenhum resultados funcionario.</div>
+            </c:if>
+        </div> 
     </div> 
+     
         
-    <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
-        <form  id="controle" action="IncluirUnidadeServlet" method="post">
-            <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
-            <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
-            <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
-            <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
-            <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
-            <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
+    <div id="pesquisaUnidade" class="pesquisa  oculto" >
+        <div id="campo">
+            <form class="navbar-form navbar-left " role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
+            </div>
+            <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
+            <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
+            </form>
+        </div>
+        
+        <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
+            <form  id="controle" action="IncluirUnidadeServlet" method="post">
+                <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
+                <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
+                <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
+                <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
+                <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
+                <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
+                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+            </form> 
+        </div>
+        
+        <div id="listarUnidade" class="oculto">
+            <c:if test="${not empty listaUnidade}">
+            <table class="table table-striped">
+                <tr class="tabelaInicio">
+                    <td>Nome</td>
+                    <td>Endereço</td>
+                    <td> </td>
+                </tr>
+                <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
+                <tr>
+                    <td><c:out value="${unidade.nome}" /></td>
+                    <td><c:out value="${unidade.endereco}" /></td>
+                    <td>
+                        <button id="btnUnidadeAtualizaID${unidade.idUnidade}" class="btn btn-info btnAtualiza">Atualizar</button> 
+                        <button id="btnRemoverUnidadeID" value="${unidade.idUnidade}" name="idRemoverUnidade" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                    </td>
+                </tr>
+                </c:forEach>
+            </table>
+            </c:if>
+            <c:if test="${empty listaUnidade}">
+                <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
+            </c:if>
+        </div>
     </div>
-        
-    <div id="listarUnidade" class="oculto">
-        <c:if test="${not empty listaUnidade}">
-        <table class="table table-striped">
-            <tr class="tabelaInicio">
-                <td>Nome</td>
-                <td>Endereço</td>
-                <td> </td>
-            </tr>
-            <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
-            <tr>
-                <td><c:out value="${unidade.nome}" /></td>
-                <td><c:out value="${unidade.endereco}" /></td>
-                <td>
-                    <button id="btnUnidadeAtualizaID${unidade.idUnidade}" class="btn btn-info btnAtualiza">Atualizar</button> 
-                    <button id="btnRemoverUnidadeID" value="${unidade.idUnidade}" name="idRemoverUnidade" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
-                </td>
-            </tr>
-            </c:forEach>
-        </table>
-        </c:if>
-        <c:if test="${empty listaUnidade}">
-            <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
-        </c:if>
-    </div> 
  
     <script src="js/telaPrincipal.js"></script>
     <c:if test='${paginaAtual == "produtos"}'>

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Elisabete
+ * @author Claudia Tejos
  */
 @WebServlet(name = "ListarFuncionariosServlet", urlPatterns = {"/ListarFuncionariosServlet"})
 public class ListarFuncionariosServlet extends HttpServlet {
