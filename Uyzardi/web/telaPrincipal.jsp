@@ -411,8 +411,11 @@
                     <td><c:out value="${funcionario.nome}" /></td>
                     <td><c:out value="${funcionario.cargo}" /></td>
                     <td>
-                        <button id="btnFuncionarioAtualizaID${funcionario.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</button> 
-                        <button id="btnRemoverFuncionarioID" value="${funcionario.idPessoa}" name="idRemoverFuncionario" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                        <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
+                        <form action="removerFuncionarioServlet" method="POST" >
+                            <input type="hidden" value="${funcionario.idPessoa}" name="idRemoverFuncionario">
+                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
+                        </form>
                     </td>
                 </tr>
                 </c:forEach>
@@ -461,8 +464,11 @@
                     <td><c:out value="${unidade.nome}" /></td>
                     <td><c:out value="${unidade.endereco}" /></td>
                     <td>
-                        <button id="btnUnidadeAtualizaID${unidade.idUnidade}" class="btn btn-info btnAtualiza">Atualizar</button> 
-                        <button id="btnRemoverUnidadeID" value="${unidade.idUnidade}" name="idRemoverUnidade" class="btn btn-danger glyphicon glyphicon-trash " formmethod="POST" formaction="listaMatricula"></button>
+                        <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
+                        <form action="removerUnidadeServlet" method="POST" >
+                            <input type="hidden" value="${unidade.idUnidade}" name="idRemoverUnidade">
+                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
+                        </form>
                     </td>
                 </tr>
                 </c:forEach>
