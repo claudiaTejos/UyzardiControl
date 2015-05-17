@@ -408,7 +408,7 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
-    <div id="listarFuncionario" class="">
+    <div id="listarFuncionario" class="oculto">
         <c:if test="${not empty listaFuncionario}">
         <table class="table table-striped">
             <tr class="tabelaInicio">
