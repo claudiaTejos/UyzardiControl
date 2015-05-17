@@ -153,7 +153,7 @@
                 <br>
                 <br>
                 <h3>Produtos Disponíveis para Venda:</h3>
-                <form>
+                <form action="CriarCarrinhoServlet" method="post">
                     <table class="table">
                         <thead>
                             <tr>
@@ -175,17 +175,77 @@
                                     <td><c:out value="${produto.valorProduto}" /></td>
                                     <td><c:out value="${produto.quantidadeProduto}" /></td>
                                     <td>
-                                        <input type="number"  min="0" max="${produto.quantidadeProduto}" placeholder="0" 
-                                               name="quantidade${produto.idProduto}" >    
+                                        <input type="number"  min="0" max="${produto.quantidadeProduto}" 
+                                               name="quantidade${produto.idProduto}" value="0" required>    
                                         </input>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
+                    <input type="text" class="form-control" id="cpfCliente" placeholder="CPF do Cliente" name="cpfCliente" required>
                     <input type="submit" class="btn btn-success" id="btnComprar" value="Comprar">
                 </form>
             </div>
+            
+        </c:if>
+        
+        <c:if test='${etapa == "carrinho"}'>
+            <div id="listarProdutosPedidos" class="listarProdutosPedidos">
+                <br>
+                <br>
+                <h3>Produtos Requeridos:</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Idioma</th>
+                                <th>Módulo</th>
+                                <th>Valor</th>
+                                <th>Quantidade Solicitada</th>
+                                <th>Valor da Quantidade</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:set var="total" value="0" />
+                            <c:forEach items="${listaProdutosPedidos}" var="produto">
+                                <tr>
+                                    <td><c:out value="${produto.nomeProduto}" /></td>
+                                    <td><c:out value="${produto.idiomaProduto}" /></td>
+                                    <td><c:out value="${produto.moduloProduto}" /></td>
+                                    <td><c:out value="${produto.valorProduto}" /></td>
+                                    <td><c:out value="${produto.quantidadeProduto}" /></td>
+                                    <td><c:out value="${produto.valorProduto * produto.quantidadeProduto}"></c:out></td>
+                                </tr>
+                                <c:set var="total" value="${total + produto.valorProduto * produto.quantidadeProduto}" />
+                            </c:forEach>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">Total: <c:out value="${total}"/></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Cliente:</th>
+                            <th>CPF:</th>
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><c:out value="${cliente.nome}" /></td>
+                            <td><c:out value="${cliente.cpf}" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="RealizarCompraServlet" method="post">
+                    <input type="submit" class="btn btn-success" id="btnComprar" value="Confirmar Compra">
+                </form>
+            </div>
+            
             
         </c:if>
         
