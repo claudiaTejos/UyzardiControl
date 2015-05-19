@@ -226,10 +226,11 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-        <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
-        <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnNovaUnidade" class="btn btn-primary">Nova Unidade</div>
-        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
+            <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
+            <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnNovoCurso" class="btn btn-primary">Novo Curso</div>
+            <div id="btnNovaUnidade" class="btn btn-info">Nova Unidade</div>
+            <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -328,6 +329,45 @@
             <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
         </form> 
     </div>
+    
+    <div  id="cadastrarCurso" class="cadastrarCurso oculto">
+        <form id="dadosCurso" action="IncluirCursoServlet" method="post">
+            <label for="inputNomeCurso" class="form-label">Nome Curso</label>
+            <input type="text" id="inputNomeCurso" class="form-control" placeholder="curso" name="nomeCurso" required>
+            <label for="inputModuloCurso" class="form-label">Módulo</label>
+            <input id="inputIdioma" placeholder="moduloCurso" class="form-control" name="moduloCurso" required>
+            <label for="inputSala"class="form-label">Sala</label>
+            <input id="moduloModulo" placeholder="sala" class="form-control" name="salaCurso">
+            <label for="inputValor" class="form-label">Valor</label>
+            <input type="text" id="inputValor" class="form-control" placeholder="valor" name="valor" required >
+            <label for="inputVagas" class="form-label">Vagas</label>
+            <input type="text" id="inputVagas" class="form-control" placeholder="vagas" name="vagas" required >
+            <label for="unidade" class="form-label unidade">Unidade</label>
+            <select class="form-control" id="unidade" name="unidade">
+                    <option value="1">Rio de Janeiro</option>
+                    <option value="2">Belo Horizonte </option>
+                    <option value="3">Curitiba</option>
+                    <option value="4">Porto Alegre</option>
+                    <option value="5">Florianopolis</option>
+                    <option value="6">Salvador</option>
+                    <option value="7">Recife</option>
+                    <option value="8">Goiania</option>
+                    <option value="9">Manaus</option>
+                    <option value="10">Belem</option>
+                    <option value="11">Brasilia</option>
+                </select>
+           <label for="periodo" class="form-label unidade">Periodo</label>
+                <select class="form-control" id="periodo" name="periodo">
+                    <option value="1">Manha 9h30</option>
+                    <option value="2">Manha 11h30</option>
+                    <option value="3">Tarde 2h45</option>
+                    <option value="4">Tarde 4h50</option>
+                    <option value="5">Noite 18h</option>
+                    <option value="6">Noite 20h</option>
+                </select>
+            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+        </form> 
+    </div>     
         
     <div id="excluirProduto" class="excluirProduto oculto">
         JOana

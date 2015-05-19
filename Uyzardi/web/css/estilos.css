@@ -159,6 +159,22 @@ li{
 .unidade{
     display: block;
 }
+#dadosCurso .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}
+#dadosCurso #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+}
+#dadosCurso .form-control{
+    width: 600px;
+    margin-left:25%;
+}
+.curso{
+    display: block;
+}
 #nomeNovoAluno{
     margin-left: 25%;
 }

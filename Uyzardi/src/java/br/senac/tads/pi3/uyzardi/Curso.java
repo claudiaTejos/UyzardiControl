@@ -16,9 +16,26 @@ public class Curso {
     private String nomeCurso;
     private int moduloCurso;
     private int salaCurso;
-    private Unidade unidade;
     private int qtd_vagas;
     private double valor;
+    private int periodo;
+    private int idUnidade;
+    
+    Curso(String nomecurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int unidade) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    Curso(int idCurso , String nomecurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int unidade) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    Curso(String nomeCurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
+        this.nomeCurso = nomeCurso;
+        this.moduloCurso = modulocurso;
+        this.salaCurso = salacurso;
+        this.qtd_vagas = qtd_vagas;
+        this.valor = valor;
+        this.idUnidade = idUnidade;
+        this.periodo = periodo;
+    }
 
     /**
      * @return the id_curso
@@ -57,29 +74,29 @@ public class Curso {
     /**
      * @return the modulo
      */
-    public int getModulo() {
-        return getModuloCurso();
+    public String getNomeCurso() {
+        return nomeCurso;
     }
 
     /**
      * @param modulo the modulo to set
      */
-    public void setModulo(int modulo) {
-        this.setModuloCurso(modulo);
+    public void setNomeCurso(String nomeCurso) {
+        this.setNomeCurso(nomeCurso);
     }
 
     /**
      * @return the sala
      */
-    public int getSala() {
-        return getSalaCurso();
+    public int getSalaCurso() {
+        return salaCurso;
     }
 
     /**
      * @param sala the sala to set
      */
-    public void setSala(int sala) {
-        this.setSalaCurso(sala);
+    public void setSalaCurso(int salaCurso) {
+        this.setSalaCurso(salaCurso);
     }
 
     /**
@@ -97,31 +114,30 @@ public class Curso {
     }
 
     /**
-     * @return the salaCurso
+     * @return the idUnidade
      */
-    public int getSalaCurso() {
-        return salaCurso;
+    public int getIdUnidade() {
+        return idUnidade;
     }
 
     /**
-     * @param salaCurso the salaCurso to set
+     * @param idUnidade the idUnidade to set
      */
-    public void setSalaCurso(int salaCurso) {
-        this.salaCurso = salaCurso;
+    public void setIdUnidade(int idUnidade) {
+        this.idUnidade = idUnidade;
+    } 
+
+    /**
+     * @return the periodo
+     */
+    public int getPeriodo() {
+        return periodo;
     }
 
     /**
-     * @return the unidade
+     * @param periodo the periodo to set
      */
-    public Unidade getUnidade() {
-        return unidade;
+    public void setPeriodo(int periodo) {
+        this.periodo = periodo;
     }
-
-    /**
-     * @param unidade the unidade to set
-     */
-    public void setUnidade(Unidade unidade) {
-        this.unidade = unidade;
-    }
-     
 }
