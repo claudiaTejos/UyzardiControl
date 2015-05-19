@@ -10,7 +10,6 @@ var btnPesquisaAluno = document.getElementById("btnAlunoPesquisa");
 var divPesquisaAluno = document.getElementById("listaAluno");
 var txtNomeAluno = document.getElementById("nomeAluno");
 var inputNomeAluno = document.getElementById("nomeAlunoIncluir");
-<<<<<<< HEAD
 var btnCadastroFuncionario = document.getElementById("btnCadastroFuncionario");
 var divCadastroFuncionario = document.getElementById("cadastrarFuncionario");
 var btnRelatorios = document.getElementById("btnRelatorios");
@@ -23,8 +22,7 @@ var btnProdutos = document.getElementById("btnProdutos2");
 var divProdutos2 = document.getElementById("produtos2");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
-=======
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
+
 
 // vendas
 var btnVendas = document.getElementById("btnVendas");
@@ -159,16 +157,14 @@ function mudarOcultoFuncionario(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-<<<<<<< HEAD
     if (!divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
-=======
+    }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
     }
     if (divFuncionario.classList.contains("oculto")) {
         divFuncionario.classList.toggle("oculto");
@@ -205,16 +201,14 @@ function mudarOcultoProdutos(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-<<<<<<< HEAD
     if (!divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
-=======
+    }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
     }
     if (divProdutos.classList.contains("oculto")) {
         divProdutos.classList.toggle("oculto");
@@ -241,16 +235,14 @@ function mudarOcultoRelatorios(){
     if (!divProdutos.classList.contains("oculto")) {
         divProdutos.classList.toggle("oculto");
     }
-<<<<<<< HEAD
     if (!divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
     }
     if (!divCadastrarUnidade.classList.contains("oculto")) {
         divCadastrarUnidade.classList.toggle("oculto");
-=======
+    }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
     }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
@@ -269,7 +261,6 @@ function mudarOcultoUnidade(){
     if (!divProdutos.classList.contains("oculto")) {
         divProdutos.classList.toggle("oculto");
     }
-<<<<<<< HEAD
     if (!divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
     }
@@ -294,8 +285,6 @@ function mudarOcultoNovoCurso(){
     if (divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
     }
-}
-=======
     if (divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }    
@@ -320,9 +309,6 @@ function mudarOcultoPesquisaUnidade() {
         divPesquisarUnidade.classList.toggle("oculto");
     }
 }
-
-
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
    
 
 //Eventos
@@ -349,11 +335,9 @@ btnCadastrarProduto.addEventListener("click", mudarOcultoCadastrarProduto);
 
 ///////////// eventos de relatorios
 btnRelatorios.addEventListener("click",mudarOcultoRelatorios);
-<<<<<<< HEAD
 btnCadastrarUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 btnCadastrarCurso.addEventListener("click", mudarOcultoNovoCurso);
-=======
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
+
 
 ///////////// eventos de unidade
 btnUnidade.addEventListener("click", mudarOcultoUnidade);

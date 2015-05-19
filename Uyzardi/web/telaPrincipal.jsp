@@ -333,18 +333,13 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-<<<<<<< HEAD
-            <div id="btnCadastroFuncionario" class="btn btn-primary">Cadastrar Funcionario</div>
             <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-            <div id="btnNovoCurso" class="btn btn-primary">Novo Curso</div>
-            <div id="btnNovaUnidade" class="btn btn-info">Nova Unidade</div>
+            <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
-=======
         <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
         <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
         <div id="btnUnidade" class="btn btn-primary">Unidades</div>
         <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -477,16 +472,16 @@
                     <td> </td>
                 </tr>
                 <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
-                <tr>
+                    <tr><form>
                     <td><c:out value="${funcionario.nome}" /></td>
                     <td><c:out value="${funcionario.cargo}" /></td>
                     <td>
                         <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
-                        <form action="removerFuncionarioServlet" method="POST" >
+                        <!-- <form action="removerFuncionarioServlet" method="POST" >*/ -->
                             <input type="hidden" value="${funcionario.idPessoa}" name="idRemoverFuncionario">
                             <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
-                        </form>
-                    </td>
+                        
+                    </td></form>
                 </tr>
                 </c:forEach>
             </table>
@@ -497,8 +492,6 @@
         </div> 
     </div> 
      
-        
-<<<<<<< HEAD
         <!--parte nova  -->
     <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
         <form id="dadosFuncionario">
@@ -573,8 +566,6 @@
     </div>     
         
     <div id="excluirProduto" class="excluirProduto oculto">
-        JOana
-=======
     <div id="pesquisaUnidade" class="pesquisa  oculto" >
         <div id="campo">
             <form class="navbar-form navbar-left " role="search">
@@ -585,7 +576,6 @@
             <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
             </form>
         </div>
->>>>>>> 6626dc1b9dbbf8fc2a28cdcab100c0c684428b86
         
         <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
             <form  id="controle" action="IncluirUnidadeServlet" method="post">
