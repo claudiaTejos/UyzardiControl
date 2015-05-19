@@ -113,7 +113,7 @@ public class removerFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
         
-        int idFuncionario = Integer.parseInt(request.getParameter("idRemoverFuncionario"));
+        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
 
         removerFuncionario(idFuncionario);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");

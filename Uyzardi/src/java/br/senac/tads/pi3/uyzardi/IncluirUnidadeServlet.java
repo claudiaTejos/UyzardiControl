@@ -123,7 +123,7 @@ public class IncluirUnidadeServlet extends HttpServlet {
         Unidade unidade = new Unidade(nome, endereco, cidade);
         incluirUnidade(unidade);
 
-        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");
         rd.forward(request, response);
 
     }

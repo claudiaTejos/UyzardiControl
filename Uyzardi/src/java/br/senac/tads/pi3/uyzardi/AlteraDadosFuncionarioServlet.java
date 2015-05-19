@@ -10,10 +10,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,21 +29,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author joana.omsilva
+ * @author Claudia Tejos
  */
-@WebServlet(name = "IncluirFuncionarioServlet", urlPatterns = {"/IncluirFuncionarioServlet"})
-public class IncluirFuncionarioServlet extends HttpServlet {
+@WebServlet(name = "AlteraDadosFuncionarioServlet", urlPatterns = {"/AlteraDadosFuncionarioServlet"})
+public class AlteraDadosFuncionarioServlet extends HttpServlet {
+    
+    public void alteraDadosFunc(int idFuncionario, Funcionario funcionario ){
 
-    private void incluirFuncionario(Funcionario funcionario){
         PreparedStatement stmt = null;
         Connection conn = null;
-        
-        String sql = "INSERT INTO `Funcionario`"
-                + "(`nomeFuncionario`, `cpfFuncionario`,"
-                + "`rgFuncionario`,`endFuncionario`,`generoFuncionario`, `dataNascFuncionario`,"
-                + "`cargo`, `idUnidade`, `login`, `senha`) VALUES"
-                + "(?,?,?,?,?,?,?,?,?,?)";
-        
+
+        String sql = "UPDATE `Funcionario` SET `nomeFuncionario` = ?, `cpfFuncionario` = ?,"
+                + "`rgFuncionario` = ?, `endFuncionario` = ?, `dataNascFuncionario` = ?,"
+                + "`generoFuncionario` = ?, `cargo` = ?, `idUnidade` = ?,"
+                + "`login` = ?, `senha` = ?  WHERE `idFuncionario` = ?";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -48,34 +50,82 @@ public class IncluirFuncionarioServlet extends HttpServlet {
             stmt.setLong(2,funcionario.getCpf());
             stmt.setInt(3,funcionario.getRg());
             stmt.setString(4, funcionario.getEndereco());
-            stmt.setObject(5,funcionario.getGenero(), java.sql.Types.VARCHAR);
-            stmt.setDate(6, new java.sql.Date(funcionario.getDtNasc().getTime()));
+            stmt.setDate(5, new java.sql.Date(funcionario.getDtNasc().getTime()));
+            stmt.setObject(6,funcionario.getGenero(), java.sql.Types.VARCHAR);
             stmt.setString(7, funcionario.getCargo());
             stmt.setInt(8, funcionario.getUnidade());
             stmt.setString(9, funcionario.getLogin());
             stmt.setString(10, funcionario.getSenha());
+            stmt.setInt(11, idFuncionario);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }    
-            
+        }
     }
     
+    public Funcionario pesquisarFuncionario (int idFuncionario){
+        ResultSet resultados = null;
+        Statement stmt = null;
+        Connection conn = null; 
+
+        Funcionario funcionario = null;
+        String sql = "SELECT * FROM `Funcionario` WHERE `idFuncionario` LIKE '%"+idFuncionario+"%'";
+        try {
+            conn = ConnMysql.getConnection();
+            stmt = conn.prepareStatement(sql);
+            resultados = stmt.executeQuery(sql);
+            
+            if (resultados != null) {
+                while (resultados.next()){
+                    funcionario = new Funcionario(resultados.getInt("idFuncionario"),
+                            resultados.getString("nomeFuncionario"),
+                            resultados.getLong("cpfFuncionario"),
+                            resultados.getInt("rgFuncionario"),
+                            resultados.getString("endFuncionario"),
+                            resultados.getDate("dataNascFuncionario"),
+                            resultados.getString("generoFuncionario").charAt(0),
+                            resultados.getString("cargo"),
+                            resultados.getInt("idUnidade"),
+                            resultados.getString("login"),
+                            resultados.getString("senha"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return funcionario;
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -87,19 +137,16 @@ public class IncluirFuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet IncluirFuncionarioServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet IncluirFuncionarioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario")); 
+        request.setAttribute("funcionario", pesquisarFuncionario(idFuncionario));
+        request.setAttribute("idFuncionario", idFuncionario);
+
+        
+        RequestDispatcher rd = request.getRequestDispatcher("AlterarDadosFuncionario.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -128,6 +175,9 @@ public class IncluirFuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));     
+       
         
         String nome = request.getParameter("nomeFuncionario");
         String dtNasc = request.getParameter("dtNascimento");
@@ -154,12 +204,9 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
                 genero, cargo, unidade, login, senha);
         
-        incluirFuncionario(funcionario);
-        
-        
+        alteraDadosFunc(idFuncionario, funcionario);    
         RequestDispatcher rd = request.getRequestDispatcher("ListarFuncionariosServlet");
         rd.forward(request, response);
-
     }
 
     /**

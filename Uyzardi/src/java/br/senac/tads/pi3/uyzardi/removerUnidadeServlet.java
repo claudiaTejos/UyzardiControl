@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Elisabete
+ * @author Claudia Tejos
  */
 @WebServlet(name = "removerUnidadeServlet", urlPatterns = {"/removerUnidadeServlet"})
 public class removerUnidadeServlet extends HttpServlet {
@@ -111,7 +111,7 @@ public class removerUnidadeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idUnidade = Integer.parseInt(request.getParameter("idRemoverUnidade"));
+        int idUnidade = Integer.parseInt(request.getParameter("idUnidade"));
 
         removerUnidade(idUnidade);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");

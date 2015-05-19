@@ -328,13 +328,12 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
+            <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
             <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
             <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
+            <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
-        <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
-        <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnUnidade" class="btn btn-primary">Unidades</div>
-        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
         
         <div id="relatorios" class="relatorios oculto">
@@ -467,16 +466,16 @@
                     <td> </td>
                 </tr>
                 <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
-                    <tr><form>
-                    <td><c:out value="${funcionario.nome}" /></td>
-                    <td><c:out value="${funcionario.cargo}" /></td>
-                    <td>
-                        <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
-                        <!-- <form action="removerFuncionarioServlet" method="POST" >*/ -->
-                            <input type="hidden" value="${funcionario.idPessoa}" name="idRemoverFuncionario">
-                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
-                        
-                    </td></form>
+                    <tr>
+                    <form>
+                        <input type="hidden" name="idFuncionario" value="${funcionario.idPessoa}">
+                        <td><c:out value="${funcionario.nome}" /></td>
+                        <td><c:out value="${funcionario.cargo}" /></td>
+                        <td> 
+                            <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
+                            <button  formmethod="POST" formaction="removerFuncionarioServlet" class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
+                    </td>
+                    </form>
                 </tr>
                 </c:forEach>
             </table>
@@ -487,39 +486,60 @@
         </div> 
     </div> 
      
-        <!--parte nova  -->
-    <div id="cadastrarFuncionario" class="cadastrarFuncionario oculto">
-        <form id="dadosFuncionario">
-            <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
-            <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
-            <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
-            <input type="date" id="inputNascimentoFuncionario"  class="form-control" name="dtNascimento" required>
-            <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
-            <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
-            <label for="inputCPFFuncionario" class="form-label">CPF</label>
-            <input type="text" id="inputCPFFuncionario"  class="form-control" placeholder="CPF" name="cpfFuncionario" required >
-            <label for="inputRGFuncionario" class="form-label">RG</label>
-            <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario" required >
-            <h4 class="genero">Genero</h4>
-            <label for="inputGeneroFuncionario" class="genero">   
-            <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
-            <label for="inputGenero" class="genero2">
-            <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
-    </div>
         
-    <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
-        <form id="dadosUnidade" action="IncluirUnidadeServlet" method="post">
-            <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
-            <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
-            <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
-            <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
-            <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
-            <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
+    <div id="pesquisaUnidade" class="pesquisa oculto" >
+        <div id="campo">
+            <form class="navbar-form navbar-left " role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
+            </div>
+            <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
+            <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
+            </form>
+        </div>
+        
+        <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
+            <form  id="controle" action="IncluirUnidadeServlet" method="post">
+                <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
+                <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
+                <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
+                <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
+                <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
+                <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
+                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+            </form> 
+        </div>
+        
+        <div id="listarUnidade" class="oculto">
+            <c:if test="${not empty listaUnidade}">
+            <table class="table table-striped">
+                <tr class="tabelaInicio">
+                    <td>Nome</td>
+                    <td>Endereço</td>
+                    <td> </td>
+                </tr>
+                <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
+                    <tr>
+                    <form>
+                        <input type="hidden" value="${unidade.idUnidade}" name="idUnidade">
+                        <td><c:out value="${unidade.nome}" /></td>
+                        <td><c:out value="${unidade.endereco}" /></td>
+                        <td>
+                            <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosUnidadeServlet" formmethod="GET">Atualizar</button>
+                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="removerUnidadeServlet" formmethod="POST"></button>
+                        </td>
+                    </form>
+                </tr>
+                </c:forEach>
+            </table>
+            </c:if>
+            <c:if test="${empty listaUnidade}">
+                <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
+            </c:if>
+        </div>
     </div>
+        <!--parte nova  -->
+    
     
     <div  id="cadastrarCurso" class="cadastrarCurso oculto">
         <form id="dadosCurso" action="IncluirCursoServlet" method="post">
@@ -561,58 +581,6 @@
     </div>     
         
     <div id="excluirProduto" class="excluirProduto oculto">
-    <div id="pesquisaUnidade" class="pesquisa  oculto" >
-        <div id="campo">
-            <form class="navbar-form navbar-left " role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Cidade" id="nomeCidade" name="cidadeUnidade" >
-            </div>
-            <button formaction="ListarUnidadeServlet" formmethod="POST" id="btnUnidadePesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
-            <div id="btnNovaUnidade" class="btn btn-primary">Novo</div>
-            </form>
-        </div>
-        
-        <div id="cadastrarUnidade" class="cadastrarUnidade oculto">
-            <form  id="controle" action="IncluirUnidadeServlet" method="post">
-                <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
-                <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" required>
-                <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
-                <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
-                <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
-                <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
-                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-            </form> 
-        </div>
-        
-        <div id="listarUnidade" class="oculto">
-            <c:if test="${not empty listaUnidade}">
-            <table class="table table-striped">
-                <tr class="tabelaInicio">
-                    <td>Nome</td>
-                    <td>Endereço</td>
-                    <td> </td>
-                </tr>
-                <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
-                <tr>
-                    <td><c:out value="${unidade.nome}" /></td>
-                    <td><c:out value="${unidade.endereco}" /></td>
-                    <td>
-                        <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
-                        <form action="removerUnidadeServlet" method="POST" >
-                            <input type="hidden" value="${unidade.idUnidade}" name="idRemoverUnidade">
-                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
-                        </form>
-                    </td>
-                </tr>
-                </c:forEach>
-            </table>
-            </c:if>
-            <c:if test="${empty listaUnidade}">
-                <div class="aviso">Não foi encontrado nenhum resultados unidade.</div>
-            </c:if>
-        </div>
-    </div>
- 
     <script src="js/telaPrincipal.js"></script>
     <c:if test='${paginaAtual == "produtos"}'>
         <script>
@@ -627,5 +595,6 @@
     </c:if>
         
     </div>
+   </div>
 </body>
 </html>
