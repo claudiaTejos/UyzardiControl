@@ -82,7 +82,8 @@ public class LoginServlet extends HttpServlet {
             ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
             request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
             request.setAttribute("emailFuncionario", login);
-            response.sendRedirect("telaPrincipal.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+            rd.forward(request, response);
         }
         //Retorna erro para o jsp
         else {

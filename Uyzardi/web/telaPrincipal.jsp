@@ -50,20 +50,22 @@
         <div id="listaAluno" class="alunos-na-lista oculto">
             <c:if test="${not empty listaClientes}">
                 <table class="table table-striped">
-                  <tr class="tabelaInicio">
+                <tr class="tabelaInicio">
                     <td>Matricula</td>
                     <td>Nome</td>
                     <td>Ações</td>
-                  </tr>
-                  <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
-                        <tr>
+                </tr>
+                <c:forEach items="${listaClientes}" var="cliente" varStatus="stat">
+                    <tr><form>
+                        <input type="hidden" name="btnAcoesHiddenIDCliente" value="${cliente.idPessoa}">
                             <td><c:out value="${cliente.idPessoa}" /></td>
                             <td><c:out value="${cliente.nome}" /></td>
                             <td>
-                                <a id="btnAlunoAtualizaID${cliente.idPessoa}" class="btn btn-info btnAtualiza">Atualizar</a> 
-                                <button id="btnMatriculaID" value="${cliente.idPessoa}" name="idAlunoMatricula" class="btn btn-info" formmethod="POST" formaction="listaMatricula">Matricula</button>
+                                <button class="btn btn-info btnAtualiza" formmethod="POST" formaction="atualizarCliente">Atualizar</button> 
+                                <button class="btn btn-info matriculaBtn" formmethod="POST" formaction="listaMatricula">Matricula</button>
                             </td>
-                        </tr>
+                        </form>
+                    </tr>
                   </c:forEach>
                 </table>
             </c:if>
@@ -133,7 +135,7 @@
                 <select class="form-control" id="unidade" name="unidadeCliente">
                     <c:if test="${not empty listaUnidades}">
                         <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                            <option value="${unidade.idUnidade}">unidade.nome</option>
+                            <option value="${unidade.idUnidade}">${unidade.nome}</option>
                         </c:forEach>
                     </c:if>
                 </select>
