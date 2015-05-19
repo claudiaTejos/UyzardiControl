@@ -127,11 +127,12 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-         int idUnidade= Integer.parseInt(request.getParameter("idUnidade")); 
-         
+         int idUnidade = Integer.parseInt(request.getParameter("idUnidade")); 
         request.setAttribute("unidade", pesquisarUnidade(idUnidade));
+        request.setAttribute("idUnidade", idUnidade);
 
-        RequestDispatcher rd = request.getRequestDispatcher("../WEB-INF/editarFornecedor.jsp");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("AlterarDadosUnidade.jsp");
         rd.forward(request, response);
     }
 
@@ -163,12 +164,15 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
             throws ServletException, IOException {
         
         int idUnidade= Integer.parseInt(request.getParameter("idUnidade")); 
+        
         String nome = request.getParameter("nomeUnidade");
         String endereco = request.getParameter("enderecoUnidade");
         String cidade = request.getParameter("cidadeUnidade");
 
         Unidade unidade = new Unidade(nome, endereco, cidade);
         alteraDadosUnidade(idUnidade,unidade);
+        RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");
+        rd.forward(request, response);
     }
 
     /**

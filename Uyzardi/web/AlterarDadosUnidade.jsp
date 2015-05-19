@@ -14,6 +14,36 @@
         <title>Uizardy Control</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="empresa"><h1>Uizardy Control</h1></div>
+        <div class="menu-geral">
+            <ul class="nav nav-pills nav-justified">
+                <li><a id="btnMatricula">Matricula</a></li>
+                <li><a id="btnVendas" href="ListarProdutosVenda">Vendas</a></li>
+                <li><a id="btnGerenciamento">Gerenciamento</a></li>
+            </ul>
+        </div>
+        <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
+            <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
+            <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
+        <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
+        <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
+        <div id="btnUnidade" class="btn btn-primary">Unidades</div>
+        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
+        </div>
+        
+        <div id="atualizarUnidade" class="atualizarUnidade">
+            <form  id="controle" action="AlterarDadosUnidadeServlet" method="POST">
+                <label for="inputNomeUnidade" class="form-label">Nome da Unidade</label>
+                <input type="text" id="inputNomeUnidade" class="form-control" placeholder="nome da unidade" name="nomeUnidade" value="${unidade.nome}"  required>
+                <label for="inputEnderecoUnidade" class="form-label">Endereco da Unidade</label>
+                <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" value="${unidade.endereco}" required>
+                <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
+                <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade" value="${unidade.cidade}" required>
+                <input id="inputHiddenEditar" type="hidden" name="idUnidade" value="${unidade.idUnidade}">
+                <input type="submit" class="btn btn-success" id="mudancas" value="Efetuar Mudanças">
+                <button type="submit" class="btn btn-danger" id="mudancas" formaction="ListarUnidadeServlet" formmethod="POST">Cancelar</button>
+            </form> 
+        </div>
     </body>
 </html>
