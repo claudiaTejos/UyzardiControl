@@ -9,13 +9,10 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -27,61 +24,61 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudia
+ * @author claudia.rgtejos
  */
-@WebServlet(name = "incluirCliente", urlPatterns = {"/incluirCliente"})
-public class IncluirClienteServlet extends HttpServlet {
-
-    private boolean incluirCliente(Cliente cliente){
-        boolean controle = false;
-        PreparedStatement stmt = null;
+@WebServlet(name = "ListarUnidadeServlet", urlPatterns = {"/ListarUnidadeServlet"})
+public class ListarUnidadeServlet extends HttpServlet {
+    
+      public ArrayList<Unidade> pesquisarUnidade (String pesquisa){
+        ArrayList<Unidade> listaUnidade = new ArrayList<>();
+        ResultSet resultados = null;
+        Statement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO `Cliente`"
-                + "(nomeCliente, dataNascimentoCliente,"
-                + "sexoCliente,enderecoCliente, cpfCliente, rgCliente, idUnidade) VALUES"
-                + "(?,?,?,?,?,?,?)";
-        
-        
+        String sql;
+        if (pesquisa.equals("")) {
+             sql = "SELECT * FROM Unidade";
+        }
+        else{
+            sql = "SELECT * FROM `Unidade` WHERE `cidade` LIKE '%"+pesquisa+"%'";
+        }
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setDate(2, new java.sql.Date(cliente.getDtNasc().getTime()));
-            stmt.setObject(3, cliente.getGenero(), java.sql.Types.VARCHAR);
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setLong(5, cliente.getCpf());
-            stmt.setInt(6, cliente.getRg());
-            stmt.setInt(7, cliente.getIdUnidade());
-            stmt.executeUpdate();
-            controle = true;
+            resultados = stmt.executeQuery(sql);
             
+            if (resultados != null) {
+                while (resultados.next()){
+                    Unidade unidade = new Unidade(resultados.getInt("idUnidade"),
+                            resultados.getString("nomeUnidade"),
+                            resultados.getString("enderecoUnidade"),
+                            resultados.getString("cidade")
+                    );
+                    listaUnidade.add(unidade);
+                }
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            Logger.getLogger(ListarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        return controle;
+        
+        return listaUnidade;
     }
 
-    
-    
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -99,12 +96,17 @@ public class IncluirClienteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirAlunoServlet</title>");            
+            out.println("<title>Servlet ListarUnidadeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirAlunoServlet at " + request.getContextPath() + "</h1>");
+            ArrayList<Unidade> lista = pesquisarUnidade("");
+            for (int i = 0; i < lista.size(); i++) {
+                //out.print(lista.get(i).getIdUnidade());
+                out.print(lista.get(i).getNome());
+                out.print(lista.get(i).getEndereco());
             out.println("</body>");
             out.println("</html>");
+            }
         }
     }
 
@@ -134,34 +136,8 @@ public class IncluirClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nome = request.getParameter("nomeAlunoIncluir");
-        String dtNasc = request.getParameter("dt_Nascimento");
-        char generoCliente = request.getParameter("inlineRadioOptions").charAt(0);
-        String endereco = request.getParameter("endereco");
-        long cpfCliente = Long.parseLong(request.getParameter("cpf"));
-        int rgCliente = Integer.parseInt(request.getParameter("rg"));
-        int unidade = Integer.parseInt(request.getParameter("unidadeCliente"));
-        Date dtNascimento = null;
-        
-        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            dtNascimento = formatadorData.parse(dtNasc);
-        } catch (ParseException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
-        
-        if (incluirCliente(cliente)) {
-            request.setAttribute("resultadoIncluir", true);
-            request.setAttribute("novoCliente", cliente);
-        }
-        else{
-            request.setAttribute("resultadoIncluir", false);
-        }
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("listaUnidade", pesquisarUnidade((String) request.getParameter("cidadeUnidade")));
+        request.setAttribute("clickBtnPesquisaUnidade","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
@@ -175,5 +151,4 @@ public class IncluirClienteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

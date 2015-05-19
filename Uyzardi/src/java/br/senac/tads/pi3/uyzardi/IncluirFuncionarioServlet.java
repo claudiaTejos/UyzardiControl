@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,22 +35,26 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO TB_PESSOA"
-                + "(NOMEPESSOA, DATANASCIMENTO,"
-                + "SEXO,ENDERECOPESSOA, CPF, RG) VALUES"
-                + "(?,?,?,?,?,?)";
+        String sql = "INSERT INTO `Funcionario`"
+                + "(`nomeFuncionario`, `cpfFuncionario`,"
+                + "`rgFuncionario`,`endFuncionario`,`generoFuncionario`, `dataNascFuncionario`,"
+                + "`cargo`, `idUnidade`, `login`, `senha`) VALUES"
+                + "(?,?,?,?,?,?,?,?,?,?)";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, funcionario.getNome());
-            stmt.setDate(3, new java.sql.Date(funcionario.getDtNasc().getTime()));
-            stmt.setObject(4,(char)funcionario.getGenero());
-            stmt.setString(5, funcionario.getEndereco());
-            stmt.setLong(6, funcionario.getCpf());
-            stmt.setInt(7, funcionario.getRg());
+            stmt.setString(1, funcionario.getNome());
+            stmt.setLong(2,funcionario.getCpf());
+            stmt.setInt(3,funcionario.getRg());
+            stmt.setString(4, funcionario.getEndereco());
+            stmt.setObject(5,funcionario.getGenero(), java.sql.Types.VARCHAR);
+            stmt.setDate(6, new java.sql.Date(funcionario.getDtNasc().getTime()));
+            stmt.setString(7, funcionario.getCargo());
+            stmt.setInt(8, funcionario.getUnidade());
+            stmt.setString(9, funcionario.getLogin());
+            stmt.setString(10, funcionario.getSenha());
             stmt.executeUpdate();
-            System.out.println("Incluido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -126,30 +131,34 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         
         String nome = request.getParameter("nomeFuncionario");
         String dtNasc = request.getParameter("dtNascimento");
-        String genero = request.getParameter("inlineRadioOptions");
+        char genero = request.getParameter("inlineRadioOptions").charAt(0);
         String endereco = request.getParameter("enderecoFuncionario");
-        String cpf = request.getParameter("cpfFuncionario");
-        String rg = request.getParameter("rgFuncionario");
+        long cpf =  Long.parseLong(request.getParameter("cpfFuncionario"));
+        int rg =  Integer.parseInt(request.getParameter("rgFuncionario"));
+        String cargo = request.getParameter("cargoFuncionario");
+        int unidade = Integer.parseInt(request.getParameter("unidadeFuncionario"));
+        String login = request.getParameter("loginFuncionario");
+        String senha = request.getParameter("senhaFuncionario");
         
         
-        DateFormat formatadorData = new SimpleDateFormat ("dd/MM/yyyy");
-        Date dtNascimento;
+        Date dtNascimento = null;
+        
+        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
         try {
             dtNascimento = formatadorData.parse(dtNasc);
         } catch (ParseException ex) {
             Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            dtNascimento = null;
         }
-        char generoC = genero.charAt(0);
-        int cpfI = Integer.parseInt(cpf);
-        int rgI = Integer.parseInt(rg);
+
         
-        Funcionario funcionario = new Funcionario(nome,cpfI, rgI,endereco,dtNascimento, generoC);
+        Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
+                genero, cargo, unidade, login, senha);
         
         incluirFuncionario(funcionario);
         
-        processRequest(request, response);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        rd.forward(request, response);
 
     }
 

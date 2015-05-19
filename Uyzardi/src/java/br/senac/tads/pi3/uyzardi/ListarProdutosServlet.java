@@ -48,7 +48,8 @@ public class ListarProdutosServlet extends HttpServlet {
                         resultados.getString("nomeProduto"),
                         resultados.getString("idiomaProduto"),
                         resultados.getString("moduloProduto"),
-                        resultados.getDouble("valorProduto")
+                        resultados.getDouble("valorProduto"),
+                        resultados.getInt("quantidade")
                         );
                 listaProduto.add(produto);
             }

@@ -28,8 +28,8 @@ border-bottom-left-radius:0;
 }
 
 .empresa{
-	  	text-align: center;
-		font-weight: bold;
+    text-align: center;
+    font-weight: bold;
 }
 
 li{
@@ -45,33 +45,41 @@ li{
 }
 
 .contato{
-	border: 0 !important;
+    border: 0 !important;
 }
 
 #pesquisa{
     padding-top: 200px;;
     margin-left: 36%;
     width:600px;
+}
+#campo{
+    padding-top: 10px;;
+    margin-left: 36%;
+    width:600px;
+    margin-bottom: 50px;
 
 }
+
 .tabelaInicio{
-	font-weight:bold;
+    font-weight:bold;
 }
 .tabela{
-	padding-top: 300px;
+    padding-top: 300px;
 }
 
 .oculto{
     display: none;
 }
-.Produtos{
-    font-weight:bold;
-}
 
 .total{
     margin-left:60%
 }
-#dadosAluno .form-control{
+/*#dadosAluno .form-control{
+    width: 600px;
+    margin-left:25%;
+}*/
+#controle .form-control{
     width: 600px;
     margin-left:25%;
 }
@@ -81,54 +89,58 @@ li{
 .genero2{
     margin-left:10px;
 }
-#dadosFuncionario .form-control{
+/*#dadosFuncionario .form-control{
     width: 600px;
     margin-left:25%;
-}
-#dadosProduto .form-control{
+}*/
+/*#dadosProduto .form-control{
     width: 600px;
     margin-left:25%;
-}
+}*/
 .relatorio{
     margin-top:200px;
 }
-#dadosAluno .form-label{
+#controle .form-label{
     margin-left:25%;
     margin-top:10px;
 }
-#dadosAluno #concluir{
+/*#dadosAluno .form-label{
+    margin-left:25%;
+    margin-top:10px;
+}*/
+/*#dadosAluno #concluir{
     margin-left:33%;
     margin-top:20px;
     width:400px;
-}
-#btnPesquisarAluno{
+}*/
+/*#btnPesquisarAluno{
      margin-left:38%;
     width:360px;
 }
-#dadosFuncionario .form-label{
+/*#dadosFuncionario .form-label{
     margin-left:25%;
     margin-top:10px;
-}
-#dadosProduto .form-label{
+}*/
+/*#dadosProduto .form-label{
     margin-left:25%;
     margin-top:10px;
-}
-#dadosProduto #concluir{
+}*/
+/*#dadosProduto #concluir{
     margin-left:33%;
     margin-top:20px;
     width:400px;
-}
+}*/
 #botoesGerenciamento{
     margin-top:50px;
+    width: 150px;;
 }
-#dadosFuncionario #concluir{
+#controle #concluir{
     margin-left:33%;
     margin-top:20px;
     width:400px;
     display:block;
 }
 .table{
-    display:block;
     width: 800px;
     margin-left:20%;
     margin-top:100px;
@@ -143,19 +155,19 @@ li{
     margin-left:34%;
     
 }
-#dadosUnidade .form-label{
+/*#dadosUnidade .form-label{
     margin-left:25%;
     margin-top:10px;
-}
-#dadosUnidade #concluir{
+}*/
+/*#dadosUnidade #concluir{
     margin-left:33%;
     margin-top:20px;
     width:400px;
-}
-#dadosUnidade .form-control{
+}*/
+/*#dadosUnidade .form-control{
     width: 600px;
     margin-left:25%;
-}
+}*/
 .unidade{
     display: block;
 }
@@ -184,5 +196,8 @@ li{
     width: 25%;
     background-color: #FFFF99;
     text-align: center;
+    display: block;
+}
+#cargo{
     display: block;
 }

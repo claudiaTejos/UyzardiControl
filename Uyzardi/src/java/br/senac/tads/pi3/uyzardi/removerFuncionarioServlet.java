@@ -11,13 +11,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,61 +21,44 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudia
+ * @author CLaudia Tejos
  */
-@WebServlet(name = "incluirCliente", urlPatterns = {"/incluirCliente"})
-public class IncluirClienteServlet extends HttpServlet {
-
-    private boolean incluirCliente(Cliente cliente){
-        boolean controle = false;
+@WebServlet(name = "removerFuncionarioServlet", urlPatterns = {"/removerFuncionarioServlet"})
+public class removerFuncionarioServlet extends HttpServlet {
+    
+    private void removerFuncionario(int idFuncionario){
+        
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "INSERT INTO `Cliente`"
-                + "(nomeCliente, dataNascimentoCliente,"
-                + "sexoCliente,enderecoCliente, cpfCliente, rgCliente, idUnidade) VALUES"
-                + "(?,?,?,?,?,?,?)";
-        
+        String sql = "DELETE FROM `Funcionario` WHERE `idFuncionario` = ?";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setDate(2, new java.sql.Date(cliente.getDtNasc().getTime()));
-            stmt.setObject(3, cliente.getGenero(), java.sql.Types.VARCHAR);
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setLong(5, cliente.getCpf());
-            stmt.setInt(6, cliente.getRg());
-            stmt.setInt(7, cliente.getIdUnidade());
+            stmt.setInt(1, idFuncionario);
             stmt.executeUpdate();
-            controle = true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex){
+            throw new RuntimeException(ex);
         } finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(removerFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(removerFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        return controle;
+        }  
+        
     }
 
-    
-    
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -99,10 +76,10 @@ public class IncluirClienteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirAlunoServlet</title>");            
+            out.println("<title>Servlet removerFuncionarioServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirAlunoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet removerFuncionarioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -134,34 +111,11 @@ public class IncluirClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        int idFuncionario = Integer.parseInt(request.getParameter("idRemoverFuncionario"));
 
-        String nome = request.getParameter("nomeAlunoIncluir");
-        String dtNasc = request.getParameter("dt_Nascimento");
-        char generoCliente = request.getParameter("inlineRadioOptions").charAt(0);
-        String endereco = request.getParameter("endereco");
-        long cpfCliente = Long.parseLong(request.getParameter("cpf"));
-        int rgCliente = Integer.parseInt(request.getParameter("rg"));
-        int unidade = Integer.parseInt(request.getParameter("unidadeCliente"));
-        Date dtNascimento = null;
-        
-        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            dtNascimento = formatadorData.parse(dtNasc);
-        } catch (ParseException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
-        
-        if (incluirCliente(cliente)) {
-            request.setAttribute("resultadoIncluir", true);
-            request.setAttribute("novoCliente", cliente);
-        }
-        else{
-            request.setAttribute("resultadoIncluir", false);
-        }
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        removerFuncionario(idFuncionario);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

@@ -24,62 +24,54 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudio
+ * @author Joana
  */
-@WebServlet(name = "listaMatricula", urlPatterns = {"/listaMatricula"})
-public class ListaMatriculaServlet extends HttpServlet {
+@WebServlet(name = "ListarProdutosVenda", urlPatterns = {"/ListarProdutosVenda"})
+public class ListarProdutosVendaServlet extends HttpServlet {
+
+    private ArrayList<Produto> listaProdutoVenda;
     
-    public ArrayList<Matricula> listaMatricula (Object idCliente){
-        ArrayList<Matricula> listaMatricula = new ArrayList<>();
-        ResultSet resultados = null;
+    private void listarProdutosVenda(){
+        
         Statement stmt = null;
         Connection conn = null;
-        String sql;
         
-        if (idCliente == null) {
-            sql = "SELECT * FROM Matricula";
-        }
-        else{
-            sql = "SELECT * FROM `Matricula` WHERE `idCliente` = "+(int)idCliente+"'";
-        }
+        String sql = "SELECT * FROM `Produto` WHERE `quantidade` > 0";
+        listaProdutoVenda = new ArrayList();
+        
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            resultados = stmt.executeQuery(sql);
-            if (resultados != null) {
-                while (resultados.next()){
-                    Matricula matricula = new Matricula(resultados.getInt("idCliente"),
-                            resultados.getInt("idMatricula"),
-                            resultados.getDate("dataHoraMatricula"),
-                            resultados.getInt("idFuncionario"),
-                            resultados.getInt("idCurso"),
-                            resultados.getString("StatusMatricula")
-                    );
-                    listaMatricula.add(matricula);
-                }
+            ResultSet resultados = stmt.executeQuery(sql);
+            while (resultados.next()){
+                Produto produto = new Produto(resultados.getInt("idProduto"),
+                        resultados.getString("nomeProduto"),
+                        resultados.getString("idiomaProduto"),
+                        resultados.getString("moduloProduto"),
+                        resultados.getDouble("valorProduto"),
+                        resultados.getInt("quantidade")
+                        );
+                listaProdutoVenda.add(produto);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+            Logger.getLogger(ListarProdutosVendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ListarProdutosVendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ListarProdutosVendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        
-        return listaMatricula;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -91,25 +83,15 @@ public class ListaMatriculaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            ArrayList<Matricula> listaMatricula = listaMatricula(null);
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListaMatriculaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListaMatriculaServlet at " + request.getContextPath() + "</h1>");
-            for (int i = 0; i < listaMatricula.size(); i++) {
-                out.println(listaMatricula.get(i).getIdMatricula());
-                out.println(listaMatricula.get(i).getDataMatricula());
-                out.println(listaMatricula.get(i).getStatusMatricula());
-            }
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        listarProdutosVenda();
+        request.setAttribute("listaProdutoVenda", listaProdutoVenda);
+
+        request.setAttribute("paginaAtual", "venda");
+        request.setAttribute("etapa", "listarProdutosAVenda");
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -138,12 +120,7 @@ public class ListaMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaMatricula", listaMatricula(
-                request.getAttribute("idAlunoMatricula")));
-        request.setAttribute("clickBtnListaMatricula", "true");
-        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
-        rd.forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
