@@ -138,6 +138,8 @@ public class ListaMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("listaMatricula", listaMatricula(
                 request.getAttribute("idAlunoMatricula")));
         request.setAttribute("clickBtnListaMatricula", "true");

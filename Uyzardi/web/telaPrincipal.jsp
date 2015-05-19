@@ -131,18 +131,11 @@
                 <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
                 <label for="unidade" class="form-label unidade">Unidade</label>
                 <select class="form-control" id="unidade" name="unidadeCliente">
-                    <option value="1">São Paulo</option>
-                    <option value="2">Rio de Janeiro</option>
-                    <option value="5">Belo Horizonte </option>
-                    <option value="6">Curitiba</option>
-                    <option value="7">Porto Alegre</option>
-                    <option value="8">Florianopolis</option>
-                    <option value="9">Salvador</option>
-                    <option value="10">Recife</option>
-                    <option value="11">Goiania</option>
-                    <option value="12">Manaus</option>
-                    <option value="13">Belem</option>
-                    <option value="14">Brasilia</option>
+                    <c:if test="${not empty listaUnidades}">
+                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                            <option value="${unidade.idUnidade}">unidade.nome</option>
+                        </c:forEach>
+                    </c:if>
                 </select>
                 <button  class="btn btn-success" id="concluir" formaction="incluirCliente" formmethod="POST">Concluir</button>
             </form>

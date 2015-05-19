@@ -137,7 +137,8 @@ public class PesquisarClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("listaClientes", pesquisarClientes((String)request.getParameter("nomeAluno")));
         request.setAttribute("clickBtnPesquisa","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
