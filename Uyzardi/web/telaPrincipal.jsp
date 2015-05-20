@@ -329,8 +329,7 @@
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
             <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
-            <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-            <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
+            <div id="btnNovoCurso" class="btn btn-info">Curso</div>
             <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
             <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
@@ -580,7 +579,7 @@
         </form> 
     </div>     
         
-    <div id="excluirProduto" class="excluirProduto oculto">
+    
     <script src="js/telaPrincipal.js"></script>
     <c:if test='${paginaAtual == "produtos"}'>
         <script>
@@ -594,7 +593,7 @@
         </script>
     </c:if>
         
-    </div>
+    
    </div>
 </body>
 </html>

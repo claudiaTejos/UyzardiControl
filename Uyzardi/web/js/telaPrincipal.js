@@ -12,8 +12,6 @@ var txtNomeAluno = document.getElementById("nomeAluno");
 var inputNomeAluno = document.getElementById("nomeAlunoIncluir");
 var btnCadastrarCurso = document.getElementById("btnNovoCurso");
 var divCadastrarCurso = document.getElementById("cadastrarCurso");
-var btnProdutos = document.getElementById("btnProdutos2");
-var divProdutos2 = document.getElementById("produtos2");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
 
@@ -261,8 +259,8 @@ function mudarOcultoNovoCurso(){
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divProdutos2.classList.contains("oculto")) {
-        divProdutos2.classList.toggle("oculto");
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
