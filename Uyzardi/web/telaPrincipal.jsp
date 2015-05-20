@@ -173,8 +173,7 @@
                                     <td><c:out value="${produto.quantidadeProduto}" /></td>
                                     <td>
                                         <input type="number"  min="0" max="${produto.quantidadeProduto}" 
-                                               name="quantidade${produto.idProduto}" value="0" required>    
-                                        </input>
+                                               name="quantidade${produto.idProduto}" value="0" required>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -192,6 +191,7 @@
                 <br>
                 <br>
                 <h3>Produtos Requeridos:</h3>
+                <form action="RealizarCompraServlet" method="post">
                     <table class="table">
                         <thead>
                             <tr>
@@ -201,6 +201,7 @@
                                 <th>Valor</th>
                                 <th>Quantidade Solicitada</th>
                                 <th>Valor da Quantidade</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -214,6 +215,12 @@
                                     <td><c:out value="${produto.valorProduto}" /></td>
                                     <td><c:out value="${produto.quantidadeProduto}" /></td>
                                     <td><c:out value="${produto.valorProduto * produto.quantidadeProduto}"></c:out></td>
+                                    <td>
+                                        <input type="hidden" name="quantidade${produto.idProduto}" value="${produto.quantidadeProduto}" >
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="valor${produto.idProduto}" value="${produto.valorProduto * produto.quantidadeProduto}" >
+                                    </td>
                                 </tr>
                                 <c:set var="total" value="${total + produto.valorProduto * produto.quantidadeProduto}" />
                             </c:forEach>
@@ -224,106 +231,34 @@
                             </tr>
                         </tfoot>
                     </table>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nome do Cliente:</th>
-                            <th>CPF:</th>
-                        </tr>    
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><c:out value="${cliente.nome}" /></td>
-                            <td><c:out value="${cliente.cpf}" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <form action="RealizarCompraServlet" method="post">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome do Cliente:</th>
+                                <th>CPF:</th>
+                            </tr>    
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><c:out value="${cliente.nome}" /></td>
+                                <td><c:out value="${cliente.cpf}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" value="${cliente.idPessoa}" name="idCliente">
                     <input type="submit" class="btn btn-success" id="btnComprar" value="Confirmar Compra">
                 </form>
             </div>
-            
-            
         </c:if>
         
-        
-        
-        <div class="produto">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="pesquisar" placeholder="Nome do Aluno" name="pesquisarNomeAluno">
-                </div>
-                <div class="btn btn-primary" id="btnPesquisarAluno"> Pesquisa</div>
-            </form> 
-        </div>
-        
-        <div class="PesquisaAlunos">
-            <table class="table table-striped">
-                <tr class="Produtos">
-                    <td>Nome</td>
-                    <td>Matricula</td>
-                    <td> </td>
-                </tr>
-                <tr>
-                    <td>Jena</td>
-                    <td>Jane</td>
-                    <td>
-                        <div class="btn btn-info">Atualizar</div>
-                        <div class="btn btn-default">Selecionar</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        
-        <form>
-            <div>
-                <button id="btnAdicao" type="button" class="btn btn-default" aria-label="Left Align">
-                <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-                <div>
-                    <table class="table table-striped">
-                        <tr class="Produtos">
-                            <td>Produto</td>
-                            <td>Qtde</td>
-                            <td>Valor</td>
-                        </tr>
-                        <tr>
-                            <td>Livro</td>
-                            <td> 1</td>
-                            <td>5,90</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        
-            <div class="total">
-                <label >Total</label>
-                <label >R$ 5,90</label>
-            </div>
-        
-            <div class="total">
-                <button class="btn btn-success">Finalizar</button>
-            </div>
-        </form>
-        
-        <div>
-            <div>
-                <table class="table table-striped">
-                    <tr class="Produtos">
-                     <td>Nome</td>
-                    <td>Descricao</td>
-                    <td> </td>
-                 </tr>
-                 <tr>
-                    <td>Livro</td>
-                    <td>informacoes sobre o livro</td>
-                    <td>
-                    <div class="btn btn-default">Selecionar</div>
-                    </td>
-                </tr>
-               </table>
-            </div> 
-        </div>  
+        <c:if test='${etapa == "clienteNEncontrado"}'>
+            <h3>CPF não cadastrado: <c:out value="${cpfNEncontrado}"/></h3>
+        </c:if>
+            
+        <c:if test='${etapa == "compraRealizada"}'>
+            <h3>Compra realizada com sucesso</h3>
+        </c:if>
+
     </div>
     
     <div id="gerenciamento" class="gerenciamento oculto">

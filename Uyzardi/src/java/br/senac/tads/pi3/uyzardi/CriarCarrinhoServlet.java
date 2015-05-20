@@ -209,17 +209,19 @@ public class CriarCarrinhoServlet extends HttpServlet {
         Cliente cliente = buscarCliente(cpfCliente);
         
         if(cliente==null){
-            request.setAttribute("statusCliente", "false");
+            request.setAttribute("etapa", "clienteNEncontrado");
+            request.setAttribute("cpfNEncontrado", cpfCliente);
         }
         else{
             request.setAttribute("cliente", cliente);
             request.setAttribute("listaProdutosPedidos", listaProdutosPedidos);
-            request.setAttribute("paginaAtual", "venda");
             request.setAttribute("etapa", "carrinho");
-            RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
-
-            rd.forward(request, response);
         }
+        
+        
+        request.setAttribute("paginaAtual", "venda");
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        rd.forward(request, response);
 
     }
 

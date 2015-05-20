@@ -5,8 +5,18 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
+import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +30,55 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RealizarCompraServlet", urlPatterns = {"/RealizarCompraServlet"})
 public class RealizarCompraServlet extends HttpServlet {
 
+    Map<Integer, Integer> idQuantidadeMap;
+    Map<Integer, Double> idValorMap;
+    
+    private void realizarCompra(int idCliente){
+        
+        Date data = new Date();
+        java.sql.Date dateSql = new java.sql.Date(data .getTime()) ;
+        
+        for(int id : idQuantidadeMap.keySet()) {
+            
+            PreparedStatement stmt = null;
+            Connection conn = null;
+            
+            String sql = "INSERT INTO `Venda`"
+                + "(`idCliente`, `idProduto`, "
+                + "`dataHoraVenda`, `valor`) VALUES "
+                + "(?,?,?,?)";
+            
+            try {
+                conn = ConnMysql.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, idCliente);
+                stmt.setInt(2, idQuantidadeMap.get(id));
+                stmt.setDate(3, dateSql);
+                stmt.setDouble(4, idValorMap.get(id));
+                stmt.executeUpdate();
+                System.out.println("Incluído com sucesso");
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } finally {
+                if(stmt != null){
+                    try {
+                        stmt.close();
+                    } catch (SQLException ex) {
+                        java.util.logging.Logger.getLogger(RealizarCompraServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(conn != null){
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        java.util.logging.Logger.getLogger(RealizarCompraServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            
+        }
+        
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -72,7 +131,41 @@ public class RealizarCompraServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        idQuantidadeMap = new HashMap<>();
+        idValorMap = new HashMap<>();
+        
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while(parameterNames.hasMoreElements()) {
+            String parameterName = parameterNames.nextElement();
+            String parameterBase1 = "quantidade";
+            String parameterBase2 = "valor";
+            if(parameterName.startsWith(parameterBase1)) {
+                int id = Integer.parseInt(parameterName.substring(parameterBase1.length()));
+                int quantidade = Integer.parseInt(request.getParameter(parameterName));
+                if(quantidade > 0){
+                    idQuantidadeMap.put(id, quantidade);
+                }
+            }
+            if(parameterName.startsWith(parameterBase2)) {
+                int id = Integer.parseInt(parameterName.substring(parameterBase2.length()));
+                double valor = Double.parseDouble(request.getParameter(parameterName));
+                if(valor > 0){
+                    idValorMap.put(id, valor);
+                }
+            }
+        }
+        
+        int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+        
+        realizarCompra(idCliente);
+        
+        request.setAttribute("paginaAtual", "venda");
+        request.setAttribute("etapa", "compraRealizada");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+
+        rd.forward(request, response);
     }
 
     /**
