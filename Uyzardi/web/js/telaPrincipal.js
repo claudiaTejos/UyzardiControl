@@ -14,6 +14,7 @@ var btnCadastrarCurso = document.getElementById("btnNovoCurso");
 var divCadastrarCurso = document.getElementById("cadastrarCurso");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
+var divAtualizarCliente = document.getElementById("dadosAlunoAtualizar");
 
 
 // vendas
@@ -78,6 +79,10 @@ function atualizaNomeNovoAluno() {
     inputNomeAluno.value = txtNomeAluno.value;
 }
 
+function mudarOcultoAtualizarCliente(){
+    mudarOcultoMatricula();
+    divAtualizarCliente.classList.toggle("oculto");
+}
 function mudarOcultoNovoAluno() {
     if (!divPesquisaAluno.classList.contains("oculto")) {
         divPesquisaAluno.classList.toggle("oculto");

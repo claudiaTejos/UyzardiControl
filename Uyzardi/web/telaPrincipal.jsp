@@ -61,7 +61,7 @@
                             <td><c:out value="${cliente.idPessoa}" /></td>
                             <td><c:out value="${cliente.nome}" /></td>
                             <td>
-                                <button class="btn btn-info btnAtualiza" formmethod="POST" formaction="atualizarCliente">Atualizar</button> 
+                                <button class="btn btn-info btnAtualiza" formmethod="POST" formaction="selecionaCliente">Atualizar</button> 
                                 <button class="btn btn-info matriculaBtn" formmethod="POST" formaction="listaMatricula">Matricula</button>
                             </td>
                         </form>
@@ -78,7 +78,7 @@
             <form>
                 <h2 id="nomeAlunoMatricula">Nome do aluno</h2>
                 <c:if test="${not empty novoCliente}">
-                    <input type="hidden" id="hiddenPesquisa" value="${cliente.idCliente}">
+                    <input type="hidden" id="hiddenPesquisa" value="${cliente.idPessoa}">
                 </c:if>
                 <select class="form-control" name="optionCurso">
                     <option >Curso</option>
@@ -142,34 +142,40 @@
                 <button  class="btn btn-success" id="concluir" formaction="incluirCliente" formmethod="POST">Concluir</button>
             </form>
         </div>
-        <div id="dadosAlunoAtualizar" class="oculto">
-            <form formaction="atualizarCliente" formmethod="POST" id="controle">
-                <h3 class="form-signin-heading" id="nomeNovoAluno">${cliente.Nome}</h3>
-                <input type="hidden" name="nomeAlunoIncluir" id="nomeAlunoIncluir" value="${cliente.nome}"></input>
-                <label for="inputDtNascimento" class="form-label"> Data de nascimento</label>
-                <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" name="dt_Nascimento"required value="${cliente.dtNasc}">
-                <label for="inputEndereco" class="form-label">Endereco</label>
-                <input type="text" id="inputEndereco" class="form-control" placeholder="Endereco" name="endereco" required value="${cliente.endereco}">
-                <label for="inputCPF" class="form-label">CPF</label>
-                <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf"required value="${cliente.cpf}">
-                <label for="inputRG" class="form-label">RG</label>
-                <input type="text" id="inputRG" class="form-control" placeholder="RG" name="rg" required value="${cliente.rg}">
-                <h4 class="genero">Genero</h4>
-                <label for="inputGenero" class="genero">   
-                    <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F"  required <c:if test="${cliente.genero eq 'F'}">checked</c:if>>F</label>
-                <label for="inputGenero" class="genero2">
-                <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required <c:if test="${cliente.genero eq 'M'}">checked</c:if>>M</label>
-                <label for="unidade" class="form-label unidade">Unidade</label>
-                <select class="form-control" id="unidade" name="unidadeCliente">
-                    <c:if test="${not empty listaUnidades}">
-                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                            <option value="${unidade.idUnidade}" <c:if test="${cliente.idUnidade = unidade.idUnidade}">selected</c:if>>${unidade.nome}</option>
-                        </c:forEach>
-                    </c:if>
-                </select>
-                <button  class="btn btn-success" id="concluir">Concluir</button>
-            </form>
-        </div>
+        <c:if test="${not empty cliente}">
+            <div id="dadosAlunoAtualizar" class="oculto">
+                <c:if test="${controleAtualizarCliente}">
+                    <div class="aviso">Cliente atualizado.</div>
+                </c:if>
+                <form action="atualizarCliente" method="POST" id="controle">
+                    <input type="hidden" name="idAlunoAtualizar" value="${cliente.idPessoa}">
+                    <label for="inputNomeAtualizar" class="form-label">Nome</label>
+                    <input type="text" name="nomeAlunoAtualizar" id="inputNomeAtualizar" placeholder="Nome Completo" class="form-control" required value="${cliente.nome}"></input>
+                    <label for="inputDtNascimentoAtualizar" class="form-label">Data de nascimento</label>
+                    <input type="date" id="inputDtNascimentoAtualizar" class="form-control" placeholder="Data de nascimento" name="dtNascimentoAtualizar" required value="${cliente.dtNasc}">
+                    <label for="inputEnderecoAtualizar" class="form-label">Endereco</label>
+                    <input type="text" id="inputEnderecoAtualizar" class="form-control" placeholder="Endereco" name="enderecoAtualizar" required value="${cliente.endereco}">
+                    <label for="inputCPFAtualizar" class="form-label">CPF</label>
+                    <input type="text" id="inputCPFAtualizar" class="form-control" placeholder="CPF" name="cpfAtualizar"required value="${cliente.cpf}">
+                    <label for="inputRGAtualizar" class="form-label">RG</label>
+                    <input type="text" id="inputRGAtualizar" class="form-control" placeholder="RG" name="rgAtualizar" required value="${cliente.rg}">
+                    <h4 class="genero">Genero</h4>
+                    <label for="inlineRadioFAtualizar" class="genero">   
+                    <input type="radio" id="inlineRadioFAtualizar" name="inlineRadioOptions" value="F"  required <c:if test="${cliente.genero eq 'F'}">checked</c:if>>F</label>
+                    <label for="inlineRadioMAtualizar" class="genero2">
+                    <input type="radio" id="inlineRadioMAtualizar" name="inlineRadioOptions" value="M" required <c:if test="${cliente.genero eq 'M'}">checked</c:if>>M</label>
+                    <label for="unidadeAtualizar" class="form-label unidade">Unidade</label>
+                    <select class="form-control" id="unidadeAtualizar" name="unidadeClienteAtualizar">
+                        <c:if test="${not empty listaUnidades}">
+                            <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                                <option value="${unidade.idUnidade}" <c:if test="${cliente.idUnidade == unidade.idUnidade}">selected</c:if> >${unidade.nome}</option>
+                            </c:forEach>
+                        </c:if>
+                    </select>
+                    <button  class="btn btn-success" id="concluirAtualizar">Concluir</button>
+                </form>
+            </div>
+        </c:if>
     </div>
     
     <div id="vendas" class="oculto">
@@ -550,7 +556,7 @@
     </c:if>
     <c:if test="${clickBtnAtualizarCliente}">
         <script>
-            mudarOcultoAtualizaCliente();
+            mudarOcultoAtualizarCliente();
         </script>
     </c:if>    
     

@@ -81,6 +81,17 @@ public class PesquisarClienteServlet extends HttpServlet {
         
         return listaClientes;
     }
+    
+    public static Cliente pesquisaClienteID (int id){
+        PesquisarClienteServlet ps = new PesquisarClienteServlet();
+        ArrayList<Cliente> clientes = ps.pesquisarClientes("");
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getIdPessoa() == id) {
+                return clientes.get(i);
+            }
+        }
+        return null;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

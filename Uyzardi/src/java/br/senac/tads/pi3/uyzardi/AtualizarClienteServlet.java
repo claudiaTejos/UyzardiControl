@@ -11,7 +11,11 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -34,8 +38,8 @@ public class AtualizarClienteServlet extends HttpServlet {
         Connection conn = null;
         
         String sql = "UPDATE `Cliente` SET `nomeCliente` = ?,"
-                + "`cpfCliente` = ?, `rgCliente` = ?, `endCliente` = ?,"
-                + "`dataNascimento` = ?, `idUnidade` = ?, `generoCliente` = ? "
+                + "`cpfCliente` = ?, `rgCliente` = ?, `enderecoCliente` = ?,"
+                + "`dataNascimentoCliente` = ?, `idUnidade` = ?, `sexoCliente` = ? "
                 + "WHERE `idCliente` = ?";
         
         try {
@@ -49,7 +53,7 @@ public class AtualizarClienteServlet extends HttpServlet {
             stmt.setInt(6, cliente.getIdUnidade());
             stmt.setObject(7, cliente.getGenero(), java.sql.Types.VARCHAR);
             stmt.setInt(8, cliente.getIdPessoa());
-            stmt.executeQuery();
+            stmt.executeUpdate();
             controle = true;
         } catch (SQLException ex) {
             Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,11 +131,28 @@ public class AtualizarClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cliente cliente = PesquisarClienteServlet.pesquisaClienteID((int)request.getAttribute("btnAcoesHiddenIDCliente"));
-        
+
+        Date dtNascimento = null;
+        DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            dtNascimento = formatadorData.parse(request.getParameter("dtNascimentoAtualizar"));
+        } catch (ParseException ex) {
+            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Cliente cliente = new Cliente(Integer.parseInt(request.getParameter("idAlunoAtualizar")),
+                request.getParameter("nomeAlunoAtualizar"), 
+                Long.parseLong(request.getParameter("cpfAtualizar")),
+                Integer.parseInt(request.getParameter("rgAtualizar")),
+                request.getParameter("enderecoAtualizar"),
+                dtNascimento,
+                request.getParameter("inlineRadioOptions").charAt(0),
+                Integer.parseInt(request.getParameter("unidadeClienteAtualizar"))
+        );
+        request.setAttribute("controleAtualizarCliente", atualizarCliente(cliente));
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(request.getParameter("btnAcoesHiddenIDCliente")));
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("clickBtnAtualizarCliente", "true");
+        request.setAttribute("clickBtnClienteAtualizado", "true");
         request.setAttribute("cliente", cliente);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
