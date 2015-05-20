@@ -9,9 +9,8 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,40 +25,34 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Claudio
  */
-@WebServlet(name = "listaMatricula", urlPatterns = {"/listaMatricula"})
-public class ListaMatriculaServlet extends HttpServlet {
+@WebServlet(name = "atualizarCliente", urlPatterns = {"/atualizarCliente"})
+public class AtualizarClienteServlet extends HttpServlet {
     
-    public ArrayList<Matricula> listaMatricula (Object idCliente){
-        ArrayList<Matricula> listaMatricula = new ArrayList<>();
-        ResultSet resultados = null;
-        Statement stmt = null;
+    public boolean atualizarCliente (Cliente cliente){
+        boolean controle = false;
+        PreparedStatement stmt = null;
         Connection conn = null;
-        String sql;
         
-        if (idCliente.equals("")) {
-            sql = "SELECT * FROM Matricula";
-        }
-        else{
-            sql = "SELECT * FROM `Matricula` WHERE `idCliente` = "+(int)idCliente+"'";
-        }
+        String sql = "UPDATE `Cliente` SET `nomeCliente` = ?,"
+                + "`cpfCliente` = ?, `rgCliente` = ?, `endCliente` = ?,"
+                + "`dataNascimento` = ?, `idUnidade` = ?, `generoCliente` = ? "
+                + "WHERE `idCliente` = ?";
+        
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            resultados = stmt.executeQuery(sql);
-            if (resultados != null) {
-                while (resultados.next()){
-                    Matricula matricula = new Matricula(resultados.getInt("idCliente"),
-                            resultados.getInt("idMatricula"),
-                            resultados.getDate("dataHoraMatricula"),
-                            resultados.getInt("idFuncionario"),
-                            resultados.getInt("idCurso"),
-                            resultados.getString("StatusMatricula")
-                    );
-                    listaMatricula.add(matricula);
-                }
-            }
+            stmt.setString(1, cliente.getNome());
+            stmt.setLong(2, cliente.getCpf());
+            stmt.setInt(3, cliente.getRg());
+            stmt.setString(4, cliente.getEndereco());
+            stmt.setDate(5, new java.sql.Date(cliente.getDtNasc().getTime()));
+            stmt.setInt(6, cliente.getIdUnidade());
+            stmt.setObject(7, cliente.getGenero(), java.sql.Types.VARCHAR);
+            stmt.setInt(8, cliente.getIdPessoa());
+            stmt.executeQuery();
+            controle = true;
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             if(stmt != null){
                 try {
@@ -77,7 +70,9 @@ public class ListaMatriculaServlet extends HttpServlet {
             }
         }
         
-        return listaMatricula;
+        
+        
+        return controle;
     }
 
     /**
@@ -93,20 +88,14 @@ public class ListaMatriculaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            ArrayList<Matricula> listaMatricula = listaMatricula(null);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListaMatriculaServlet</title>");            
+            out.println("<title>Servlet AtualizarClienteServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListaMatriculaServlet at " + request.getContextPath() + "</h1>");
-            for (int i = 0; i < listaMatricula.size(); i++) {
-                out.println(listaMatricula.get(i).getIdMatricula());
-                out.println(listaMatricula.get(i).getDataMatricula());
-                out.println(listaMatricula.get(i).getStatusMatricula());
-            }
+            out.println("<h1>Servlet AtualizarClienteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -138,13 +127,14 @@ public class ListaMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cliente cliente = PesquisarClienteServlet.pesquisaClienteID((int)request.getAttribute("btnAcoesHiddenIDCliente"));
+        
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(request.getParameter("btnAcoesHiddenIDCliente")));
-        request.setAttribute("listaMatricula", listaMatricula(request.getAttribute("idAlunoMatricula")));
-        request.setAttribute("clickBtnListaMatricula", "true");
+        request.setAttribute("clickBtnAtualizarCliente", "true");
+        request.setAttribute("cliente", cliente);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
-        
     }
 
     /**
