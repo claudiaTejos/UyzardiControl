@@ -35,13 +35,13 @@ public class ListaMatriculaServlet extends HttpServlet {
         Statement stmt = null;
         Connection conn = null;
         String sql;
+        if (idCliente !=null) {
+            sql = "SELECT * FROM `Matricula` WHERE `idCliente` = "+(int)idCliente;
+        }
+        else {
+            sql = "SELECT * FROM `Matricula`";
+        }
         
-        if (idCliente.equals("")) {
-            sql = "SELECT * FROM Matricula";
-        }
-        else{
-            sql = "SELECT * FROM `Matricula` WHERE `idCliente` = "+(int)idCliente+"'";
-        }
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -139,8 +139,13 @@ public class ListaMatriculaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(request.getParameter("btnAcoesHiddenIDCliente")));
-        request.setAttribute("listaMatricula", listaMatricula(request.getAttribute("idAlunoMatricula")));
+        Cliente cliente = null;
+        if ((request.getParameter("btnAcoesHiddenIDCliente")) != null) {
+            cliente = PesquisarClienteServlet.pesquisaClienteID(Integer.parseInt(request.getParameter("btnAcoesHiddenIDCliente"))); 
+            request.setAttribute("cliente", cliente);
+        } 
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("listaMatricula", listaMatricula(cliente.getIdPessoa()));
         request.setAttribute("clickBtnListaMatricula", "true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);

@@ -152,17 +152,20 @@ public class IncluirClienteServlet extends HttpServlet {
         }
         
         Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
+        request.setAttribute("novoCliente", cliente);
         
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        
+        RequestDispatcher rd = null;
         if (incluirCliente(cliente)) {
             request.setAttribute("resultadoIncluir", true);
-            request.setAttribute("novoCliente", cliente);
+            rd = request.getRequestDispatcher("listaMatricula");
         }
         else{
             request.setAttribute("resultadoIncluir", false);
-        }
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+            rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        }        
         rd.forward(request, response);
     }
 
