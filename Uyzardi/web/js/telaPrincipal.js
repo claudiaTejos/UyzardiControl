@@ -52,6 +52,12 @@ var divCadastrarProduto = document.getElementById("cadastrarProduto");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
 var btnSelecionaCurso = document.getElementsByClassName("btnSeleciona");
 var divSelecionaCurso = document.getElementById("selecionaCurso");
+var btnCurso = document.getElementById("btnCurso");
+var divCurso = document.getElementById("pesquisaCurso");
+var btnPesquisarCurso = document.getElementById("btnCursoPesquisa");
+var divPesquisaCurso = document.getElementById("listarCurso");
+var btnNovoCurso = document.getElementById("btnNovoCurso");
+var divNovoCurso = document.getElementById("cadastrarCurso");
 
 
 // relatorios
@@ -257,23 +263,45 @@ function mudarOcultoUnidade(){
     }    
 }
 
-function mudarOcultoNovoCurso(){
-    if (!divFuncionario.classList.contains("oculto")) {
-        divFuncionario.classList.toggle("oculto");
+// Funções que envolvem Curso.
+function mudarOcultoCurso(){
+    if (!divProdutos.classList.contains("oculto")) {
+        divProdutos.classList.toggle("oculto");
     }
     if (!divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
-    if (!divProdutos.classList.contains("oculto")) {
-        divProdutos.classList.toggle("oculto");
+    if (!divFuncionario.classList.contains("oculto")) {
+        divFuncionario.classList.toggle("oculto");
+    }
+    if (!divCadastrarUnidade.classList.contains("oculto")) {
+        divCadastrarUnidade.classList.toggle("oculto");
     }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
-    if (divCadastrarCurso.classList.contains("oculto")) {
-        divCadastrarCurso.classList.toggle("oculto");
+    if (divCurso.classList.contains("oculto")) {
+        divCurso.classList.toggle("oculto");
     }
-      
+}
+function mudarOcultoNovoCurso() {
+    if (!divPesquisaCurso.classList.contains("oculto")) {
+        divPesquisaCurso.classList.toggle("oculto");
+    }
+    if (divNovoCurso.classList.contains("oculto")) {
+        divNovoCurso.classList.toggle("oculto");
+    }
+}
+
+function mudarOcultoPesquisaCurso() {
+    mudarOcultoGerenciamento();
+    mudarOcultoCurso();
+    if (!divNovoCurso.classList.contains("oculto")) {
+        divNovoCurso.classList.toggle("oculto");
+    }
+    if (divPesquisaCurso.classList.contains("oculto")) {
+        divPesquisaCurso.classList.toggle("oculto");
+    }
 }
 
 function mudarOcultoNovaUnidade() {
@@ -329,7 +357,10 @@ btnUnidade.addEventListener("click", mudarOcultoUnidade);
 btnPesquisarUnidade.addEventListener("click", mudarOcultoPesquisaUnidade);
 btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 
-
+// Eventos de Curso.
+btnCurso.addEventListener("click", mudarOcultoCurso);
+btnPesquisarCurso.addEventListener("click", mudarOcultoPesquisaCurso);
+btnNovoCurso.addEventListener("click", mudarOcultoNovoCurso);
 
 
 

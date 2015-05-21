@@ -23,6 +23,9 @@
     <c:if test="${not empty clickBtnPesquisaFuncionario}">
         <input type="hidden" id="hiddenPesquisaFuncionario" value="true">
     </c:if>
+    <c:if test="${not empty clickBtnPesquisaCurso}">
+        <input type="hidden" id="hiddenPesquisaCurso" value="true">
+    </c:if>
     <c:if test="${resultadoIncluir}">
         <input type="hidden" id="hiddenSelecionaCurso" value="true">
     </c:if>
@@ -502,44 +505,81 @@
         <!--parte nova  -->
     
     
-    <div  id="cadastrarCurso" class="cadastrarCurso oculto">
-        <form id="dadosCurso" action="IncluirCursoServlet" method="post">
-            <label for="inputNomeCurso" class="form-label">Nome Curso</label>
-            <input type="text" id="inputNomeCurso" class="form-control" placeholder="curso" name="nomeCurso" required>
-            <label for="inputModuloCurso" class="form-label">Módulo</label>
-            <input id="inputIdioma" placeholder="moduloCurso" class="form-control" name="moduloCurso" required>
-            <label for="inputSala"class="form-label">Sala</label>
-            <input id="moduloModulo" placeholder="sala" class="form-control" name="salaCurso">
-            <label for="inputValor" class="form-label">Valor</label>
-            <input type="text" id="inputValor" class="form-control" placeholder="valor" name="valor" required >
-            <label for="inputVagas" class="form-label">Vagas</label>
-            <input type="text" id="inputVagas" class="form-control" placeholder="vagas" name="vagas" required >
-            <label for="unidade" class="form-label unidade">Unidade</label>
-            <select class="form-control" id="unidade" name="unidade">
-                    <option value="1">Rio de Janeiro</option>
-                    <option value="2">Belo Horizonte </option>
-                    <option value="3">Curitiba</option>
-                    <option value="4">Porto Alegre</option>
-                    <option value="5">Florianopolis</option>
-                    <option value="6">Salvador</option>
-                    <option value="7">Recife</option>
-                    <option value="8">Goiania</option>
-                    <option value="9">Manaus</option>
-                    <option value="10">Belem</option>
-                    <option value="11">Brasilia</option>
-                </select>
-           <label for="periodo" class="form-label unidade">Periodo</label>
-                <select class="form-control" id="periodo" name="periodo">
-                    <option value="1">Manha 9h30</option>
-                    <option value="2">Manha 11h30</option>
-                    <option value="3">Tarde 2h45</option>
-                    <option value="4">Tarde 4h50</option>
-                    <option value="5">Noite 18h</option>
-                    <option value="6">Noite 20h</option>
-                </select>
-            <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
-        </form> 
-    </div>     
+    <div id="pesquisaCurso" class="pesquisa  oculto" >
+        <div id="campo">
+            <form class="navbar-form navbar-left " role="search" >
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nome Curso" id="nomeCurso" name="nomeCurso" >
+            </div>
+            <button formaction="ListarCursosServlet" formmethod="POST" id="btnCursoPesquisa" class="btn btn-default glyphicon glyphicon-search"></button>
+            <div id="btnNovoCurso" class="btn btn-primary">Novo</div>
+            </form>
+         </div>
+        <div id="cadastrarCurso" class="cadastrarCurso oculto">
+            <form  id="controle" action="IncluirCursoServlet" method="POST">
+                <label for="inputNomeCurso" class="form-label">Nome Curso</label>
+                <input type="text" id="inputNomeCurso" class="form-control" placeholder="curso" name="nomeCurso" required>
+                <label for="inputModuloCurso" class="form-label">Módulo</label>
+                <input id="inputIdioma" placeholder="moduloCurso" class="form-control" name="moduloCurso" required>
+                <label for="inputSala"class="form-label">Sala</label>
+                <input id="moduloModulo" placeholder="sala" class="form-control" name="salaCurso">
+                <label for="inputValor" class="form-label">Valor</label>
+                <input type="text" id="inputValor" class="form-control" placeholder="valor" name="valor" required >
+                <label for="inputVagas" class="form-label">Vagas</label>
+                <input type="text" id="inputVagas" class="form-control" placeholder="vagas" name="vagas" required >
+                <label for="unidade" class="form-label unidade">Unidade</label>
+                    <select class="form-control" id="unidade" name="unidade">
+                        <option value="1">Rio de Janeiro</option>
+                        <option value="2">Belo Horizonte </option>
+                        <option value="3">Curitiba</option>
+                        <option value="4">Porto Alegre</option>
+                        <option value="5">Florianopolis</option>
+                        <option value="6">Salvador</option>
+                        <option value="7">Recife</option>
+                        <option value="8">Goiania</option>
+                        <option value="9">Manaus</option>
+                        <option value="10">Belem</option>
+                        <option value="11">Brasilia</option>
+                    </select>
+                <label for="periodo" class="form-label unidade">Periodo</label>
+                    <select class="form-control" id="periodo" name="periodo">
+                        <option value="1">Manha 9h30</option>
+                        <option value="2">Manha 11h30</option>
+                        <option value="3">Tarde 2h45</option>
+                        <option value="4">Tarde 4h50</option>
+                        <option value="5">Noite 18h</option>
+                        <option value="6">Noite 20h</option>
+                    </select>
+                <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
+            </form> 
+        </div>
+        <div id="listarCurso" class="oculto">
+            <c:if test="${not empty listaCurso}">
+            <table class="table table-striped">
+                <tr class="tabelaInicio">
+                    <td>Identificação</td>
+                    <td>Curso</td>
+                    <td> </td>
+                </tr>
+                <c:forEach items="${listaCurso}" var="curso" varStatus="stat">
+                    <tr>
+                        <form>
+                            <td><c:out value="${curso.idCurso}" /></td>
+                            <td><c:out value="${curso.nomeCurso}" /></td>
+                            <td>
+                                <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
+                                <button id="remover" class="btn btn-danger glyphicon glyphicon-trash" ></button>
+                            </td>
+                        </form>
+                    </tr>
+                </c:forEach>
+            </table>
+            </c:if>
+            <c:if test="${empty listaFuncionario}">
+                <div class="aviso">Não foi encontrado nenhum resultados funcionario.</div>
+            </c:if>
+        </div> 
+    </div>    
         
     
     <script src="js/telaPrincipal.js"></script>
