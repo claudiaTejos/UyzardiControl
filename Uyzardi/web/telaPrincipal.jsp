@@ -315,7 +315,7 @@
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
             <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
-            <div id="btnNovoCurso" class="btn btn-info">Curso</div>
+            <div id="btnCurso" class="btn btn-info">Curso</div>
             <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
             <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>

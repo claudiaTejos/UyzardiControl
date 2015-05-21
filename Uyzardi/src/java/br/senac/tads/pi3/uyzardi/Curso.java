@@ -16,26 +16,26 @@ public class Curso {
     private String nomeCurso;
     private String moduloCurso;
     private int salaCurso;
-    private int qtd_vagas;
+    private int qtdVagas;
     private double valor;
     private String periodo;
     private int idUnidade;
 
-    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, String periodo) {
+    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo) {
         this.idCurso = idCurso;
         this.nomeCurso = nomecurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
-        this.qtd_vagas = qtd_vagas;
+        this.qtdVagas = qtdVagas;
         this.valor = valor;
         this.idUnidade = idUnidade;
         this.periodo = periodo;
     }
-    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, String periodo) {
+    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo) {
         this.nomeCurso = nomeCurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
-        this.qtd_vagas = qtd_vagas;
+        this.qtdVagas = qtdVagas;
         this.valor = valor;
         this.idUnidade = idUnidade;
         this.periodo = periodo;
@@ -51,15 +51,15 @@ public class Curso {
     /**
      * @return the qtd_vagas
      */
-    public int getQtd_vagas() {
-        return qtd_vagas;
+    public int getQtdVagas() {
+        return qtdVagas;
     }
 
     /**
      * @param qtd_vagas the qtd_vagas to set
      */
     public void setQtd_vagas(int qtd_vagas) {
-        this.qtd_vagas = qtd_vagas;
+        this.qtdVagas = qtd_vagas;
     }
 
     /**
