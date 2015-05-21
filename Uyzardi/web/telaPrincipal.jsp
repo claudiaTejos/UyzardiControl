@@ -79,38 +79,52 @@
         
         <div id="selecionaCurso" class="matricula-aluno oculto">
             <form>
-                <h2 id="nomeAlunoMatricula">Nome do aluno</h2>
-                <c:if test="${not empty novoCliente}">
+                <c:if test="${not empty cliente}">
+                <h2 id="nomeAlunoMatricula">${cliente.nome}</h2>
                     <input type="hidden" id="hiddenPesquisa" value="${cliente.idPessoa}">
+                    <c:if test="${not empty listaMatricula}">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Curso</th>
+                                <th>Modulo</th>
+                                <th>Status</th>
+                            </tr>
+                            <c:forEach items="${listaMatricula}" var="matricula" varStatus="stat">
+                                <tr>
+                                    <td><c:out value="${matricula.idMatricul}" /></td>
+                                    <td><c:out value="${matricula.dataMatricula}" /></td>
+                                    <td><c:out value="${matricula.statusMatricula}" /></td>
+                                </tr>
+                          </c:forEach>
+                        </table>
+                    </c:if>
+                    <select class="form-control" name="optionCurso">
+                        <option >Curso</option>
+                        <option value="ingles">Ingles</option>
+                        <option value="frances">Frances</option>
+                        <option value="espanhol">Espanhol</option>
+                    </select>
+                    <br>
+                    <select class="form-control">
+                        <option >Modulo</option>
+                        <option value="1">Modulo 1</option>
+                        <option value="2">Modulo 2</option>
+                        <option value="3">Modulo 3</option>
+                        <option value="4">Modulo 4</option>
+                        <option value="5">Modulo 4</option>
+                    </select>
+                    <br>
+                    <select class="form-control">
+                        <option value="1">Manha 9h30</option>
+                        <option value="2">Manha 11h30</option>
+                        <option value="3">Tarde 2h45</option>
+                        <option value="4">Tarde 4h50</option>
+                        <option value="5">Noite 18h</option>
+                        <option value="6">Noite 20h</option>
+                    </select>
+                    <br> 
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"> Matricular Aluno</button>
                 </c:if>
-                <select class="form-control" name="optionCurso">
-                    <option >Curso</option>
-                    <option value="ingles">Ingles</option>
-                    <option value="frances">Frances</option>
-                    <option value="espanhol">Espanhol</option>
-                </select>
-
-                <br>
-
-                <select class="form-control">
-                    <option >Modulo</option>
-                    <option value="1">Modulo 1</option>
-                    <option value="2">Modulo 2</option>
-                    <option value="3">Modulo 3</option>
-                    <option value="4">Modulo 4</option>
-                    <option value="5">Modulo 4</option>
-                </select>
-                <br>
-                <select class="form-control">
-                    <option value="1">Manha 9h30</option>
-                    <option value="2">Manha 11h30</option>
-                    <option value="3">Tarde 2h45</option>
-                    <option value="4">Tarde 4h50</option>
-                    <option value="5">Noite 18h</option>
-                    <option value="6">Noite 20h</option>
-                </select>
-                <br> 
-                <button class="btn btn-lg btn-primary btn-block" type="submit"> Matricular Aluno</button>	
             </form>
         </div>
 
@@ -599,7 +613,11 @@
             mudarOcultoAtualizarCliente();
         </script>
     </c:if>    
-    
+    <c:if test="${clickBtnListaMatricula}">
+        <script>
+            mudarOcultoSelecionaCurso();
+        </script>
+    </c:if>
    </div>
 </body>
 </html>
