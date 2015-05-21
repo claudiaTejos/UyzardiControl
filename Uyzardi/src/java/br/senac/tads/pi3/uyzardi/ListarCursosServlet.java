@@ -50,7 +50,7 @@ public class ListarCursosServlet extends HttpServlet {
                             resultados.getDouble("valorCurso"),
                             resultados.getInt("vagasCurso"),
                             resultados.getInt("idUnidade"),
-                            resultados.getInt("periodo"));
+                            resultados.getString("periodo"));
                     listaCurso.add(curso);
                 }
             }

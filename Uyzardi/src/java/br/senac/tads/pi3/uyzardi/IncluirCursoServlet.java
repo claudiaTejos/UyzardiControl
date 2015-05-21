@@ -36,7 +36,7 @@ public class IncluirCursoServlet extends HttpServlet {
             stmt.setDouble(4, curso.getValor());
             stmt.setInt(5 ,curso.getQtd_vagas());
             stmt.setObject(6, curso.getIdUnidade());
-            stmt.setInt(7 ,curso.getPeriodo());
+            stmt.setString(7 ,curso.getPeriodo());
             stmt.executeUpdate();
             controle = true;
             System.out.println("Incluido com sucesso");
@@ -116,7 +116,7 @@ public class IncluirCursoServlet extends HttpServlet {
         double valor = Double.parseDouble(request.getParameter("valor"));
         int qtd_vagas = Integer.parseInt(request.getParameter("vagas"));
         int unidade = Integer.parseInt(request.getParameter("unidade"));
-        int periodo = Integer.parseInt(request.getParameter("periodo"));
+        String periodo = request.getParameter("periodo");
             
         Curso curso = new Curso(nomecurso, modulocurso, salacurso, valor, qtd_vagas, unidade, periodo);
 

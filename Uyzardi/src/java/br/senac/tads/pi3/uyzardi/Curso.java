@@ -18,10 +18,10 @@ public class Curso {
     private int salaCurso;
     private int qtd_vagas;
     private double valor;
-    private int periodo;
+    private String periodo;
     private int idUnidade;
 
-    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
+    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, String periodo) {
         this.idCurso = idCurso;
         this.nomeCurso = nomecurso;
         this.moduloCurso = modulocurso;
@@ -31,7 +31,7 @@ public class Curso {
         this.idUnidade = idUnidade;
         this.periodo = periodo;
     }
-    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
+    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, String periodo) {
         this.nomeCurso = nomeCurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
@@ -83,10 +83,10 @@ public class Curso {
     }
 
     /**
-     * @param modulo the modulo to set
+     * @param nomeCurso the nomeCurso to set
      */
     public void setNomeCurso(String nomeCurso) {
-        this.setNomeCurso(nomeCurso);
+        this.nomeCurso = nomeCurso;
     }
 
     /**
@@ -97,10 +97,10 @@ public class Curso {
     }
 
     /**
-     * @param sala the sala to set
+     * @param salaCurso the salaCurso to set
      */
     public void setSalaCurso(int salaCurso) {
-        this.setSalaCurso(salaCurso);
+        this.salaCurso = salaCurso;
     }
 
     /**
@@ -134,14 +134,14 @@ public class Curso {
     /**
      * @return the periodo
      */
-    public int getPeriodo() {
+    public String getPeriodo() {
         return periodo;
     }
 
     /**
      * @param periodo the periodo to set
      */
-    public void setPeriodo(int periodo) {
+    public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
 }
