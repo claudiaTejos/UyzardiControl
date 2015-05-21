@@ -274,9 +274,6 @@ function mudarOcultoCurso(){
     if (!divFuncionario.classList.contains("oculto")) {
         divFuncionario.classList.toggle("oculto");
     }
-    if (!divCadastrarUnidade.classList.contains("oculto")) {
-        divCadastrarUnidade.classList.toggle("oculto");
-    }
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
@@ -358,7 +355,9 @@ btnPesquisarUnidade.addEventListener("click", mudarOcultoPesquisaUnidade);
 btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 
 // Eventos de Curso.
-btnCurso.addEventListener("click", mudarOcultoCurso);
+if(btnCurso !== null) {
+    btnCurso.addEventListener("click", mudarOcultoCurso);
+}
 btnPesquisarCurso.addEventListener("click", mudarOcultoPesquisaCurso);
 btnNovoCurso.addEventListener("click", mudarOcultoNovoCurso);
 
