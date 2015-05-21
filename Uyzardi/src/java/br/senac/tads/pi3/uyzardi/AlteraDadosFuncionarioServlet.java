@@ -140,10 +140,11 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         
-        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario")); 
+        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
         request.setAttribute("funcionario", pesquisarFuncionario(idFuncionario));
         request.setAttribute("idFuncionario", idFuncionario);
-
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         
         RequestDispatcher rd = request.getRequestDispatcher("AlterarDadosFuncionario.jsp");
         rd.forward(request, response);
@@ -186,7 +187,7 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         long cpf =  Long.parseLong(request.getParameter("cpfFuncionario"));
         int rg =  Integer.parseInt(request.getParameter("rgFuncionario"));
         String cargo = request.getParameter("cargoFuncionario");
-        int unidade = Integer.parseInt(request.getParameter("unidadeFuncionario"));
+        int unidade = Integer.parseInt(request.getParameter("unidadeFuncionarioAtualizar"));
         String login = request.getParameter("loginFuncionario");
         String senha = request.getParameter("senhaFuncionario");
         
@@ -203,7 +204,6 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
                 genero, cargo, unidade, login, senha);
-        
         alteraDadosFunc(idFuncionario, funcionario);    
         RequestDispatcher rd = request.getRequestDispatcher("ListarFuncionariosServlet");
         rd.forward(request, response);

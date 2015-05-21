@@ -314,7 +314,7 @@
     
     <div id="gerenciamento" class="gerenciamento oculto">
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-            <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
+            <div id="btnFuncionario" class="btn btn-primary">Funcionarios</div>
             <div id="btnCurso" class="btn btn-info">Curso</div>
             <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
             <div id="btnUnidade" class="btn btn-info">Unidades</div>
@@ -421,7 +421,7 @@
                 <label for="inputCargoFuncionario" class="form-label" id="cargo">Cargo</label>
                 <input type="text" id="inputCargoFuncionario"  class="form-control" placeholder="Cargo" name="cargoFuncionario" required >
                 <label for="unidade" class="form-label unidade">Unidade</label>
-                    <select class="form-control" id="unidade" name="unidadeCliente">
+                    <select class="form-control" id="unidade" name="unidadeFuncionario">
                         <c:if test="${not empty listaUnidades}">
                             <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
                                 <option value="${unidade.idUnidade}">${unidade.nome}</option>

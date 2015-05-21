@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,14 +25,13 @@
             </ul>
         </div>
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-            <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-            <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
+            <div id="btnFuncionario" class="btn btn-primary">Funcionarios</div>
+            <div id="btnCurso" class="btn btn-info">Curso</div>
+            <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
-        <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
-        <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnUnidade" class="btn btn-primary">Unidades</div>
-        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
+        
         <div id="alterarFuncionario" class="cadastrarFuncionario">
             <form  id="controle" action="AlteraDadosFuncionarioServlet" method="POST">
                 <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
@@ -46,35 +46,29 @@
                 <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario"  value="${funcionario.rg}"required >
                 <h4 class="genero">Genero</h4>
                 <label for="inputGeneroFuncionario" class="genero" >   
-                <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
+                    <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required <c:if test="${funcionario.genero eq 'F'}" >checked</c:if>>F</label>
                 <label for="inputGenero" class="genero2">
-                <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required >M</label>
+                <input type="radio" id="inlineRadioM" name="inlineRadioOptions" value="M" required <c:if test="${funcionario.genero eq 'M'}">checked</c:if>>M</label>
                 <label for="inputCargoFuncionario" class="form-label" id="cargo">Cargo</label>
                 <input type="text" id="inputCargoFuncionario"  class="form-control" placeholder="Cargo" name="cargoFuncionario" value="${funcionario.cargo}"required >
                 <label for="unidade" class="form-label unidade">Unidade</label>
-                    <select class="form-control" id="unidade" name="unidadeFuncionario" value="${funcionario.unidade}">
-                        <option value="1">São Paulo</option>
-                        <option value="2">Rio de Janeiro</option>
-                        <option value="5">Belo Horizonte </option>
-                        <option value="6">Curitiba</option>
-                        <option value="7">Porto Alegre</option>
-                        <option value="8">Florianopolis</option>
-                        <option value="9">Salvador</option>
-                        <option value="10">Recife</option>
-                        <option value="11">Goiania</option>
-                        <option value="12">Manaus</option>
-                        <option value="13">Belem</option>
-                        <option value="14">Brasilia</option>
+                <select class="form-control" id="unidadeAtualizar" name="unidadeFuncionarioAtualizar">
+                        <c:if test="${not empty listaUnidades}">
+                            <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                                <option value="${unidade.idUnidade}" <c:if test="${cliente.idUnidade == unidade.idUnidade}">selected</c:if> >${unidade.nome}</option>
+                            </c:forEach>
+                        </c:if>
                     </select>
                 <label for="inputLoginFuncionario" class="form-label">Login</label>
                 <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario"  value="${funcionario.login}"required >
                 <label for="inputSenhaFuncionario" class="form-label">Senha</label>
                 <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" value="${funcionario.senha}"required >
                 <input id="inputHiddenEditar" type="hidden" name="idFuncionario" value="${funcionario.idPessoa}">
-                <input type="submit" class="btn btn-success" id="mudancas" value="Efetuar mudanças">
-                <button type="submit" class="btn btn-danger" id="mudancas" formaction="ListarFuncionariosServlet" formmethod="POST">Cancelar</button>
+                <input type="submit" class="btn btn-success" id="concluir" value="Efetuar mudanças">
+                <button type="submit" class="btn btn-danger" id="concluir" formaction="ListarFuncionariosServlet" formmethod="POST">Cancelar</button>
 
             </form> 
         </div>
+                <script src="js/telaPrincipal.js"></script>
     </body>
 </html>

@@ -154,6 +154,9 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
                 genero, cargo, unidade, login, senha);
         
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        
         incluirFuncionario(funcionario);
         
         

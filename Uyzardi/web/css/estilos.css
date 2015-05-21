@@ -75,10 +75,7 @@ li{
 .total{
     margin-left:60%
 }
-/*#dadosAluno .form-control{
-    width: 600px;
-    margin-left:25%;
-}*/
+
 #controle .form-control{
     width: 600px;
     margin-left:25%;
@@ -89,14 +86,7 @@ li{
 .genero2{
     margin-left:10px;
 }
-/*#dadosFuncionario .form-control{
-    width: 600px;
-    margin-left:25%;
-}*/
-/*#dadosProduto .form-control{
-    width: 600px;
-    margin-left:25%;
-}*/
+
 .relatorio{
     margin-top:200px;
 }
@@ -104,35 +94,15 @@ li{
     margin-left:25%;
     margin-top:10px;
 }
-/*#dadosAluno .form-label{
-    margin-left:25%;
-    margin-top:10px;
-}*/
-/*#dadosAluno #concluir{
-    margin-left:33%;
-    margin-top:20px;
-    width:400px;
-}*/
-/*#btnPesquisarAluno{
-     margin-left:38%;
-    width:360px;
-}
-/*#dadosFuncionario .form-label{
-    margin-left:25%;
-    margin-top:10px;
-}*/
-/*#dadosProduto .form-label{
-    margin-left:25%;
-    margin-top:10px;
-}*/
-/*#dadosProduto #concluir{
-    margin-left:33%;
-    margin-top:20px;
-    width:400px;
-}*/
+
 #botoesGerenciamento{
     margin-top:50px;
     width: 150px;;
+}#controle #concluir{
+    margin-left:33%;
+    margin-top:20px;
+    width:400px;
+    display:block;
 }
 #controle #concluir{
     margin-left:33%;
@@ -156,19 +126,7 @@ li{
     margin-left:34%;
     
 }
-/*#dadosUnidade .form-label{
-    margin-left:25%;
-    margin-top:10px;
-}*/
-/*#dadosUnidade #concluir{
-    margin-left:33%;
-    margin-top:20px;
-    width:400px;
-}*/
-/*#dadosUnidade .form-control{
-    width: 600px;
-    margin-left:25%;
-}*/
+
 .unidade{
     display: block;
 }

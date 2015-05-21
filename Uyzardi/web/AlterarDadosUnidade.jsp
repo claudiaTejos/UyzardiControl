@@ -23,13 +23,11 @@
             </ul>
         </div>
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
-            <a id="btnProdutos2" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-            <div id="btnNovoCurso" class="btn btn-primary">Curso</div>
+            <div id="btnFuncionario" class="btn btn-primary">Funcionarios</div>
+            <div id="btnCurso" class="btn btn-info">Curso</div>
+            <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
-        <div id="btnFuncionario" class="btn btn-primary">Funcionario</div>
-        <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
-        <div id="btnUnidade" class="btn btn-primary">Unidades</div>
-        <div id="btnRelatorios" class="btn btn-info">Relatorios</div>
         </div>
         
         <div id="atualizarUnidade" class="atualizarUnidade">
@@ -41,9 +39,10 @@
                 <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
                 <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade" value="${unidade.cidade}" required>
                 <input id="inputHiddenEditar" type="hidden" name="idUnidade" value="${unidade.idUnidade}">
-                <input type="submit" class="btn btn-success" id="mudancas" value="Efetuar Mudanças">
-                <button type="submit" class="btn btn-danger" id="mudancas" formaction="ListarUnidadeServlet" formmethod="POST">Cancelar</button>
+                <input type="submit" class="btn btn-success" id="concluir" value="Efetuar Mudanças">
+                <button type="submit" class="btn btn-danger" id="concluir" formaction="ListarUnidadeServlet" formmethod="POST">Cancelar</button>
             </form> 
         </div>
+                <script src="js/telaPrincipal.js"></script>
     </body>
 </html>
