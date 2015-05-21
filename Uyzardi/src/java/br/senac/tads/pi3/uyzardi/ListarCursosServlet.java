@@ -4,10 +4,13 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,49 +19,60 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Cauê Camargo
  */
-@WebServlet(name = "IncluirCursoServlet", urlPatterns = {"/IncluirCursoServlet"})
-public class IncluirCursoServlet extends HttpServlet {
-
-    private boolean incluirCurso(Curso curso) {
-        boolean controle = false;
-        PreparedStatement stmt = null;
+@WebServlet(name = "ListarCursosServlet", urlPatterns = {"/ListarCursosServlet"})
+public class ListarCursosServlet extends HttpServlet {
+    
+        public ArrayList<Curso> pesquisaCurso (String pesquisa){
+        ArrayList<Curso> listaCurso = new ArrayList<>();
+        ResultSet resultados = null;
+        Statement stmt = null;
         Connection conn = null;
-
-        String sql = "INSERT INTO `Curso`"
-                + "(nomeCurso, moduloCurso, salaCurso, valorCurso, vagasCurso, idUnidade, periodo) VALUES"
-                + "(?,?,?,?,?,?,?)";
+        
+        String sql;
+        if (pesquisa.equals("")) {
+             sql = "SELECT * FROM `Curso`";
+        }
+        else{
+            sql = "SELECT * FROM `Curso` WHERE `nomeCurso` LIKE '%"+pesquisa+"%'";
+        }
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, curso.getNomeCurso());
-            stmt.setString(2, curso.getModuloCurso());
-            stmt.setInt(3, curso.getSalaCurso());
-            stmt.setDouble(4, curso.getValor());
-            stmt.setInt(5 ,curso.getQtd_vagas());
-            stmt.setObject(6, curso.getIdUnidade());
-            stmt.setInt(7 ,curso.getPeriodo());
-            stmt.executeUpdate();
-            controle = true;
-            System.out.println("Incluido com sucesso");
+            resultados = stmt.executeQuery(sql);
+            
+            if (resultados != null) {
+                while (resultados.next()){
+                    Curso curso = new Curso(
+                            resultados.getInt("idCurso"),
+                            resultados.getString("nomeCurso"),
+                            resultados.getString("moduloCurso"),
+                            resultados.getInt("salaCurso"),
+                            resultados.getDouble("valorCurso"),
+                            resultados.getInt("vagasCurso"),
+                            resultados.getInt("idUnidade"),
+                            resultados.getInt("periodo"));
+                    listaCurso.add(curso);
+                }
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
+            Logger.getLogger(ListarCursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if (conn != null) {
+            if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(IncluirCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        return controle;
+        return listaCurso;
     }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,17 +83,23 @@ public class IncluirCursoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirCursoServlet</title>");
+            out.println("<title>Servlet ListarCursosServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncluirCursoServlet at " + request.getContextPath() + "</h1>");
+            ArrayList<Curso> lista = pesquisaCurso("");
+            for (int i = 0; i < lista.size(); i++) {
+                //out.print(lista.get(i).getIdPessoa());
+                out.print(lista.get(i).getIdCurso());
+                out.print(lista.get(i).getNomeCurso());
+            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -109,20 +129,10 @@ public class IncluirCursoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
-        String nomecurso = request.getParameter("nomeCurso");
-        String  modulocurso = request.getParameter("moduloCurso");
-        int salacurso = Integer.parseInt(request.getParameter("salaCurso"));
-        double valor = Double.parseDouble(request.getParameter("valor"));
-        int qtd_vagas = Integer.parseInt(request.getParameter("vagas"));
-        int unidade = Integer.parseInt(request.getParameter("unidade"));
-        int periodo = Integer.parseInt(request.getParameter("periodo"));
-            
-        Curso curso = new Curso(nomecurso, modulocurso, salacurso, valor, qtd_vagas, unidade, periodo);
-
-        incluirCurso(curso);
-
-        processRequest(request, response);
+        request.setAttribute("listaCurso", pesquisaCurso((String)request.getParameter("nomeCurso")));
+        request.setAttribute("clickBtnPesquisaCurso","true");
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
+        rd.forward(request, response);
     }
     /**
      * Returns a short description of the servlet.

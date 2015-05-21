@@ -14,20 +14,24 @@ public class Curso {
     
     private int idCurso;
     private String nomeCurso;
-    private int moduloCurso;
+    private String moduloCurso;
     private int salaCurso;
     private int qtd_vagas;
     private double valor;
     private int periodo;
     private int idUnidade;
-    
-    Curso(String nomecurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int unidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
+        this.idCurso = idCurso;
+        this.nomeCurso = nomecurso;
+        this.moduloCurso = modulocurso;
+        this.salaCurso = salacurso;
+        this.qtd_vagas = qtd_vagas;
+        this.valor = valor;
+        this.idUnidade = idUnidade;
+        this.periodo = periodo;
     }
-    Curso(int idCurso , String nomecurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int unidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    Curso(String nomeCurso, int modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
+    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtd_vagas, int idUnidade, int periodo) {
         this.nomeCurso = nomeCurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
@@ -40,7 +44,7 @@ public class Curso {
     /**
      * @return the id_curso
      */
-    public int getId_curso() {
+    public int getIdCurso() {
         return idCurso;
     }
 
@@ -102,14 +106,14 @@ public class Curso {
     /**
      * @return the moduloCurso
      */
-    public int getModuloCurso() {
+    public String getModuloCurso() {
         return moduloCurso;
     }
 
     /**
      * @param moduloCurso the moduloCurso to set
      */
-    public void setModuloCurso(int moduloCurso) {
+    public void setModuloCurso(String moduloCurso) {
         this.moduloCurso = moduloCurso;
     }
 
