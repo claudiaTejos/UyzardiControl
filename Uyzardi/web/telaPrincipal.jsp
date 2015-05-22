@@ -410,9 +410,7 @@
                 <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
                 <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
                 <label for="inputCPFFuncionario" class="form-label">CPF</label>
-                <input type="text" id="inputCPFFuncionario"  class="form-control" placeholder="CPF" name="cpfFuncionario" required >
                 <label for="inputRGFuncionario" class="form-label">RG</label>
-                <input type="text" id="inputRGFuncionario"  class="form-control" placeholder="RG" name="rgFuncionario" required >
                 <h4 class="genero">Genero</h4>
                 <label for="inputGeneroFuncionario" class="genero">   
                 <input type="radio" id="inlineRadioF" name="inlineRadioOptions" value="F" required>F</label>
