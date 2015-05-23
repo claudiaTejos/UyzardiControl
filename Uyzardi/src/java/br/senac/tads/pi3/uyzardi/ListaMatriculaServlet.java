@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -144,7 +145,16 @@ public class ListaMatriculaServlet extends HttpServlet {
             cliente = PesquisarClienteServlet.pesquisaClienteID(Integer.parseInt(request.getParameter("btnAcoesHiddenIDCliente"))); 
             request.setAttribute("cliente", cliente);
         } 
+        ListarCursosServlet listaCursos = new ListarCursosServlet();
+        ArrayList<Curso> listaCursosUnidades = listaCursos.pesquisaCurso("");
+        for(Iterator<Curso> iterador = listaCursosUnidades.iterator(); iterador.hasNext();){
+            Curso atual = iterador.next();
+            if (cliente.getIdUnidade() != atual.getIdUnidade()) {
+                iterador.remove();
+            }
+        }
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("cursos", listaCursosUnidades);
         request.setAttribute("listaMatricula", listaMatricula(cliente.getIdPessoa()));
         request.setAttribute("clickBtnListaMatricula", "true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");

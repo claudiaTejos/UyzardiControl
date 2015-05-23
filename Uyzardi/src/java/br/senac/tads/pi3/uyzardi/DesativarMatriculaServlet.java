@@ -5,18 +5,10 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,53 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Claudio
  */
-@WebServlet(name = "incluirMatricula", urlPatterns = {"/incluirMatricula"})
-public class IncluirMatriculaServlet extends HttpServlet {
-    
-    public boolean incluirMatricula(Matricula novaMatricula){
-        boolean resultado = false;
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        
-        String sql = "INSERT INTO `Matricula`"
-                + "(idCliente, idFuncionario, idCurso, "
-                + "dataHoraMatricula, StatusMatricula) VALUES"
-                + "(?,?,?,?,?)";
-        
-        try {
-            conn = ConnMysql.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, novaMatricula.getIdCliente());
-            stmt.setInt(2, novaMatricula.getIdFuncionario());
-            stmt.setInt(3, novaMatricula.getIdCurso());
-            stmt.setDate(4, new java.sql.Date(novaMatricula.getDataMatricula().getTime()));
-            stmt.setString(5, novaMatricula.getStatusMatricula());
-            
-            
-            stmt.executeUpdate();
-            resultado = true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        
-        return resultado;
-    }
+@WebServlet(name = "desativarMatricula", urlPatterns = {"/desativarMatricula"})
+public class DesativarMatriculaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,9 +40,10 @@ public class IncluirMatriculaServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncluirMatriculaServlet</title>");            
+            out.println("<title>Servlet DesativarMatriculaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
+            out.println("<h1>Servlet DesativarMatriculaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -127,23 +75,9 @@ public class IncluirMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        int cliente = Integer.parseInt(request.getParameter("hiddenClienteMatricula"));
-        int opcaoCurso = Integer.parseInt(request.getParameter("optionCurso"));
-        int unidade = Integer.parseInt(request.getParameter("hiddenClienteUnidadeMatricula"));
-        Date data = new Date();
-        
-        Matricula novaMatricula = new Matricula(cliente, data, unidade, opcaoCurso, "A");
-        
-        if (incluirMatricula(novaMatricula)) {
-            request.setAttribute("resultadoIncluirMatricula", true);
-            request.setAttribute("matricula", novaMatricula);
-        }
-        else{
-            request.setAttribute("resultadoIncluir", false);
-        }
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("clickBtnDesativaMatricula", "true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

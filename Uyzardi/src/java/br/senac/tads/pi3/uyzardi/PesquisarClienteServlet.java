@@ -55,7 +55,8 @@ public class PesquisarClienteServlet extends HttpServlet {
                             resultados.getInt("rgCliente"),
                             resultados.getString("enderecoCliente"),
                             resultados.getDate("dataNascimentoCliente"),
-                            resultados.getString("sexoCliente").charAt(0)
+                            resultados.getString("sexoCliente").charAt(0),
+                            resultados.getInt("idUnidade")
                     );
                     listaClientes.add(cliente);
                 }
@@ -85,9 +86,9 @@ public class PesquisarClienteServlet extends HttpServlet {
     public static Cliente pesquisaClienteID (int id){
         PesquisarClienteServlet ps = new PesquisarClienteServlet();
         ArrayList<Cliente> clientes = ps.pesquisarClientes("");
-        for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getIdPessoa() == id) {
-                return clientes.get(i);
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdPessoa() == id) {
+                return cliente;
             }
         }
         return null;

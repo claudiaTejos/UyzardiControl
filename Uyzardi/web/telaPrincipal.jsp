@@ -81,49 +81,43 @@
             <form>
                 <c:if test="${not empty cliente}">
                 <h2 id="nomeAlunoMatricula">${cliente.nome}</h2>
-                    <input type="hidden" id="hiddenPesquisa" value="${cliente.idPessoa}">
+                    <input type="hidden" name="hiddenClienteMatricula" value="${cliente.idPessoa}">
+                    <input type="hidden" name="hiddenClienteUnidadeMatricula" value="${cliente.idUnidade}">
                     <c:if test="${not empty listaMatricula}">
                         <table class="table table-striped">
                             <tr>
                                 <th>Curso</th>
                                 <th>Modulo</th>
+                                <th>Periodo</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                             <c:forEach items="${listaMatricula}" var="matricula" varStatus="stat">
                                 <tr>
-                                    <td><c:out value="${matricula.idMatricul}" /></td>
-                                    <td><c:out value="${matricula.dataMatricula}" /></td>
-                                    <td><c:out value="${matricula.statusMatricula}" /></td>
+                                    <c:forEach items="${cursos}" var="curso">
+                                        <c:if test="${matricula.idCurso eq curso.idCurso}">
+                                            <form>
+                                                <input type="hidden" name="idMatriculaDesativar" value="${matricula.idMatricula}">
+                                                <td>${curso.nomeCurso}</td>
+                                                <td>${curso.moduloCurso}</td>
+                                                <td>${curso.periodo}</td>
+                                                <td>${matricula.statusMatricula}</td>
+                                                <td><button class="btn btn-primary" formaction="desativarMatricular" formmethod="POST">Desativar</button></td>
+                                            </form>
+                                        </c:if>
+                                    </c:forEach>
                                 </tr>
                           </c:forEach>
                         </table>
                     </c:if>
-                    <select class="form-control" name="optionCurso">
-                        <option >Curso</option>
-                        <option value="ingles">Ingles</option>
-                        <option value="frances">Frances</option>
-                        <option value="espanhol">Espanhol</option>
+                    <label for="optionCursoMatricula">Cursos:</label>
+                    <select class="form-control" id="optionCursoMatricula" name="optionCurso">
+                        <c:forEach items="${cursos}" var="curso">
+                            <option value="${curso.idCurso}">${curso.nomeCurso} - ${curso.moduloCurso} - ${curso.periodo}</option>
+                        </c:forEach>
                     </select>
                     <br>
-                    <select class="form-control">
-                        <option >Modulo</option>
-                        <option value="1">Modulo 1</option>
-                        <option value="2">Modulo 2</option>
-                        <option value="3">Modulo 3</option>
-                        <option value="4">Modulo 4</option>
-                        <option value="5">Modulo 4</option>
-                    </select>
-                    <br>
-                    <select class="form-control">
-                        <option value="1">Manha 9h30</option>
-                        <option value="2">Manha 11h30</option>
-                        <option value="3">Tarde 2h45</option>
-                        <option value="4">Tarde 4h50</option>
-                        <option value="5">Noite 18h</option>
-                        <option value="6">Noite 20h</option>
-                    </select>
-                    <br> 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"> Matricular Aluno</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="incluirMatricula" formmethod="POST"> Matricular Aluno</button>
                 </c:if>
             </form>
         </div>
