@@ -72,42 +72,8 @@ public class Funcionario extends Pessoa {
         this.idUnidade = unidade;
     }
      
-    public static boolean login (String email, String senha){
-        boolean login = false;
-        Statement stmt = null;
-        Connection conn = null;
-    
-        String sql = "SELECT `login`, `senha` FROM `Funcionario`";
-        try {
-            conn = ConnMysql.getConnection();
-            stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
-            
-            while(resultados.next()){
-                if(resultados.getString("login").equalsIgnoreCase(email) &&
-                        resultados.getString("senha").equals(senha)){
-                    login = true;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return login;
+    public boolean autenticar (String email, String senha){
+        return this.login.equalsIgnoreCase(email) && this.senha.equals(senha);
     }
 
     /**

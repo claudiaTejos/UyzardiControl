@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Claudia Tejos
  */
 @WebServlet(name = "removerUnidadeServlet", urlPatterns = {"/removerUnidadeServlet"})
-public class removerUnidadeServlet extends HttpServlet {
+public class RemoverUnidadeServlet extends HttpServlet {
     
     private void removerUnidade(int idUnidade){
         
@@ -45,14 +45,14 @@ public class removerUnidadeServlet extends HttpServlet {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(removerUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(RemoverUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(removerUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(RemoverUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }  

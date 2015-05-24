@@ -29,8 +29,12 @@
     <c:if test="${resultadoIncluir}">
         <input type="hidden" id="hiddenSelecionaCurso" value="true">
     </c:if>
-        
+    
+    
     <div class="empresa"><h1>Uizardy Control</h1></div>
+    
+    Olá <c:out value="${funcionario.nome}" />! Você está em <c:out value="${unidade.nome}" />&nbsp;<a id="btnLogout" href="logout">Sair</a>
+    
     <div class="menu-geral">
     	<ul class="nav nav-pills nav-justified">
             <li><a id="btnMatricula">Matricula</a></li>

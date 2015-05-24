@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author CLaudia Tejos
  */
 @WebServlet(name = "removerFuncionarioServlet", urlPatterns = {"/removerFuncionarioServlet"})
-public class removerFuncionarioServlet extends HttpServlet {
+public class RemoverFuncionarioServlet extends HttpServlet {
     
     private void removerFuncionario(int idFuncionario){
         
@@ -45,14 +45,14 @@ public class removerFuncionarioServlet extends HttpServlet {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(removerFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(RemoverFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(removerFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(RemoverFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }  
