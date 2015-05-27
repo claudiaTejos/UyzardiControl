@@ -337,7 +337,7 @@ btnGerenciamento.addEventListener("click", mudarOcultoGerenciamento);
 
 ///////////// eventos de funcionario
 btnFuncionario.addEventListener("click", mudarOcultoFuncionario);
-btnPesquisarFuncionario.addEventListener("click", mudarOcultoPesquisaFuncionario);
+//btnPesquisarFuncionario.addEventListener("click", mudarOcultoPesquisaFuncionario);
 btnNovoFuncionario.addEventListener("click", mudarOcultoNovoFuncionario);
 
 ///////////// eventos de produtos
@@ -351,7 +351,7 @@ btnCadastrarCurso.addEventListener("click", mudarOcultoNovoCurso);
 
 ///////////// eventos de unidade
 btnUnidade.addEventListener("click", mudarOcultoUnidade);
-btnPesquisarUnidade.addEventListener("click", mudarOcultoPesquisaUnidade);
+//btnPesquisarUnidade.addEventListener("click", mudarOcultoPesquisaUnidade);
 btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 
 // Eventos de Curso.

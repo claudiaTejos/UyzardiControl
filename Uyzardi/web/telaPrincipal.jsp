@@ -17,12 +17,7 @@
     <c:if test="${not empty clickBtnPesquisa}">
         <input type="hidden" id="hiddenPesquisa" value="true">
     </c:if>
-    <c:if test="${not empty clickBtnPesquisaUnidade}">
-        <input type="hidden" id="hiddenPesquisaUnidade" value="true">
-    </c:if>
-    <c:if test="${not empty clickBtnPesquisaFuncionario}">
-        <input type="hidden" id="hiddenPesquisaFuncionario" value="true">
-    </c:if>
+    
     <c:if test="${not empty clickBtnPesquisaCurso}">
         <input type="hidden" id="hiddenPesquisaCurso" value="true">
     </c:if>
@@ -614,6 +609,16 @@
     <c:if test="${clickBtnListaMatricula}">
         <script>
             mudarOcultoSelecionaCurso();
+        </script>
+    </c:if>
+    <c:if test="${clickBtnPesquisaFuncionario}">
+        <script>
+            mudarOcultoPesquisaFuncionario();
+        </script>
+    </c:if>
+    <c:if test="${not empty clickBtnPesquisaUnidade}">
+        <script>
+            mudarOcultoPesquisaUnidade();
         </script>
     </c:if>
    </div>

@@ -148,7 +148,8 @@ public class ListarFuncionariosServlet extends HttpServlet {
         request.setAttribute("clickBtnPesquisaFuncionario","true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
-       
+        
+  
     }
 
     /**
