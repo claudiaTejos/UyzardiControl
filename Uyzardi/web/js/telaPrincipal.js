@@ -166,9 +166,6 @@ function mudarOcultoFuncionario(){
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
-    if (!divCurso.classList.contains("oculto")) {
-        divCurso.classList.toggle("oculto");
-    }
     if (divFuncionario.classList.contains("oculto")) {
         divFuncionario.classList.toggle("oculto");
     }
@@ -210,9 +207,6 @@ function mudarOcultoProdutos(){
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
-    if (!divCurso.classList.contains("oculto")) {
-        divCurso.classList.toggle("oculto");
-    }
     if (divProdutos.classList.contains("oculto")) {
         divProdutos.classList.toggle("oculto");
         divListarProduto.classList.toggle(("oculto"));
@@ -244,9 +238,6 @@ function mudarOcultoRelatorios(){
     if (!divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
     }
-    if (!divCurso.classList.contains("oculto")) {
-        divCurso.classList.toggle("oculto");
-    }
     if (divRelatorios.classList.contains("oculto")) {
         divRelatorios.classList.toggle("oculto");
     }
@@ -266,9 +257,6 @@ function mudarOcultoUnidade(){
     }
     if (!divCadastrarCurso.classList.contains("oculto")) {
         divCadastrarCurso.classList.toggle("oculto");
-    }
-    if (!divCurso.classList.contains("oculto")) {
-        divCurso.classList.toggle("oculto");
     }
     if (divUnidade.classList.contains("oculto")) {
         divUnidade.classList.toggle("oculto");
@@ -370,7 +358,7 @@ btnNovaUnidade.addEventListener("click", mudarOcultoNovaUnidade);
 if(btnCurso !== null) {
     btnCurso.addEventListener("click", mudarOcultoCurso);
 }
-//btnPesquisarCurso.addEventListener("click", mudarOcultoPesquisaCurso);
+btnPesquisarCurso.addEventListener("click", mudarOcultoPesquisaCurso);
 btnNovoCurso.addEventListener("click", mudarOcultoNovoCurso);
 
 

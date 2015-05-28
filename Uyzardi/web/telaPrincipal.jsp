@@ -314,8 +314,8 @@
         <div class="btn-group-vertical" role="group" id="botoesGerenciamento">
             <div id="btnFuncionario" class="btn btn-primary">Funcionarios</div>
             <div id="btnCurso" class="btn btn-info">Curso</div>
-            <div id="btnUnidade" class="btn btn-primary">Unidades</div>
-            <a id="btnProdutos" class="btn btn-info" href="ListarProdutosServlet">Produtos</a>
+            <a id="btnProdutos" class="btn btn-primary" href="ListarProdutosServlet">Produtos</a>
+            <div id="btnUnidade" class="btn btn-info">Unidades</div>
             <div id="btnRelatorios" class="btn btn-primary">Relatorios</div>
         </div>
         
@@ -540,13 +540,19 @@
                 <label for="inputVagas" class="form-label">Vagas</label>
                 <input type="text" id="inputVagas" class="form-control" placeholder="vagas" name="vagas" required >
                 <label for="unidade" class="form-label unidade">Unidade</label>
-                <select class="form-control" id="unidade" name="unidadeCliente">
-                    <c:if test="${not empty listaUnidades}">
-                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                            <option value="${unidade.idUnidade}">${unidade.nome}</option>
-                        </c:forEach>
-                    </c:if>
-                </select>
+                    <select class="form-control" id="unidade" name="unidade">
+                        <option value="1">Rio de Janeiro</option>
+                        <option value="2">Belo Horizonte </option>
+                        <option value="3">Curitiba</option>
+                        <option value="4">Porto Alegre</option>
+                        <option value="5">Florianopolis</option>
+                        <option value="6">Salvador</option>
+                        <option value="7">Recife</option>
+                        <option value="8">Goiania</option>
+                        <option value="9">Manaus</option>
+                        <option value="10">Belem</option>
+                        <option value="11">Brasilia</option>
+                    </select>
                 <label for="periodo" class="form-label unidade">Periodo</label>
                     <select class="form-control" id="periodo" name="periodo">
                         <option value="1">Manha 9h30</option>
@@ -561,30 +567,29 @@
         </div>
         <div id="listarCurso" class="oculto">
             <c:if test="${not empty listaCurso}">
-                <table class="table table-striped">
-                    <tr class="tabelaInicio">
-                        <td>Curso</td>
-                        <td>Modulo</td>
-                        <td> </td>
+            <table class="table table-striped">
+                <tr class="tabelaInicio">
+                    <td>Identificação</td>
+                    <td>Curso</td>
+                    <td> </td>
+                </tr>
+                <c:forEach items="${listaCurso}" var="curso" varStatus="stat">
+                    <tr>
+                        <form>
+                            <td><c:out value="${curso.idCurso}" /></td>
+                            <td><c:out value="${curso.nomeCurso}" /></td>
+                            <td>
+                                <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" >Atualizar</button>
+                                <button id="remover" class="btn btn-danger glyphicon glyphicon-trash" ></button>
+                            </td>
+                        </form>
                     </tr>
-                    <c:forEach items="${listaCurso}" var="curso" varStatus="stat">
-                        <tr>
-                            <form>
-                                <input type="hidden" value="${curso.idCurso}" name="idCurso">
-                                <td><c:out value="${curso.nomeCurso}" /></td>
-                                <td><c:out value="${curso.moduloCurso}" /></td>
-                                <td>
-                                    <button id="btnCursoAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosCursoServlet" formmethod="GET">Atualizar</button>
-                                    <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="removerCursoServlet" formmethod="POST"></button>
-                                </td>
-                            </form>
-                        </tr>
-                    </c:forEach>
-                </table>
+                </c:forEach>
+            </table>
             </c:if>
-            <c:if test="${empty listaCurso}">
-                <div class="aviso">Não foi encontrado nenhum resultados.</div>
-            </c:if>    
+            <c:if test="${empty listaFuncionario}">
+                <div class="aviso">Não foi encontrado nenhum resultados funcionario.</div>
+            </c:if>
         </div> 
     </div>    
         
@@ -611,12 +616,6 @@
             mudarOcultoSelecionaCurso();
         </script>
     </c:if>
-    <c:if test="${clickBtnPesquisaCurso}">
-        <script>
-            mudarOcultoPesquisaCurso();
-        </script>
-    </c:if>
-        
    </div>
 </body>
 </html>

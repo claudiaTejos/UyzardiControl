@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -122,10 +121,8 @@ public class IncluirCursoServlet extends HttpServlet {
         Curso curso = new Curso(nomecurso, modulocurso, salacurso, valor, qtdVagas, unidade, periodo);
 
         incluirCurso(curso);
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-        RequestDispatcher rd = request.getRequestDispatcher("ListarCursosServlet");
-        rd.forward(request, response);
+
+        processRequest(request, response);
     }
     /**
      * Returns a short description of the servlet.

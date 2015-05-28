@@ -43,14 +43,14 @@ public class ListarCursosServlet extends HttpServlet {
             if (resultados != null) {
                 while (resultados.next()){
                     Curso curso = new Curso(
-                        resultados.getInt("idCurso"),
-                        resultados.getString("nomeCurso"),
-                        resultados.getString("moduloCurso"),
-                        resultados.getInt("salaCurso"),
-                        resultados.getDouble("valorCurso"),
-                        resultados.getInt("vagasCurso"),
-                        resultados.getInt("idUnidade"),
-                        resultados.getString("periodo"));
+                            resultados.getInt("idCurso"),
+                            resultados.getString("nomeCurso"),
+                            resultados.getString("moduloCurso"),
+                            resultados.getInt("salaCurso"),
+                            resultados.getDouble("valorCurso"),
+                            resultados.getInt("vagasCurso"),
+                            resultados.getInt("idUnidade"),
+                            resultados.getString("periodo"));
                     listaCurso.add(curso);
                 }
             }
@@ -131,8 +131,6 @@ public class ListarCursosServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setAttribute("listaCurso", pesquisaCurso((String)request.getParameter("nomeCurso")));
         request.setAttribute("clickBtnPesquisaCurso","true");
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
