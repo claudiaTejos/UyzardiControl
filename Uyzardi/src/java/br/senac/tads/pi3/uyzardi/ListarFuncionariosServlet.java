@@ -59,7 +59,8 @@ public class ListarFuncionariosServlet extends HttpServlet {
                             resultados.getString("cargo"),
                             resultados.getInt("idUnidade"),
                             resultados.getString("login"),
-                            resultados.getString("senha"));
+                            resultados.getString("senha"),
+                            resultados.getString("Status").charAt(0));
                     listaFuncionario.add(funcionario);
                 }
             }
@@ -146,9 +147,10 @@ public class ListarFuncionariosServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setAttribute("listaFuncionario", pesquisarFuncionario((String)request.getParameter("nomeFuncionario")));
         request.setAttribute("clickBtnPesquisaFuncionario","true");
+        request.setAttribute("resultFunc", "NaoEncontrado");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
-       
+
     }
 
     /**

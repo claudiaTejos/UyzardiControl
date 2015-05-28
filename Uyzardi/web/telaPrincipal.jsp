@@ -17,12 +17,7 @@
     <c:if test="${not empty clickBtnPesquisa}">
         <input type="hidden" id="hiddenPesquisa" value="true">
     </c:if>
-    <c:if test="${not empty clickBtnPesquisaUnidade}">
-        <input type="hidden" id="hiddenPesquisaUnidade" value="true">
-    </c:if>
-    <c:if test="${not empty clickBtnPesquisaFuncionario}">
-        <input type="hidden" id="hiddenPesquisaFuncionario" value="true">
-    </c:if>
+    
     <c:if test="${not empty clickBtnPesquisaCurso}">
         <input type="hidden" id="hiddenPesquisaCurso" value="true">
     </c:if>
@@ -106,7 +101,7 @@
                                                 <td>${curso.moduloCurso}</td>
                                                 <td>${curso.periodo}</td>
                                                 <td>${matricula.statusMatricula}</td>
-                                                <td><button class="btn btn-primary" formaction="desativarMatricular" formmethod="POST">Desativar</button></td>
+                                                <td><button class="btn btn-primary" formaction="desativarMatricula" formmethod="POST">Desativar</button></td>
                                             </form>
                                         </c:if>
                                     </c:forEach>
@@ -198,7 +193,7 @@
             <div id="listarProdutosVenda" class="listarProdutosVenda">
                 <br>
                 <br>
-                <h3>Produtos Disponíveis para Venda:</h3>
+                <h3>Produtos disponíveis para venda na unidade <c:out value="${nomeUnidade}" />:</h3>
                 <form action="CriarCarrinhoServlet" method="post">
                     <table class="table">
                         <thead>
@@ -425,8 +420,13 @@
                                 <option value="${unidade.idUnidade}">${unidade.nome}</option>
                             </c:forEach>
                         </c:if>
-                    </select>   
-                <label for="inputLoginFuncionario" class="form-label">Login</label>
+                    </select> 
+                <h4 class="genero">Status</h4>
+                <label for="inputStatusFuncionario" class="genero">   
+                <input type="radio" id="inlineRadioA" name="inlineRadioOptionsStatus" value="A" required>Ativo</label>
+                <label for="inputGenero" class="genero2">
+                <input type="radio" id="inlineRadioI" name="inlineRadioOptionsStatus" value="I" required >Inativo</label>
+                <label for="inputLoginFuncionario" class="form-label" id="login">Login</label>
                 <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario" required >
                 <label for="inputSenhaFuncionario" class="form-label">Senha</label>
                 <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" required >
@@ -439,6 +439,7 @@
                 <tr class="tabelaInicio">
                     <td>Nome</td>
                     <td>Cargo</td>
+                    <td>Status</td>
                     <td> </td>
                 </tr>
                 <c:forEach items="${listaFuncionario}" var="funcionario" varStatus="stat">
@@ -447,9 +448,12 @@
                         <input type="hidden" name="idFuncionario" value="${funcionario.idPessoa}">
                         <td><c:out value="${funcionario.nome}" /></td>
                         <td><c:out value="${funcionario.cargo}" /></td>
+                        <td><c:if test="${funcionario.status eq 'A'}" ><c:out value="Ativo"/></c:if>
+                            <c:if test="${funcionario.status eq 'I'}" ><c:out value="Inativo"/></c:if>
+                        </td>
                         <td> 
                             <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
-                            <button  formmethod="POST" formaction="removerFuncionarioServlet" class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
+                            <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
                     </td>
                     </form>
                 </tr>
@@ -502,7 +506,7 @@
                         <td><c:out value="${unidade.endereco}" /></td>
                         <td>
                             <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosUnidadeServlet" formmethod="GET">Atualizar</button>
-                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="removerUnidadeServlet" formmethod="POST"></button>
+                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="InativarUnidadeServlet" formmethod="POST"></button>
                         </td>
                     </form>
                 </tr>
@@ -614,6 +618,16 @@
     <c:if test="${clickBtnListaMatricula}">
         <script>
             mudarOcultoSelecionaCurso();
+        </script>
+    </c:if>
+    <c:if test="${clickBtnPesquisaFuncionario}">
+        <script>
+            mudarOcultoPesquisaFuncionario();
+        </script>
+    </c:if>
+    <c:if test="${not empty clickBtnPesquisaUnidade}">
+        <script>
+            mudarOcultoPesquisaUnidade();
         </script>
     </c:if>
    </div>

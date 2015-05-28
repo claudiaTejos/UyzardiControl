@@ -5,15 +5,10 @@
  */
 package br.senac.tads.pi3.uyzardi;
 
-import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,47 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudio
+ * @author User
  */
-@WebServlet(name = "desativarMatricula", urlPatterns = {"/desativarMatricula"})
-public class DesativarMatriculaServlet extends HttpServlet {
-    
-    public boolean desativarMatricula(int idMatricula){
-        boolean controle = false;
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        
-        String sql = "UPDATE `Matricula` SET `StatusMatricula` = ? "
-                + "WHERE `idMatricula` = ?";
-        
-        try {
-            conn = ConnMysql.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "I");
-            stmt.setInt(2, idMatricula);
-            stmt.executeUpdate();
-            controle = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        
-        return controle;
-    }
+@WebServlet(name = "RelatorioMatriculaServlet", urlPatterns = {"/RelatorioMatriculaServlet"})
+public class RelatorioMatriculaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,10 +39,10 @@ public class DesativarMatriculaServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DesativarMatriculaServlet</title>");            
+            out.println("<title>Servlet RelatorioMatriculaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DesativarMatriculaServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RelatorioMatriculaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -116,15 +74,19 @@ public class DesativarMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ListaMatriculaServlet listaMatriculaServlet = new ListaMatriculaServlet();
+        ListarUnidadeServlet listaUnidadeServlet = new ListarUnidadeServlet();
+        ListarCursosServlet listaCursosServlet = new ListarCursosServlet();
+        ArrayList<Matricula> listaMatriculas = listaMatriculaServlet.listaMatricula(null);
+        ArrayList<Curso> listaCurso = listaCursosServlet.pesquisaCurso("");
+        ArrayList<Unidade> listaUnidade = listaUnidadeServlet.pesquisarUnidade("");
         
-        int idMatricula = Integer.parseInt(request.getParameter("idMatriculaDesativar"));
-        request.setAttribute("controleDesativaMatricula", desativarMatricula(idMatricula));
-        
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-        request.setAttribute("clickBtnDesativaMatricula", "true");
-        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
-        rd.forward(request, response);
+        for(Iterator<Curso> iterador = listaCurso.iterator(); iterador.hasNext();){
+            Curso atual = iterador.next();
+            if (1 != atual.getIdUnidade()) {
+                iterador.remove();
+            }
+        }
     }
 
     /**

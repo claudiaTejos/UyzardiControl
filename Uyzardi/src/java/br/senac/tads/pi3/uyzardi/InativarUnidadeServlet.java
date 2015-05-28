@@ -21,22 +21,23 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author CLaudia Tejos
+ * @author claudia.rgtejos
  */
-@WebServlet(name = "removerFuncionarioServlet", urlPatterns = {"/removerFuncionarioServlet"})
-public class RemoverFuncionarioServlet extends HttpServlet {
-    
-    private void removerFuncionario(int idFuncionario){
+@WebServlet(name = "InativarUnidadeServlet", urlPatterns = {"/InativarUnidadeServlet"})
+public class InativarUnidadeServlet extends HttpServlet {
+
+     private void removerUnidade(int idUnidade){
         
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "DELETE FROM `Funcionario` WHERE `idFuncionario` = ?";
+        String sql = "UPDATE `Unidade` SET `Status` WHERE `idUnidade` = ?";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idFuncionario);
+            stmt.setObject(1,'I', java.sql.Types.VARCHAR);
+            stmt.setInt(2, idUnidade);
             stmt.executeUpdate();
         } catch (SQLException ex){
             throw new RuntimeException(ex);
@@ -45,20 +46,19 @@ public class RemoverFuncionarioServlet extends HttpServlet {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(RemoverFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(RemoverFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }  
         
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,10 +76,10 @@ public class RemoverFuncionarioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet removerFuncionarioServlet</title>");            
+            out.println("<title>Servlet InativarUnidadeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet removerFuncionarioServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InativarUnidadeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -111,11 +111,9 @@ public class RemoverFuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
+        int idUnidade = Integer.parseInt(request.getParameter("idUnidade"));
 
-        removerFuncionario(idFuncionario);
+        removerUnidade(idUnidade);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

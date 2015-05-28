@@ -38,8 +38,8 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         String sql = "INSERT INTO `Funcionario`"
                 + "(`nomeFuncionario`, `cpfFuncionario`,"
                 + "`rgFuncionario`,`endFuncionario`,`generoFuncionario`, `dataNascFuncionario`,"
-                + "`cargo`, `idUnidade`, `login`, `senha`) VALUES"
-                + "(?,?,?,?,?,?,?,?,?,?)";
+                + "`cargo`, `idUnidade`, `login`, `senha`, `Status`) VALUES"
+                + "(?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             conn = ConnMysql.getConnection();
@@ -54,6 +54,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
             stmt.setInt(8, funcionario.getUnidade());
             stmt.setString(9, funcionario.getLogin());
             stmt.setString(10, funcionario.getSenha());
+            stmt.setObject(11, funcionario.getStatus(), java.sql.Types.VARCHAR);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(IncluirFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,6 +140,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         int unidade = Integer.parseInt(request.getParameter("unidadeFuncionario"));
         String login = request.getParameter("loginFuncionario");
         String senha = request.getParameter("senhaFuncionario");
+        char status = request.getParameter("inlineRadioOptionsStatus").charAt(0);
         
         
         Date dtNascimento = null;
@@ -152,7 +154,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
 
         
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
-                genero, cargo, unidade, login, senha);
+                genero, cargo, unidade, login, senha, status);
         
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
