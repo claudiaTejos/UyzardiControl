@@ -9,12 +9,9 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,70 +21,44 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Claudia Tejos
+ * @author claudia.rgtejos
  */
-@WebServlet(name = "ListarFuncionariosServlet", urlPatterns = {"/ListarFuncionariosServlet"})
-public class ListarFuncionariosServlet extends HttpServlet {
-    
-        public ArrayList<Funcionario> pesquisarFuncionario (String pesquisa){
-        ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
-        ResultSet resultados = null;
-        Statement stmt = null;
+@WebServlet(name = "InativarUnidadeServlet", urlPatterns = {"/InativarUnidadeServlet"})
+public class InativarUnidadeServlet extends HttpServlet {
+
+     private void removerUnidade(int idUnidade){
+        
+        PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql;
-        if (pesquisa.equals("")) {
-             sql = "SELECT * FROM Funcionario";
-        }
-        else{
-            sql = "SELECT * FROM `Funcionario` WHERE `nomeFuncionario` LIKE '%"+pesquisa+"%'";
-        }
+        String sql = "UPDATE `Unidade` SET `Status` WHERE `idUnidade` = ?";
+        
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            resultados = stmt.executeQuery(sql);
-            
-            if (resultados != null) {
-                while (resultados.next()){
-                    Funcionario funcionario = new Funcionario(resultados.getInt("idFuncionario"),
-                            resultados.getString("nomeFuncionario"),
-                            resultados.getLong("cpfFuncionario"),
-                            resultados.getInt("rgFuncionario"),
-                            resultados.getString("endFuncionario"),
-                            resultados.getDate("dataNascFuncionario"),
-                            resultados.getString("generoFuncionario").charAt(0),
-                            resultados.getString("cargo"),
-                            resultados.getInt("idUnidade"),
-                            resultados.getString("login"),
-                            resultados.getString("senha"),
-                            resultados.getString("Status").charAt(0));
-                    listaFuncionario.add(funcionario);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ListarFuncionariosServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+            stmt.setObject(1,'I', java.sql.Types.VARCHAR);
+            stmt.setInt(2, idUnidade);
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            throw new RuntimeException(ex);
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
+        }  
         
-        return listaFuncionario;
     }
-    
-    
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -105,15 +76,10 @@ public class ListarFuncionariosServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListarFuncionariosServlet</title>");            
+            out.println("<title>Servlet InativarUnidadeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            ArrayList<Funcionario> lista = pesquisarFuncionario("");
-            for (int i = 0; i < lista.size(); i++) {
-                //out.print(lista.get(i).getIdPessoa());
-                out.print(lista.get(i).getNome());
-                out.print(lista.get(i).getCargo());
-            }
+            out.println("<h1>Servlet InativarUnidadeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -145,11 +111,11 @@ public class ListarFuncionariosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaFuncionario", pesquisarFuncionario((String)request.getParameter("nomeFuncionario")));
-        request.setAttribute("clickBtnPesquisaFuncionario","true");
+        int idUnidade = Integer.parseInt(request.getParameter("idUnidade"));
+
+        removerUnidade(idUnidade);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
-
     }
 
     /**

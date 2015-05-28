@@ -150,10 +150,11 @@ public class LoginServlet extends HttpServlet {
                 String login = resultado.getString("login");
                 String senha = resultado.getString("senha");
                 String cargo = resultado.getString("cargo");
+                char statusFuncionario = resultado.getString("Status").charAt(0);
                 Funcionario funcionario = new Funcionario(
                         idFuncionario, nomeFuncionario, cpfFuncionario, 
                         rgFuncionario, endFuncionario, dataNascFuncionario, 
-                        generoFuncionario, cargo, idUnidade, login, senha);
+                        generoFuncionario, cargo, idUnidade, login, senha, statusFuncionario);
                 return funcionario;
             } else {	                                       
                 return null;

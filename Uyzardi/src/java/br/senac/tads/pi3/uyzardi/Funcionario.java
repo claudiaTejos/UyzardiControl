@@ -25,23 +25,26 @@ public class Funcionario extends Pessoa {
     private int idUnidade;
     private String login;
     private String senha;
+    private char status;
 
     public Funcionario(int idPessoa, String nome, long cpf, int rg, String endereco, Date dtNasc, char genero,
-            String cargo, int unidade, String login,String senha) {
+            String cargo, int unidade, String login,String senha, char status) {
         super(idPessoa, nome, cpf, rg, endereco, dtNasc, genero);
         this.cargo = cargo;
         this.idUnidade = unidade;
         this.login = login; 
         this.senha = senha;
+        this.status = status;
     }
     
     public Funcionario(String nome, long cpf, int rg, String endereco, Date dtNasc, char genero,
-            String cargo, int unidade, String login,String senha) {
+            String cargo, int unidade, String login,String senha, char status) {
         super(nome, cpf, rg, endereco, dtNasc, genero);
         this.cargo = cargo;
         this.idUnidade = unidade;
         this.login = login; 
         this.senha = senha;
+        this.status = status;
     }
     
     /**
@@ -102,6 +105,20 @@ public class Funcionario extends Pessoa {
      */
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    /**
+     * @return the status
+     */
+    public char getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(char status) {
+        this.status = status;
     }
 
 

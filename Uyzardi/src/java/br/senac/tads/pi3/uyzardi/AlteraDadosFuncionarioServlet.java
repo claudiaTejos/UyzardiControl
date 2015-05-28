@@ -42,7 +42,7 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         String sql = "UPDATE `Funcionario` SET `nomeFuncionario` = ?, `cpfFuncionario` = ?,"
                 + "`rgFuncionario` = ?, `endFuncionario` = ?, `dataNascFuncionario` = ?,"
                 + "`generoFuncionario` = ?, `cargo` = ?, `idUnidade` = ?,"
-                + "`login` = ?, `senha` = ?  WHERE `idFuncionario` = ?";
+                + "`login` = ?, `senha` = ?  `Status` = ? WHERE `idFuncionario` = ?";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -56,7 +56,8 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
             stmt.setInt(8, funcionario.getUnidade());
             stmt.setString(9, funcionario.getLogin());
             stmt.setString(10, funcionario.getSenha());
-            stmt.setInt(11, idFuncionario);
+            stmt.setObject(11, funcionario.getStatus(), java.sql.Types.VARCHAR);
+            stmt.setInt(12, idFuncionario);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AlteraDadosFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +103,8 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
                             resultados.getString("cargo"),
                             resultados.getInt("idUnidade"),
                             resultados.getString("login"),
-                            resultados.getString("senha"));
+                            resultados.getString("senha"),
+                            resultados.getString("Status").charAt(0));
                 }
             }
         } catch (SQLException ex) {
@@ -190,6 +192,8 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         int unidade = Integer.parseInt(request.getParameter("unidadeFuncionarioAtualizar"));
         String login = request.getParameter("loginFuncionario");
         String senha = request.getParameter("senhaFuncionario");
+        char statusFuncionario = request.getParameter("inlineRadioOptionsFuncionario").charAt(0);
+        
         
         
         Date dtNascimento = null;
@@ -203,7 +207,7 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
 
         
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
-                genero, cargo, unidade, login, senha);
+                genero, cargo, unidade, login, senha,statusFuncionario);
         alteraDadosFunc(idFuncionario, funcionario);    
         RequestDispatcher rd = request.getRequestDispatcher("ListarFuncionariosServlet");
         rd.forward(request, response);

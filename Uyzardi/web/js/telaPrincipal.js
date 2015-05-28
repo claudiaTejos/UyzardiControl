@@ -380,11 +380,3 @@ if (btnSelecionaCurso !== null){
     }
 }
 
-if(inputHiddenPesquisaUnidade !== null){
-    mudarOcultoPesquisaUnidade();
-    inputHiddenPesquisaUnidade = null;
-}
-if(inputHiddenPesquisaFuncionario !== null){
-    mudarOcultoPesquisaFuncionario();
-    inputHiddenPesquisaFuncionario = null;
-}
