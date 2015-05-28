@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -86,6 +87,10 @@ public class ListarProdutosVendaServlet extends HttpServlet {
         
         listarProdutosVenda();
         request.setAttribute("listaProdutoVenda", listaProdutoVenda);
+        
+        HttpSession sessao = request.getSession();
+        Unidade unidade = (Unidade)sessao.getAttribute("unidade");
+        request.setAttribute("nomeUnidade", unidade.getNome());
 
         request.setAttribute("paginaAtual", "venda");
         request.setAttribute("etapa", "listarProdutosAVenda");
