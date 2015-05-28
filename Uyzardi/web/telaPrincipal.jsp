@@ -193,7 +193,7 @@
             <div id="listarProdutosVenda" class="listarProdutosVenda">
                 <br>
                 <br>
-                <h3>Produtos Disponíveis para Venda:</h3>
+                <h3>Produtos disponíveis para venda na unidade <c:out value="${nomeUnidade}" />:</h3>
                 <form action="CriarCarrinhoServlet" method="post">
                     <table class="table">
                         <thead>
