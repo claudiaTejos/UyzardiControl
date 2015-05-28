@@ -101,7 +101,7 @@
                                                 <td>${curso.moduloCurso}</td>
                                                 <td>${curso.periodo}</td>
                                                 <td>${matricula.statusMatricula}</td>
-                                                <td><button class="btn btn-primary" formaction="desativarMatricular" formmethod="POST">Desativar</button></td>
+                                                <td><button class="btn btn-primary" formaction="desativarMatricula" formmethod="POST">Desativar</button></td>
                                             </form>
                                         </c:if>
                                     </c:forEach>
