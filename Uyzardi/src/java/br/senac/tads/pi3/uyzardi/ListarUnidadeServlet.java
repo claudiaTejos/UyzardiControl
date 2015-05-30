@@ -52,7 +52,8 @@ public class ListarUnidadeServlet extends HttpServlet {
                     Unidade unidade = new Unidade(resultados.getInt("idUnidade"),
                             resultados.getString("nomeUnidade"),
                             resultados.getString("enderecoUnidade"),
-                            resultados.getString("cidade")
+                            resultados.getString("cidade"),
+                            resultados.getString("Status").charAt(0)
                     );
                     listaUnidade.add(unidade);
                 }

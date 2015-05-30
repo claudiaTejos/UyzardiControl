@@ -32,8 +32,8 @@ public class IncluirUnidadeServlet extends HttpServlet {
         Connection conn = null;
 
         String sql = "INSERT INTO `Unidade`"
-                + "(`nomeUnidade`,`enderecoUnidade`, `cidade`) VALUES"
-                + "(?,?,?)";
+                + "(`nomeUnidade`,`enderecoUnidade`, `cidade`, `Status`) VALUES"
+                + "(?,?,?,?)";
 
         try {
             conn = ConnMysql.getConnection();
@@ -41,6 +41,7 @@ public class IncluirUnidadeServlet extends HttpServlet {
             stmt.setString(1, unidade.getNome());
             stmt.setString(2, unidade.getEndereco());
             stmt.setString(3, unidade.getCidade());
+            stmt.setObject(4, unidade.getStatus(), java.sql.Types.VARCHAR);
             stmt.executeUpdate();
             System.out.println("Incluido com sucesso");
         } catch (SQLException ex) {
@@ -119,8 +120,9 @@ public class IncluirUnidadeServlet extends HttpServlet {
         String nome = request.getParameter("nomeUnidade");
         String endereco = request.getParameter("enderecoUnidade");
         String cidade = request.getParameter("cidadeUnidade");
+        char statusUnidade = request.getParameter("inlineRadioOptionsStatus").charAt(0);
 
-        Unidade unidade = new Unidade(nome, endereco, cidade);
+        Unidade unidade = new Unidade(nome, endereco, cidade, statusUnidade);
         incluirUnidade(unidade);
 
         RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");

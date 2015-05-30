@@ -1,14 +1,9 @@
 package br.senac.tads.pi3.uyzardi;
 
 
-import br.senac.tads.pi3.comum.ConnMysql;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.

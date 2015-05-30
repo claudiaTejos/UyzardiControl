@@ -61,7 +61,7 @@
                     </select>
                 <h4 class="genero">Status</h4>
                 <label for="inputStatusFuncionario" class="genero">   
-                    <input type="radio" id="inlineRadioA" name="inlineRadioOptionsFuncionario" value="A" <c:if test="${funcionario.status eq 'A'}"> checked </c:if>>Ativo</label>
+                    <input type="radio" id="inlineRadioA" name="inlineRadioOptionsFuncionario" value="A" <c:if test="${funcionario.status eq 'A'}"> checked </c:if> required>Ativo</label>
                 <label for="inputGenero" class="genero2">
                     <input type="radio" id="inlineRadioI" name="inlineRadioOptionsFuncionario" value="I" <c:if test="${funcionario.status eq 'I'}">checked</c:if>required >Inativo</label>
                 <label for="inputLoginFuncionario" class="form-label">Login</label>

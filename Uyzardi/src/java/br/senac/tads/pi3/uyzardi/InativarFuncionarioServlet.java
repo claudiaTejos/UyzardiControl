@@ -111,8 +111,6 @@ public class InativarFuncionarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
-        
-
         removerFuncionario(idFuncionario);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);

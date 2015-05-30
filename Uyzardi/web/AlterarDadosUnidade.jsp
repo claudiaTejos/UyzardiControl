@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +41,11 @@
                 <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
                 <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade" value="${unidade.cidade}" required>
                 <input id="inputHiddenEditar" type="hidden" name="idUnidade" value="${unidade.idUnidade}">
+                <h4 class="genero">Status</h4>
+                <label for="inputStatusFuncionario" class="genero">   
+                <input type="radio" id="inlineRadioA" name="inlineRadioOptionsUnidade" value="A" <c:if test="${unidade.status eq 'A'}"> checked </c:if> required>Ativo</label>
+                <label for="inputGenero" class="genero2">
+                <input type="radio" id="inlineRadioI" name="inlineRadioOptionsUnidade" value="I" <c:if test="${unidade.status eq 'I'}">checked</c:if>required >Inativo</label>
                 <input type="submit" class="btn btn-success" id="concluir" value="Efetuar Mudanças">
                 <button type="submit" class="btn btn-danger" id="concluir" formaction="ListarUnidadeServlet" formmethod="POST">Cancelar</button>
             </form> 

@@ -16,17 +16,20 @@ public class Unidade {
     private String nome;
     private String endereco;
     private String cidade;
+    private char status;
 
-    public Unidade(String nome, String endereco, String cidade) {
+    public Unidade(String nome, String endereco, String cidade, char status) {
             this.nome = nome;
             this.endereco = endereco;
             this.cidade = cidade;
+            this.status = status;
     }
-    public Unidade(int idUnidade, String nome, String endereco, String cidade){
+    public Unidade(int idUnidade, String nome, String endereco, String cidade, char status){
         this.idUnidade = idUnidade;
         this.nome = nome;
         this.endereco = endereco;
         this.cidade = cidade;
+        this.status = status;
     }
 
     /**
@@ -76,6 +79,20 @@ public class Unidade {
      */
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    /**
+     * @return the status
+     */
+    public char getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(char status) {
+        this.status = status;
     }
 
  

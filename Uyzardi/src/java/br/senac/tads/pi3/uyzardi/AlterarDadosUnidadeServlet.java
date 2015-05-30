@@ -36,14 +36,15 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
         Connection conn = null;
 
         String sql = "UPDATE `Unidade` SET `nomeUnidade` = ?, `enderecoUnidade` = ?,"
-                + "`cidade` = ? WHERE `idUnidade` = ?";
+                + "`cidade` = ?, `Status`= ? WHERE `idUnidade` = ?";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, unidade.getNome());
             stmt.setString(2, unidade.getEndereco());
             stmt.setString(3, unidade.getCidade());
-            stmt.setInt(4, idUnidade);
+            stmt.setObject(4, unidade.getStatus(), java.sql.Types.VARCHAR);
+            stmt.setInt(5, idUnidade);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AlterarDadosUnidadeServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +85,8 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
                     unidade = new Unidade(resultados.getInt("idUnidade"),
                             resultados.getString("nomeUnidade"),
                             resultados.getString("enderecoUnidade"),
-                            resultados.getString("cidade")
+                            resultados.getString("cidade"),
+                            resultados.getString("Status").charAt(0)
                     );
                 }
             }
@@ -168,8 +170,9 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
         String nome = request.getParameter("nomeUnidade");
         String endereco = request.getParameter("enderecoUnidade");
         String cidade = request.getParameter("cidadeUnidade");
+        char statusUnidade = request.getParameter("inlineRadioOptionsUnidade").charAt(0);
 
-        Unidade unidade = new Unidade(nome, endereco, cidade);
+        Unidade unidade = new Unidade(nome, endereco, cidade, statusUnidade);
         alteraDadosUnidade(idUnidade,unidade);
         RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");
         rd.forward(request, response);

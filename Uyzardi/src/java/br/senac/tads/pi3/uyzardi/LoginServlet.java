@@ -195,7 +195,8 @@ public class LoginServlet extends HttpServlet {
                 Unidade unidade = new Unidade(resultado.getInt("idUnidade"),
                             resultado.getString("nomeUnidade"),
                             resultado.getString("enderecoUnidade"),
-                            resultado.getString("cidade")
+                            resultado.getString("cidade"),
+                            resultado.getString("Status").charAt(0)
                     );
                 return unidade;
             } else {

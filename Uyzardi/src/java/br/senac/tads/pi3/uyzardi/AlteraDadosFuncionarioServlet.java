@@ -42,7 +42,7 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         String sql = "UPDATE `Funcionario` SET `nomeFuncionario` = ?, `cpfFuncionario` = ?,"
                 + "`rgFuncionario` = ?, `endFuncionario` = ?, `dataNascFuncionario` = ?,"
                 + "`generoFuncionario` = ?, `cargo` = ?, `idUnidade` = ?,"
-                + "`login` = ?, `senha` = ?  `Status` = ? WHERE `idFuncionario` = ?";
+                + "`login` = ?, `senha` = ? , `Status` = ? WHERE `idFuncionario` = ?";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);

@@ -453,7 +453,8 @@
                         </td>
                         <td> 
                             <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
-                            <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-danger glyphicon glyphicon-trash" id="remover"></button>
+                            <button  formmethod="POST" formaction="InativarFuncionarioServlet" class="btn btn-primary" id="remover">Desativar</button>
+                            
                     </td>
                     </form>
                 </tr>
@@ -486,6 +487,11 @@
                 <input id="inputEnderecoUnidade" placeholder="endereco" class="form-control" name="enderecoUnidade" required>
                 <label for="inputCidadeUnidade"class="form-label">Cidade da Unidade</label>
                 <input id="inputCidadeUnidade" placeholder="nome da cidade" class="form-control" name="cidadeUnidade">
+                <h4 class="genero">Status</h4>
+                <label for="inputStatusFuncionario" class="genero">   
+                <input type="radio" id="inlineRadioA" name="inlineRadioOptionsStatus" value="A" required>Ativo</label>
+                <label for="inputGenero" class="genero2">
+                <input type="radio" id="inlineRadioI" name="inlineRadioOptionsStatus" value="I" required >Inativo</label>
                 <input type="submit" class="btn btn-success" id="concluir" value="Concluir">
             </form> 
         </div>
@@ -496,6 +502,7 @@
                 <tr class="tabelaInicio">
                     <td>Nome</td>
                     <td>Endereço</td>
+                    <td>Status </td>
                     <td> </td>
                 </tr>
                 <c:forEach items="${listaUnidade}" var="unidade" varStatus="stat">
@@ -504,9 +511,12 @@
                         <input type="hidden" value="${unidade.idUnidade}" name="idUnidade">
                         <td><c:out value="${unidade.nome}" /></td>
                         <td><c:out value="${unidade.endereco}" /></td>
+                        <td><c:if test="${unidade.status eq 'A'}" ><c:out value="Ativo"/></c:if>
+                            <c:if test="${unidade.status eq 'I'}" ><c:out value="Inativo"/></c:if>
+                        </td>
                         <td>
                             <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosUnidadeServlet" formmethod="GET">Atualizar</button>
-                            <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="InativarUnidadeServlet" formmethod="POST"></button>
+                            <button  formmethod="POST" formaction="InativarUnidadeServlet" class="btn btn-primary" id="remover">Desativar</button>
                         </td>
                     </form>
                 </tr>

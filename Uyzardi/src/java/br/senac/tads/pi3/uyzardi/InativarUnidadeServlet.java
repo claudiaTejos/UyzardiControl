@@ -26,17 +26,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "InativarUnidadeServlet", urlPatterns = {"/InativarUnidadeServlet"})
 public class InativarUnidadeServlet extends HttpServlet {
 
-     private void removerUnidade(int idUnidade){
-        
+     private void desativarUnidade(int idUnidade){
         PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "UPDATE `Unidade` SET `Status` WHERE `idUnidade` = ?";
+        String sql = "UPDATE `Unidade` SET `Status`= ? WHERE `idUnidade` = ?";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setObject(1,'I', java.sql.Types.VARCHAR);
+            stmt.setString(1,"I");
             stmt.setInt(2, idUnidade);
             stmt.executeUpdate();
         } catch (SQLException ex){
@@ -57,7 +56,6 @@ public class InativarUnidadeServlet extends HttpServlet {
                 }
             }
         }  
-        
     }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -112,8 +110,7 @@ public class InativarUnidadeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int idUnidade = Integer.parseInt(request.getParameter("idUnidade"));
-
-        removerUnidade(idUnidade);
+        desativarUnidade(idUnidade);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
