@@ -13,8 +13,9 @@
 <link href="css/estilos.css" rel="stylesheet">
 </head>
 <body>
+    <img src="css/logoPI.png" height="160" width="200" class="imagem">
 	<form class="form-signin" action="login" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-	<h2 class="form-signin-heading">Uyzardi Control</h2>
+	<h2 class="form-signin-heading">Uizardy Control</h2>
 	<label for="inputEmail" class="sr-only"> Email</label>
 	<input type="email" id="inputEmail"class="form-control" placeholder="Email address" name="inputEmail" required autofocus>
 	<label for="inputPassword" class="sr-only">Senha</label>

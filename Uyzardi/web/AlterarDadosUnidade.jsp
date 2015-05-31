@@ -16,7 +16,11 @@
         <title>Uizardy Control</title>
     </head>
     <body>
-        <div class="empresa"><h1>Uizardy Control</h1></div>
+        <div id="controleInicio">
+        <h1 class="empresa">
+        <img src="css/logoPI.png"  height="110" width="140" class="imagem2">
+        Uizardy Control</h1>
+        </div>  
         <div class="menu-geral">
             <ul class="nav nav-pills nav-justified">
                 <li><a id="btnMatricula">Matricula</a></li>

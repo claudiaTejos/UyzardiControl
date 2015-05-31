@@ -26,10 +26,16 @@ border-bottom-left-radius:0;
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
+h2{
+    font-weight: bold;
+    font-family:  Tahoma;
+    margin-left: 10%;
+}
 
-.empresa{
+#controleInicio .empresa{
     text-align: center;
     font-weight: bold;
+    font-family: Tahoma;
 }
 
 li{
@@ -163,4 +169,13 @@ div#botoesGerenciamento{
 }
 #login{
     display: block;
+}
+#controle .concluir{
+    margin-left: 33%;
+    margin-top: 20px;
+    width: 400px;
+    display: block;
+}
+.imagem{
+    margin-left: 42%;
 }

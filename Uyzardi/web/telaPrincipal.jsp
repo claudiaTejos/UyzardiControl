@@ -26,7 +26,11 @@
     </c:if>
     
     
-    <div class="empresa"><h1>Uizardy Control</h1></div>
+    <div id="controleInicio">
+        <h1 class="empresa">
+        <img src="css/logoPI.png"  height="110" width="140" class="imagem2">
+        Uizardy Control</h1>
+        </div> 
     
     Olá <c:out value="${funcionario.nome}" />! Você está em <c:out value="${unidade.nome}" />&nbsp;<a id="btnLogout" href="logout">Sair</a>
     
@@ -197,8 +201,8 @@
                 <br>
                 <br>
                 <h3>Produtos disponíveis para venda na unidade <c:out value="${nomeUnidade}" />:</h3>
-                <form action="CriarCarrinhoServlet" method="post">
-                    <table class="table">
+                <form action="CriarCarrinhoServlet" method="post" id="controle">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -227,7 +231,7 @@
                         </tbody>
                     </table>
                     <input type="text" class="form-control" id="cpfCliente" placeholder="CPF do Cliente" name="cpfCliente" required>
-                    <input type="submit" class="btn btn-success" id="btnComprar" value="Comprar">
+                    <input type="submit" class="btn btn-success concluir" id="btnComprar" value="Comprar">
                 </form>
             </div>
             
@@ -239,7 +243,7 @@
                 <br>
                 <h3>Produtos Requeridos:</h3>
                 <form action="RealizarCompraServlet" method="post">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -336,7 +340,7 @@
             
             <div id="listarProdutos" class="listarProdutos oculto">
                     <h3>Produtos Cadastrados:</h3>
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Nome</th>

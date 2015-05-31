@@ -16,7 +16,11 @@
         <title>Uizardy Control</title>
     </head>
     <body>
-        <div class="empresa"><h1>Uizardy Control</h1></div>
+       <div id="controleInicio">
+        <h1 class="empresa">
+        <img src="css/logoPI.png"  height="110" width="140" class="imagem2">
+        Uizardy Control</h1>
+        </div>
         <div class="menu-geral">
             <ul class="nav nav-pills nav-justified">
                 <li><a id="btnMatricula">Matricula</a></li>
@@ -59,15 +63,16 @@
                             </c:forEach>
                         </c:if>
                     </select>
-                <h4 class="genero">Status</h4>
-                <label for="inputStatusFuncionario" class="genero">   
-                    <input type="radio" id="inlineRadioA" name="inlineRadioOptionsFuncionario" value="A" <c:if test="${funcionario.status eq 'A'}"> checked </c:if> required>Ativo</label>
-                <label for="inputGenero" class="genero2">
-                    <input type="radio" id="inlineRadioI" name="inlineRadioOptionsFuncionario" value="I" <c:if test="${funcionario.status eq 'I'}">checked</c:if>required >Inativo</label>
+               
                 <label for="inputLoginFuncionario" class="form-label">Login</label>
                 <input type="text" id="inputLoginFuncionario"  class="form-control" placeholder="Login" name="loginFuncionario"  value="${funcionario.login}"required >
                 <label for="inputSenhaFuncionario" class="form-label">Senha</label>
                 <input type="password" id="inputSenhaFuncionario"  class="form-control" placeholder="Senha" name="senhaFuncionario" value="${funcionario.senha}"required >
+                 <h4 class="genero">Status</h4>
+                <label for="inputStatusFuncionario" class="genero">   
+                    <input type="radio" id="inlineRadioA" name="inlineRadioOptionsFuncionario" value="A" <c:if test="${funcionario.status eq 'A'}"> checked </c:if> required>Ativo</label>
+                <label for="inputGenero" class="genero2">
+                    <input type="radio" id="inlineRadioI" name="inlineRadioOptionsFuncionario" value="I" <c:if test="${funcionario.status eq 'I'}">checked</c:if>required >Inativo</label>
                 <input id="inputHiddenEditar" type="hidden" name="idFuncionario" value="${funcionario.idPessoa}">
                 <input type="submit" class="btn btn-success" id="concluir" value="Efetuar mudanças">
                 <button type="submit" class="btn btn-danger" id="concluir" formaction="ListarFuncionariosServlet" formmethod="POST">Cancelar</button>
