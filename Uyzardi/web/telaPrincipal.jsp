@@ -34,7 +34,9 @@
     	<ul class="nav nav-pills nav-justified">
             <li><a id="btnMatricula">Matricula</a></li>
             <li><a id="btnVendas" href="ListarProdutosVenda">Vendas</a></li>
-            <li><a id="btnGerenciamento">Gerenciamento</a></li>
+            <c:if test='${funcionario.cargo == "gerente" || funcionario.cargo == "Gerente"}'>
+                <li><a id="btnGerenciamento">Gerenciamento</a></li>
+            </c:if>
         </ul>
     </div>
 
@@ -399,7 +401,7 @@
                 <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
                 <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
                 <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
-                <input type="date" id="inputNascimentoFuncionario"  class="form-control" name="dtNascimento" required>
+                <input type="date" id="inputNascimentoFuncionario"  class="form-control" placeholder="dd/mm/aaaa" name="dtNascimento" required>
                 <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
                 <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
                 <label for="inputCPFFuncionario" class="form-label">CPF</label>
