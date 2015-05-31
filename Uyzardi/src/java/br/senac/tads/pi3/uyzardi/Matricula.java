@@ -18,14 +18,16 @@ public class Matricula {
     private int idFuncionario;
     private int idCurso;
     private String statusMatricula;
+    private int idUnidade;
     
     public Matricula (int idCliente, Date dataMatricula, int idFuncionario, 
-            int idCurso, String statusMatricula){
+            int idCurso, String statusMatricula, int idUnidade){
         this.idCliente = idCliente;
         this.dataMatricula = dataMatricula;
         this.idFuncionario = idFuncionario;
         this.idCurso = idCurso;
         this.statusMatricula = statusMatricula;
+        this.idUnidade = idUnidade;
     }
     
     public Matricula (int idCliente, int idMatricula, Date dataMatricula, 
@@ -120,5 +122,19 @@ public class Matricula {
      */
     public void setStatusMatricula(String statusMatricula) {
         this.statusMatricula = statusMatricula;
+    }
+
+    /**
+     * @return the idUnidade
+     */
+    public int getIdUnidade() {
+        return idUnidade;
+    }
+
+    /**
+     * @param idUnidade the idUnidade to set
+     */
+    public void setIdUnidade(int idUnidade) {
+        this.idUnidade = idUnidade;
     }
 }
