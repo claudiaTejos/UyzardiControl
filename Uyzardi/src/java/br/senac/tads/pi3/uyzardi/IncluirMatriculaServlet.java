@@ -37,18 +37,19 @@ public class IncluirMatriculaServlet extends HttpServlet {
         Connection conn = null;
         
         String sql = "INSERT INTO `Matricula`"
-                + "(idCliente, idFuncionario, idCurso, "
+                + "(idCliente, idMatricula, idFuncionario, idCurso, "
                 + "dataHoraMatricula, StatusMatricula) VALUES"
-                + "(?,?,?,?,?)";
+                + "(?,?,?,?,?,?)";
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, novaMatricula.getIdCliente());
-            stmt.setInt(2, novaMatricula.getIdFuncionario());
-            stmt.setInt(3, novaMatricula.getIdCurso());
-            stmt.setDate(4, new java.sql.Date(novaMatricula.getDataMatricula().getTime()));
-            stmt.setString(5, novaMatricula.getStatusMatricula());
+            stmt.setInt(2, novaMatricula.getIdUnidade());
+            stmt.setInt(3, novaMatricula.getIdFuncionario());
+            stmt.setInt(4, novaMatricula.getIdCurso());
+            stmt.setDate(5, new java.sql.Date(novaMatricula.getDataMatricula().getTime()));
+            stmt.setString(6, novaMatricula.getStatusMatricula());
             
             
             stmt.executeUpdate();
@@ -127,13 +128,14 @@ public class IncluirMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Funcionario f = (Funcionario)request.getSession().getAttribute("funcionario");
+        int idFuncionario = f.getIdPessoa();
         int cliente = Integer.parseInt(request.getParameter("hiddenClienteMatricula"));
         int opcaoCurso = Integer.parseInt(request.getParameter("optionCurso"));
         int unidade = Integer.parseInt(request.getParameter("hiddenClienteUnidadeMatricula"));
         Date data = new Date();
         
-        Matricula novaMatricula = new Matricula(cliente, data, unidade, opcaoCurso, "A");
+        Matricula novaMatricula = new Matricula(cliente, data, idFuncionario, opcaoCurso, "A", unidade);
         
         if (incluirMatricula(novaMatricula)) {
             request.setAttribute("resultadoIncluirMatricula", true);
