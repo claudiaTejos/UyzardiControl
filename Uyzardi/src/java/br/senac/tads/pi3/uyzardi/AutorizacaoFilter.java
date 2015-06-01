@@ -6,6 +6,9 @@
 package br.senac.tads.pi3.uyzardi;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -74,10 +77,19 @@ public class AutorizacaoFilter implements Filter {
     }
 
     try {
+      // 3) VERIFICAR SE USUARIO PODE ACESSAR PAGINA
+      if (verificarAcesso(usuario, httpRequest, httpResponse)) {
+        // CHAMADA QUE ENVIA A REQUISIÇÃO PARA O PRÓXIMO FILTRO OU SERVLET
         chain.doFilter(request, response);
+      } else {
+        // SE NAO PODER ACESSAR, APRESENTA ERRO
+        httpResponse.sendRedirect("erroNaoAutorizado.jsp");
+      }
     } catch (Throwable t) {
       t.printStackTrace();
     }
+    
+    
   }
 
   /**
@@ -93,5 +105,23 @@ public class AutorizacaoFilter implements Filter {
   @Override
   public void init(FilterConfig filterConfig) {
   }
+
+    private boolean verificarAcesso(Funcionario usuario, HttpServletRequest request, HttpServletResponse response) {
+        
+        String uri = request.getRequestURI();
+        String[] servletsExclusivaGerente = {"AlteraDadosFuncionarioServlet", "AlterarDadosUnidadeServlet",
+        "AlterarQuantidadeProduto", "InativerFuncionarioServlet", "InativarUnidadeServlet", 
+        "IncluirCursoServlet", "IncluirFuncionarioServlet", "IncluirProdutoServlet",
+        "IncluirUnidadeServlet", "ListarFuncionariosServlet", "ListarUnidadeServlet",
+        "RelatorioMatriculaServlet"};
+        
+        for(String servletGerente: servletsExclusivaGerente){
+            if(uri.endsWith(servletGerente)){
+                return usuario.getCargo().equalsIgnoreCase("gerente");
+            }
+        }
+        
+        return true;
+    }
 
 }
