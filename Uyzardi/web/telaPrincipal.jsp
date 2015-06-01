@@ -406,7 +406,7 @@
                 <label for="inputNomeFuncionario" class="form-label">Nome completo</label>
                 <input type="text" id="inputNomeFuncionario" class="form-control" placeholder="nome completo" name="nomeFuncionario" required>
                 <label for="inputNscimentoFuncionario" class="form-label" > Data de nascimento</label>
-                <input type="date" id="inputNascimentoFuncionario"  class="form-control" placeholder="dd/mm/aaaa" name="dtNascimento" required>
+                <input type="date" id="inputNascimentoFuncionario"  class="form-control" placeholder="aaaa-mm-dd" name="dtNascimento" required>
                 <label for="inputEnderecoFuncionario" class="form-label" >Endereco</label>
                 <input type="text" id="inputEnderecoFuncionario" class="form-control"  placeholder="Endereco" name="enderecoFuncionario" required >
                 <label for="inputCPFFuncionario" class="form-label">CPF</label>

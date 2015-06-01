@@ -92,16 +92,17 @@ public class LoginServlet extends HttpServlet {
     
         //Testa se o login e senha está correto com o do banco e avança de tela
         if (funcionario != null && funcionario.autenticar(login, senha)){
-            ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-            request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-            request.setAttribute("emailFuncionario", login);
-            
             HttpSession sessao = request.getSession(false);
             if (sessao != null) {
               // Força invalidação da sessão anterior.
               sessao.invalidate();
             }
             sessao = request.getSession(true);
+            
+            ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+            sessao.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+            sessao.setAttribute("emailFuncionario", login);
+            
             sessao.setAttribute("funcionario", funcionario);
             sessao.setAttribute("unidade", buscarUnidade(funcionario.getUnidade()));
                 

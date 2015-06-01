@@ -149,7 +149,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         try {
             dtNascimento = formatadorData.parse(dtNasc);
         } catch (ParseException ex) {
-            Logger.getLogger(IncluirClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(String.format("Data Inválida: %s",dtNasc), ex);
         }
 
         
