@@ -461,7 +461,7 @@
                         </td>
                         <td> 
                             <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
-                            <button  formmethod="POST" formaction="InativarFuncionarioServlet" class="btn btn-primary" id="remover">Desativar</button>
+                            <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-primary" id="remover">Desativar</button>
                             
                     </td>
                     </form>
