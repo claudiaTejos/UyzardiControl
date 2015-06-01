@@ -104,11 +104,12 @@
                                         <c:if test="${matricula.idCurso eq curso.idCurso}">
                                             <form>
                                                 <input type="hidden" name="idMatriculaDesativar" value="${matricula.idMatricula}">
+                                                <input type="hidden" name="statusMatriculaMudar" value="${matricula.statusMatricula}">
                                                 <td>${curso.nomeCurso}</td>
                                                 <td>${curso.moduloCurso}</td>
                                                 <td>${curso.periodo}</td>
                                                 <td>${matricula.statusMatricula}</td>
-                                                <td><button class="btn btn-primary" formaction="desativarMatricula" formmethod="POST">Desativar</button></td>
+                                                <td><button class="btn btn-primary" formaction="desativarMatricula" formmethod="POST">Mudar Status</button></td>
                                             </form>
                                         </c:if>
                                     </c:forEach>

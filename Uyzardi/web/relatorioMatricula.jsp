@@ -46,6 +46,7 @@ rect:hover {  fill:blue; }
 
 </style>
 <body>
+    <form> <button formaction="RelatorioMatriculaServlet" formmethod="POST">Teste</button></form>
 <div id='dashboard'>
 </div>
 <script src="http://d3js.org/d3.v3.min.js"></script>

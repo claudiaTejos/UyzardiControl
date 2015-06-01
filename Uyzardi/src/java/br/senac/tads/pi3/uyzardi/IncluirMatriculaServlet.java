@@ -37,7 +37,7 @@ public class IncluirMatriculaServlet extends HttpServlet {
         Connection conn = null;
         
         String sql = "INSERT INTO `Matricula`"
-                + "(idCliente, idMatricula, idFuncionario, idCurso, "
+                + "(idCliente, idUnidade, idFuncionario, idCurso, "
                 + "dataHoraMatricula, StatusMatricula) VALUES"
                 + "(?,?,?,?,?,?)";
         
