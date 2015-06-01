@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "desativarMatricula", urlPatterns = {"/desativarMatricula"})
 public class DesativarMatriculaServlet extends HttpServlet {
     
-    public boolean desativarMatricula(int idMatricula){
+    public boolean desativarMatricula(int idMatricula, String statusMatricula){
         boolean controle = false;
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -38,7 +38,12 @@ public class DesativarMatriculaServlet extends HttpServlet {
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "I");
+            if (statusMatricula.equalsIgnoreCase("A")) {
+                stmt.setString(1, "I");
+            }
+            else {
+                stmt.setString(1, "A");
+            }
             stmt.setInt(2, idMatricula);
             stmt.executeUpdate();
             controle = true;
@@ -118,7 +123,8 @@ public class DesativarMatriculaServlet extends HttpServlet {
             throws ServletException, IOException {
         
         int idMatricula = Integer.parseInt(request.getParameter("idMatriculaDesativar"));
-        request.setAttribute("controleDesativaMatricula", desativarMatricula(idMatricula));
+        String statusMatricula = request.getParameter("statusMatriculaMudar");
+        request.setAttribute("controleDesativaMatricula", desativarMatricula(idMatricula, statusMatricula));
         
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
