@@ -16,6 +16,11 @@ public class Relatorio {
     private double valorCurso;
     private int total;
     
+    public Relatorio (String nomeUnidade, int total){
+        this.nomeUnidade = nomeUnidade;
+        this.total = total;
+    }
+    
     public Relatorio (String nomeUnidade, String nomeCurso, String moduloCurso, 
             double valorCurso, int total){
         this.nomeUnidade = nomeUnidade;

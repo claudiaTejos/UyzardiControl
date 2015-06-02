@@ -35,6 +35,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
                 + "FROM Matricula "
                 + "JOIN Curso ON Curso.idCurso = Matricula.idCurso "
                 + "JOIN Unidade ON Unidade.idUnidade = Matricula.idUnidade "
+                + "WHERE Matricula.StatusMatricula = 'A' "
                 + "GROUP BY idCurso";
         ArrayList<Relatorio> listaRelatorio = new ArrayList<>();
         ResultSet resultados = null;
@@ -51,6 +52,51 @@ public class RelatorioMatriculaServlet extends HttpServlet {
                             resultados.getString("nomeCurso"),
                             resultados.getString("moduloCurso"),
                             resultados.getDouble("valorCurso"),
+                            resultados.getInt("total")
+                    );
+                    listaRelatorio.add(linhaRelatorio);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        return listaRelatorio;
+    }
+    
+    public ArrayList<Relatorio> buscaDadosMatriculasPorUnidades (){
+        String sql ="SELECT nomeUnidade, COUNT(*) Total" +
+                "FROM Matricula " +
+                "JOIN Unidade ON Unidade.idUnidade = Matricula.idUnidade " +
+                "WHERE Matricula.StatusMatricula = 'A' " +
+                "GROUP BY nomeUnidade";
+        ArrayList<Relatorio> listaRelatorio = new ArrayList<>();
+        ResultSet resultados = null;
+        Statement stmt = null;
+        Connection conn = null;
+        
+        try {
+            conn = ConnMysql.getConnection();
+            stmt = conn.prepareStatement(sql);
+            resultados = stmt.executeQuery(sql);
+            if (resultados != null) {
+                while (resultados.next()){
+                    Relatorio linhaRelatorio = new Relatorio(resultados.getString("nomeUnidade"),
                             resultados.getInt("total")
                     );
                     listaRelatorio.add(linhaRelatorio);
@@ -134,6 +180,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("listaRelatorio", buscaDados());
+        request.setAttribute("dadosRelatorioPorUnidade", buscaDadosMatriculasPorUnidades());
         RequestDispatcher rd = request.getRequestDispatcher("relatorioMatricula.jsp");
         rd.forward(request, response);
         
