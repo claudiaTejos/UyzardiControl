@@ -123,8 +123,6 @@ public class IncluirCursoServlet extends HttpServlet {
 
         incluirCurso(curso);
 
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         RequestDispatcher rd = request.getRequestDispatcher("ListarCursosServlet");
         rd.forward(request, response);
     }

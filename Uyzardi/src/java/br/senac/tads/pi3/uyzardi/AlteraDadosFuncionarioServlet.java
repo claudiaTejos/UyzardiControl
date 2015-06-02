@@ -145,8 +145,6 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
         request.setAttribute("funcionario", pesquisarFuncionario(idFuncionario));
         request.setAttribute("idFuncionario", idFuncionario);
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         
         RequestDispatcher rd = request.getRequestDispatcher("AlterarDadosFuncionario.jsp");
         rd.forward(request, response);
@@ -208,7 +206,9 @@ public class AlteraDadosFuncionarioServlet extends HttpServlet {
         
         Funcionario funcionario = new Funcionario(nome, cpf, rg, endereco, dtNascimento,
                 genero, cargo, unidade, login, senha,statusFuncionario);
-        alteraDadosFunc(idFuncionario, funcionario);    
+        alteraDadosFunc(idFuncionario, funcionario);
+        
+        request.setAttribute("confirmacao", "alteracao");
         RequestDispatcher rd = request.getRequestDispatcher("ListarFuncionariosServlet");
         rd.forward(request, response);
     }

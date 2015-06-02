@@ -59,7 +59,7 @@
                 <select class="form-control" id="unidadeAtualizar" name="unidadeFuncionarioAtualizar">
                         <c:if test="${not empty listaUnidades}">
                             <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                                <option value="${unidade.idUnidade}" <c:if test="${cliente.idUnidade == unidade.idUnidade}">selected</c:if> >${unidade.nome}</option>
+                                <option value="${unidade.idUnidade}" <c:if test="${funcionario.unidade == unidade.idUnidade}">selected</c:if> >${unidade.nome}</option>
                             </c:forEach>
                         </c:if>
                     </select>
@@ -79,6 +79,6 @@
 
             </form> 
         </div>
-                <script src="js/telaPrincipal.js"></script>
+        <script src="js/telaPrincipal.js"></script>
     </body>
 </html>
