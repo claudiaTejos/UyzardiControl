@@ -80,8 +80,8 @@ public class RelatorioMatriculaServlet extends HttpServlet {
     }
     
     public ArrayList<Relatorio> buscaDadosMatriculasPorUnidades (){
-        String sql ="SELECT nomeUnidade, COUNT(*) Total" +
-                "FROM Matricula " +
+        String sql ="SELECT nomeUnidade, COUNT(*) Total " +
+                " FROM Matricula " +
                 "JOIN Unidade ON Unidade.idUnidade = Matricula.idUnidade " +
                 "WHERE Matricula.StatusMatricula = 'A' " +
                 "GROUP BY nomeUnidade";

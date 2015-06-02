@@ -12,17 +12,80 @@
     <meta charset="utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/estilos.css" rel="stylesheet">
-    <script src="Chart.js"></script>
+    <script src="amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="amcharts/serial.js" type="text/javascript"></script>
     <title>Uizardy Control</title>
 </head>
 <body>
     <form><button formaction="RelatorioMatriculaServlet" formmethod="POST">Teste</button></form>
+    
+    <script>
+        var chart;
 
-    <canvas id="myChart" width="450" height="400"></canvas>
-    <script type="text/javascript">
-        var ctx = document.getElementById("myChart").getContext("2d");
-        var myNewChart = new Chart(ctx)..Bar(data, options);
+        var chartData = [
+            <c:forEach items="${dadosRelatorioPorUnidade}" var="relatorio" varStatus="stat">
+                {
+                    "unidade":"${relatorio.nomeUnidade}",
+                    "total":"${relatorio.total}",
+                    "color": "#04D215"
+                },
+            </c:forEach>
+        ];
+
+
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            chart = new AmCharts.AmSerialChart();
+            chart.dataProvider = chartData;
+            chart.categoryField = "unidade";
+            chart.startDuration = 1;
+            chart.depth3D = 50;
+            chart.angle = 30;
+            chart.marginRight = -45;
+
+            // AXES
+            // category
+            var categoryAxis = chart.categoryAxis;
+            categoryAxis.gridAlpha = 0;
+            categoryAxis.axisAlpha = 0;
+            categoryAxis.gridPosition = "start";
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.gridAlpha = 0;
+            chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            var graph = new AmCharts.AmGraph();
+            graph.valueField = "total";
+            graph.colorField = "color";
+            graph.balloonText = "<b>[[category]]: [[value]]</b>";
+            graph.type = "column";
+            graph.lineAlpha = 0.5;
+            graph.lineColor = "#FFFFFF";
+            graph.topRadius = 1;
+            graph.fillAlphas = 0.9;
+            chart.addGraph(graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.zoomable = false;
+            chartCursor.categoryBalloonEnabled = false;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineAlpha = 1;
+            chart.addChartCursor(chartCursor);
+
+            chart.creditsPosition = "top-right";
+
+            // WRITE
+            chart.write("chartdiv");
+        });
     </script>
+    
+    <div id="chartdiv" style="width: 100%; height: 400px;"></div>
     
     <table class="table table-striped" id="tabela">
         <thead>
@@ -40,16 +103,16 @@
 
     <script type="text/javascript">
     var dadosUnidades=[
-        <c:forEach items="${listaRelatorio}" var="relatorio" varStatus="stat">
-                {"unidade":"${relatorio.nomeUnidade}",
-                    "nomeCurso":"${relatorio.nomeCurso}",
-                    "moduloCurso":"${relatorio.moduloCurso}",
-                    "total":"${relatorio.total}"
-                },
-        </c:forEach>
+            <c:forEach items="${listaRelatorio}" var="relatorio" varStatus="stat">
+                    {"unidade":"${relatorio.nomeUnidade}",
+                        "nomeCurso":"${relatorio.nomeCurso}",
+                        "moduloCurso":"${relatorio.moduloCurso}",
+                        "total":"${relatorio.total}"
+                    },
+            </c:forEach>
         ];
         
-    var dadosPorUnidade = [
+    var data = [
             <c:forEach items="${dadosRelatorioPorUnidade}" var="relatorio" varStatus="stat">
                 {"unidade":"${relatorio.nomeUnidade}",
                     "total":"${relatorio.total}"
