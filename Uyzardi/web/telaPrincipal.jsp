@@ -454,6 +454,7 @@
                     <tr>
                     <form>
                         <input type="hidden" name="idFuncionario" value="${funcionario.idPessoa}">
+                        <input type="hidden" name="status" value="${funcionario.status}">
                         <td><c:out value="${funcionario.nome}" /></td>
                         <td><c:out value="${funcionario.cargo}" /></td>
                         <td><c:if test="${funcionario.status eq 'A'}" ><c:out value="Ativo"/></c:if>
@@ -461,7 +462,10 @@
                         </td>
                         <td> 
                             <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
-                            <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-primary" id="remover">Desativar</button>
+                            <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-primary" id="remover">
+                                <c:if test="${funcionario.status eq 'A'}" >Desativar</c:if>
+                                <c:if test="${funcionario.status eq 'I'}" >Ativar</c:if>
+                            </button>
                             
                     </td>
                     </form>
@@ -643,6 +647,21 @@
     <c:if test="${clickBtnPesquisaCurso}">
         <script>
             mudarOcultoPesquisaCurso();
+        </script>
+    </c:if>
+    <c:if test='${confirmacao == "alteracao"}'>
+        <script>
+            alteracaoComSucesso();
+        </script>
+    </c:if>
+     <c:if test='${confirmacao == "cadastro"}'>
+        <script>
+            cadastroComSucesso();
+        </script>
+    </c:if>
+     <c:if test='${confirmacao == "compra"}'>
+        <script>
+            compraComSucesso();
         </script>
     </c:if>
    </div>

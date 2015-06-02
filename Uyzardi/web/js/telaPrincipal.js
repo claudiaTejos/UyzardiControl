@@ -332,6 +332,20 @@ function mudarOcultoPesquisaUnidade() {
         divPesquisarUnidade.classList.toggle("oculto");
     }
 }
+
+// Funções de Confirmação
+
+function alteracaoComSucesso(){
+    alert("A alteração foi bem sucedida.");
+}
+
+function cadastroComSucesso(){
+    alert("O cadastro foi realizado com sucesso.");
+}
+
+function compraComSucesso(){
+    alert("A compra foi realizada com sucesso");
+}
    
 
 //Eventos
