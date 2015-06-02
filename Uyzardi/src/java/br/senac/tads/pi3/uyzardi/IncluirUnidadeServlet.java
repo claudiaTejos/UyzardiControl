@@ -125,6 +125,8 @@ public class IncluirUnidadeServlet extends HttpServlet {
         Unidade unidade = new Unidade(nome, endereco, cidade, statusUnidade);
         incluirUnidade(unidade);
 
+        request.setAttribute("confirmacao", "cadastro");
+        
         RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");
         rd.forward(request, response);
 

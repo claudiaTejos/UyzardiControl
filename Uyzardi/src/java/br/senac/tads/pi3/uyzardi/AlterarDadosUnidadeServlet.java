@@ -132,7 +132,6 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
          int idUnidade = Integer.parseInt(request.getParameter("idUnidade")); 
         request.setAttribute("unidade", pesquisarUnidade(idUnidade));
         request.setAttribute("idUnidade", idUnidade);
-
         
         RequestDispatcher rd = request.getRequestDispatcher("AlterarDadosUnidade.jsp");
         rd.forward(request, response);
@@ -174,6 +173,9 @@ public class AlterarDadosUnidadeServlet extends HttpServlet {
 
         Unidade unidade = new Unidade(nome, endereco, cidade, statusUnidade);
         alteraDadosUnidade(idUnidade,unidade);
+        
+        request.setAttribute("confirmacao", "alteracao");
+        
         RequestDispatcher rd = request.getRequestDispatcher("ListarUnidadeServlet");
         rd.forward(request, response);
     }

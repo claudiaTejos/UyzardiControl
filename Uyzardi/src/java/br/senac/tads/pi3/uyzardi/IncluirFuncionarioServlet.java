@@ -158,6 +158,7 @@ public class IncluirFuncionarioServlet extends HttpServlet {
         
         incluirFuncionario(funcionario);
         
+        request.setAttribute("confirmacao", "cadastro");
         
         RequestDispatcher rd = request.getRequestDispatcher("ListarFuncionariosServlet");
         rd.forward(request, response);

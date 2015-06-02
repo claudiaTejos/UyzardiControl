@@ -521,6 +521,7 @@
                     <tr>
                     <form>
                         <input type="hidden" value="${unidade.idUnidade}" name="idUnidade">
+                        <input type="hidden" value="${unidade.status}" name="status">
                         <td><c:out value="${unidade.nome}" /></td>
                         <td><c:out value="${unidade.endereco}" /></td>
                         <td><c:if test="${unidade.status eq 'A'}" ><c:out value="Ativo"/></c:if>
@@ -528,7 +529,10 @@
                         </td>
                         <td>
                             <button id="btnUnidadeAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosUnidadeServlet" formmethod="GET">Atualizar</button>
-                            <button  formmethod="POST" formaction="InativarUnidadeServlet" class="btn btn-primary" id="remover">Desativar</button>
+                            <button  formmethod="POST" formaction="InativarUnidadeServlet" class="btn btn-primary" id="remover">
+                                <c:if test="${unidade.status eq 'A'}" >Desativar</c:if>
+                                <c:if test="${unidade.status eq 'I'}" >Ativar</c:if>
+                            </button>
                         </td>
                     </form>
                 </tr>

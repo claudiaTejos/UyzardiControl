@@ -26,7 +26,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "InativarUnidadeServlet", urlPatterns = {"/InativarUnidadeServlet"})
 public class InativarUnidadeServlet extends HttpServlet {
 
-     private void desativarUnidade(int idUnidade){
+     private void alterarStatus(int idUnidade, String status){
+        
+        String novoStatus;
+        
+        if(status.equalsIgnoreCase("A"))
+            novoStatus = "I";
+        else if(status.equalsIgnoreCase("I"))
+            novoStatus = "A";
+        else 
+            throw new RuntimeException(String.format("Status inválido: %s", status));
+         
         PreparedStatement stmt = null;
         Connection conn = null;
         
@@ -35,7 +45,7 @@ public class InativarUnidadeServlet extends HttpServlet {
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,"I");
+            stmt.setString(1,novoStatus);
             stmt.setInt(2, idUnidade);
             stmt.executeUpdate();
         } catch (SQLException ex){
@@ -109,8 +119,14 @@ public class InativarUnidadeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         int idUnidade = Integer.parseInt(request.getParameter("idUnidade"));
-        desativarUnidade(idUnidade);
+        String statusUnidade = request.getParameter("status");
+        
+        alterarStatus(idUnidade, statusUnidade);
+        
+        request.setAttribute("confirmacao", "alteracao");
+        
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
