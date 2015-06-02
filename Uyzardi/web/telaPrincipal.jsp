@@ -137,7 +137,7 @@
                 <h3 class="form-signin-heading" id="nomeNovoAluno">Nome do aluno</h3>
                 <input type="hidden" name="nomeAlunoIncluir" id="nomeAlunoIncluir"></input>
                 <label for="inputDtNascimento" class="form-label"> Data de nascimento</label>
-                <input type="date" id="inputDtNascimento" class="form-control" placeholder="Data de nascimento" name="dt_Nascimento"required>
+                <input type="date" id="inputDtNascimento" class="form-control" placeholder="aaaa-mm-dd" name="dt_Nascimento"required>
                 <label for="inputEndereco" class="form-label">Endereco</label>
                 <input type="text" id="inputEndereco" class="form-control" placeholder="Endereco" name="endereco" required >
                 <label for="inputCPF" class="form-label">CPF</label>
@@ -581,8 +581,8 @@
                     <select class="form-control" id="periodo" name="periodo">
                         <option value="1">Manha 9h30</option>
                         <option value="2">Manha 11h30</option>
-                        <option value="3">Tarde 2h45</option>
-                        <option value="4">Tarde 4h50</option>
+                        <option value="3">Tarde 14h45</option>
+                        <option value="4">Tarde 16h50</option>
                         <option value="5">Noite 18h</option>
                         <option value="6">Noite 20h</option>
                     </select>

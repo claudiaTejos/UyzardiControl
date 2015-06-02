@@ -20,14 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "IncluirCursoServlet", urlPatterns = {"/IncluirCursoServlet"})
 public class IncluirCursoServlet extends HttpServlet {
 
-    private boolean incluirCurso(Curso curso) {
-        boolean controle = false;
+    private void incluirCurso(Curso curso) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
         String sql = "INSERT INTO `Curso`"
-                + "(nomeCurso, moduloCurso, salaCurso, valorCurso, vagasCurso, idUnidade, periodo) VALUES"
-                + "(?,?,?,?,?,?,?)";
+                + "(`nomeCurso`, `moduloCurso`, `salaCurso`, `valorCurso`, "
+                + "`vagasCurso`, `idUnidade`, `Periodo`, `Status`) VALUES"
+                + "(?,?,?,?,?,?,?,?)";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -38,8 +38,8 @@ public class IncluirCursoServlet extends HttpServlet {
             stmt.setInt(5 ,curso.getQtdVagas());
             stmt.setObject(6, curso.getIdUnidade());
             stmt.setString(7 ,curso.getPeriodo());
+            stmt.setString(8, "A");
             stmt.executeUpdate();
-            controle = true;
             System.out.println("Incluido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,7 +59,6 @@ public class IncluirCursoServlet extends HttpServlet {
                 }
             }
         }
-        return controle;
     }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -111,17 +110,19 @@ public class IncluirCursoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  
-        String nomecurso = request.getParameter("nomeCurso");
-        String  modulocurso = request.getParameter("moduloCurso");
-        int salacurso = Integer.parseInt(request.getParameter("salaCurso"));
+        String nomeCurso = request.getParameter("nomeCurso");
+        String  moduloCurso = request.getParameter("moduloCurso");
+        int salaCurso = Integer.parseInt(request.getParameter("salaCurso"));
         double valor = Double.parseDouble(request.getParameter("valor"));
         int qtdVagas = Integer.parseInt(request.getParameter("vagas"));
-        int unidade = Integer.parseInt(request.getParameter("unidade"));
+        int unidade = Integer.parseInt(request.getParameter("unidadeCliente"));
         String periodo = request.getParameter("periodo");
             
-        Curso curso = new Curso(nomecurso, modulocurso, salacurso, valor, qtdVagas, unidade, periodo);
+        Curso curso = new Curso(nomeCurso, moduloCurso, salaCurso, valor, qtdVagas, unidade, periodo);
 
         incluirCurso(curso);
+        
+        request.setAttribute("confirmacao", "cadastro");
 
         RequestDispatcher rd = request.getRequestDispatcher("ListarCursosServlet");
         rd.forward(request, response);

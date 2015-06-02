@@ -131,8 +131,7 @@ public class ListarCursosServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setAttribute("listaCurso", pesquisaCurso((String)request.getParameter("nomeCurso")));
         request.setAttribute("clickBtnPesquisaCurso","true");
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
