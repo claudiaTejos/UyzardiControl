@@ -174,8 +174,7 @@ public class AlterarDadosCursoServlet extends HttpServlet {
         alteraDadosCurso(idCurso,curso);
         
         request.setAttribute("confirmacao", "alteracao");
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        
         RequestDispatcher rd = request.getRequestDispatcher("ListarCursosServlet");
         rd.forward(request, response);
     }

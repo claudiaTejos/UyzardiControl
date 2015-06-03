@@ -70,7 +70,7 @@
                             <td><c:out value="${cliente.idPessoa}" /></td>
                             <td><c:out value="${cliente.nome}" /></td>
                             <td>
-                                <button class="btn btn-info btnAtualiza" formmethod="POST" formaction="selecionaCliente">Atualizar</button> 
+                                <button class="btn btn-info btnAtualiza" formmethod="POST" formaction="selecionaCliente">Visualizar / Atualizar</button> 
                                 <button class="btn btn-info matriculaBtn" formmethod="POST" formaction="listaMatricula">Matricula</button>
                             </td>
                         </form>
@@ -162,9 +162,7 @@
         </div>
         <c:if test="${not empty cliente}">
             <div id="dadosAlunoAtualizar" class="oculto">
-                <c:if test="${controleAtualizarCliente}">
-                    <div class="aviso">Cliente atualizado.</div>
-                </c:if>
+
                 <form action="atualizarCliente" method="POST" id="controle">
                     <input type="hidden" name="idAlunoAtualizar" value="${cliente.idPessoa}">
                     <label for="inputNomeAtualizar" class="nomeLabel">Nome</label>
@@ -662,7 +660,7 @@
                             <c:if test="${funcionario.status eq 'I'}" ><c:out value="Inativo"/></c:if>
                         </td>
                         <td> 
-                            <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Atualizar</button> 
+                            <button id="btnFuncionarioAtualizaID" class="btn btn-info btnAtualiza" formmethod="GET" formaction="AlteraDadosFuncionarioServlet" >Visualizar / Atualizar</button> 
                             <button  formmethod="POST" formaction="InativerFuncionarioServlet" class="btn btn-primary" id="remover">
                                 <c:if test="${funcionario.status eq 'A'}" >Desativar</c:if>
                                 <c:if test="${funcionario.status eq 'I'}" >Ativar</c:if>
@@ -812,7 +810,7 @@
                                 <c:if test="${curso.status eq 'I'}" ><c:out value="Inativo"/></c:if>
                             </td>
                             <td align="center" valign="middle">
-                                <button id="btnCursoAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosCursoServlet" formmethod="GET">Atualizar</button>
+                                <button id="btnCursoAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosCursoServlet" formmethod="GET">Visualizar / Atualizar</button>
                                 <button  formmethod="POST" formaction="InativarCursoServlet" class="btn btn-primary" id="remover">
                                     <c:if test="${curso.status eq 'A'}" >Desativar</c:if>
                                     <c:if test="${curso.status eq 'I'}" >Ativar</c:if>
@@ -887,6 +885,11 @@
     <c:if test="${not empty dadosRelatorioVendas}">
         <script>
             mudarOcultoGerenciamento();
+        </script>
+    </c:if>
+    <c:if test="${controleAtualizarCliente}">
+        <script>
+            alteracaoComSucesso();
         </script>
     </c:if>
    </div>

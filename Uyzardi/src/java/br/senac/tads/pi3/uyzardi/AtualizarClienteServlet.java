@@ -149,10 +149,7 @@ public class AtualizarClienteServlet extends HttpServlet {
                 Integer.parseInt(request.getParameter("unidadeClienteAtualizar"))
         );
         request.setAttribute("controleAtualizarCliente", atualizarCliente(cliente));
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("clickBtnAtualizarCliente", "true");
-        request.setAttribute("cliente", cliente);
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

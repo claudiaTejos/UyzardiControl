@@ -144,8 +144,8 @@ public class IncluirMatriculaServlet extends HttpServlet {
         else{
             request.setAttribute("resultadoIncluir", false);
         }
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+
+        request.setAttribute("confirmacao", "cadastro");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }

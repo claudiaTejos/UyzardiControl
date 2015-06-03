@@ -154,13 +154,14 @@ public class IncluirClienteServlet extends HttpServlet {
         Cliente cliente = new Cliente(nome, cpfCliente, rgCliente, endereco, dtNascimento, generoCliente, unidade);
         request.setAttribute("novoCliente", cliente);
         
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-        
         RequestDispatcher rd = null;
         if (incluirCliente(cliente)) {
             request.setAttribute("resultadoIncluir", true);
+            /* Esse servlet não funciona bem sendo chamado por aqui
             rd = request.getRequestDispatcher("listaMatricula");
+            */
+            request.setAttribute("confirmacao", "cadastro");
+            rd = request.getRequestDispatcher("telaPrincipal.jsp");
         }
         else{
             request.setAttribute("resultadoIncluir", false);
