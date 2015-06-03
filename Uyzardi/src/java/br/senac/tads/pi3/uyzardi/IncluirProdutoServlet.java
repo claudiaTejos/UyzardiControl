@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.jboss.logging.Logger;
 
 /**
@@ -27,14 +28,14 @@ import org.jboss.logging.Logger;
 @WebServlet(name = "IncluirProdutoServlet", urlPatterns = {"/IncluirProdutoServlet"})
 public class IncluirProdutoServlet extends HttpServlet {
 
-    private void incluirProduto(Produto produto){
+    private void incluirProduto(Produto produto, int idUnidade){
         PreparedStatement stmt = null;
         Connection conn = null;
         
         String sql = "INSERT INTO `Produto`"
-                + "(`nomeProduto`, `idiomaProduto`, "
-                + "`moduloProduto`, `valorProduto`, `quantidade`) VALUES "
-                + "(?,?,?,?,?)";
+                + "(`nomeProduto`, `idiomaProduto`, `moduloProduto`, "
+                + "`valorProduto`, `quantidade`, `idUnidade`) VALUES "
+                + "(?,?,?,?,?,?)";
         
         
         try {
@@ -45,6 +46,7 @@ public class IncluirProdutoServlet extends HttpServlet {
             stmt.setString(3, produto.getModuloProduto());
             stmt.setDouble(4, produto.getValorProduto());
             stmt.setInt(5, produto.getQuantidadeProduto());
+            stmt.setInt(6, idUnidade);
             stmt.executeUpdate();
             System.out.println("Incluído com sucesso");
         } catch (SQLException ex) {
@@ -133,8 +135,11 @@ public class IncluirProdutoServlet extends HttpServlet {
         
         Produto produto = new Produto(nome, idioma, modulo, valorDouble, quantidadeInt);
         
+        HttpSession sessao = request.getSession();
+        Unidade unidade = (Unidade)sessao.getAttribute("unidade");
+        
         try {
-            incluirProduto(produto);
+            incluirProduto(produto, unidade.getIdUnidade());
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(IncluirProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
             try (PrintWriter out = response.getWriter()) {
@@ -142,6 +147,7 @@ public class IncluirProdutoServlet extends HttpServlet {
             }
         }
         
+        request.setAttribute("confirmacao", "cadastro");
         request.setAttribute("paginaAtual", "produtos");
         RequestDispatcher rd = request.getRequestDispatcher("ListarProdutosServlet");
         rd.forward(request, response);

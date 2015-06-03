@@ -121,6 +121,7 @@ public class AlterarQuantidadeProduto extends HttpServlet {
         
         alterarQuantProd(idProdutoInt, novaQuantidadeInt);
         
+        request.setAttribute("confirmacao", "alteracao");
         request.setAttribute("paginaAtual", "produtos");
         RequestDispatcher rd = request.getRequestDispatcher("ListarProdutosServlet");
         rd.forward(request, response);

@@ -201,7 +201,7 @@
             <div id="listarProdutosVenda" class="listarProdutosVenda">
                 <br>
                 <br>
-                <h3>Produtos disponíveis para venda na unidade <c:out value="${nomeUnidade}" />:</h3>
+                <h3>Produtos disponíveis para venda na unidade <c:out value="${unidade.nome}" />:</h3>
                 <form action="CriarCarrinhoServlet" method="post" id="controle">
                     <table class="table table-striped">
                         <thead>
@@ -307,10 +307,6 @@
             <h3>CPF não cadastrado: <c:out value="${cpfNEncontrado}"/></h3>
         </c:if>
             
-        <c:if test='${etapa == "compraRealizada"}'>
-            <h3>Compra realizada com sucesso</h3>
-        </c:if>
-
     </div>
     
     <div id="gerenciamento" class="gerenciamento oculto">
@@ -340,7 +336,7 @@
             </div>
             
             <div id="listarProdutos" class="listarProdutos oculto">
-                    <h3>Produtos Cadastrados:</h3>
+                    <h3>Produtos cadastrados na unidade <c:out value="${unidade.nome}" />:</h3>
                     <table class="table table-striped">
                         <thead>
                             <tr>

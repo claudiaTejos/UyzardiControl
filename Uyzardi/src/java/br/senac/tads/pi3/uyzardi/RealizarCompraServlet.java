@@ -92,12 +92,13 @@ public class RealizarCompraServlet extends HttpServlet {
             Connection conn = null;
             int quantidadeAnterior = 0;
             
-            String sql = "SELECT `quantidade` FROM `Produto` WHERE `idProduto` = "+id;
+            String sql = "SELECT `quantidade` FROM `Produto` WHERE `idProduto` = ?";
             
             try {
                 conn = ConnMysql.getConnection();
                 stmt = conn.prepareStatement(sql);
-                ResultSet resultados = stmt.executeQuery(sql);
+                stmt.setInt(1, id);
+                ResultSet resultados = stmt.executeQuery();
                 while (resultados.next()){
                     quantidadeAnterior = resultados.getInt("quantidade");
                 }
@@ -235,7 +236,7 @@ public class RealizarCompraServlet extends HttpServlet {
         debitarQuantidades();
         
         request.setAttribute("paginaAtual", "venda");
-        request.setAttribute("etapa", "compraRealizada");
+        request.setAttribute("confirmacao", "compra");
         
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
 

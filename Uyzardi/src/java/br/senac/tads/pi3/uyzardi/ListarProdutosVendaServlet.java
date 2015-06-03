@@ -9,6 +9,7 @@ import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,18 +33,19 @@ public class ListarProdutosVendaServlet extends HttpServlet {
 
     private ArrayList<Produto> listaProdutoVenda;
     
-    private void listarProdutosVenda(){
+    private void listarProdutosVenda(int idUnidade){
         
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql = "SELECT * FROM `Produto` WHERE `quantidade` > 0";
+        String sql = "SELECT * FROM `Produto` WHERE `quantidade` > 0 AND `idUnidade` = ? ";
         listaProdutoVenda = new ArrayList();
         
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            ResultSet resultados = stmt.executeQuery(sql);
+            stmt.setInt(1, idUnidade);
+            ResultSet resultados = stmt.executeQuery();
             while (resultados.next()){
                 Produto produto = new Produto(resultados.getInt("idProduto"),
                         resultados.getString("nomeProduto"),
@@ -85,13 +87,11 @@ public class ListarProdutosVendaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        listarProdutosVenda();
-        request.setAttribute("listaProdutoVenda", listaProdutoVenda);
-        
         HttpSession sessao = request.getSession();
         Unidade unidade = (Unidade)sessao.getAttribute("unidade");
-        request.setAttribute("nomeUnidade", unidade.getNome());
-
+        listarProdutosVenda(unidade.getIdUnidade());
+        
+        request.setAttribute("listaProdutoVenda", listaProdutoVenda);
         request.setAttribute("paginaAtual", "venda");
         request.setAttribute("etapa", "listarProdutosAVenda");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
