@@ -20,8 +20,9 @@ public class Curso {
     private double valor;
     private String periodo;
     private int idUnidade;
+    private char status;
 
-    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo) {
+    Curso(int idCurso , String nomecurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo, char status) {
         this.idCurso = idCurso;
         this.nomeCurso = nomecurso;
         this.moduloCurso = modulocurso;
@@ -30,8 +31,9 @@ public class Curso {
         this.valor = valor;
         this.idUnidade = idUnidade;
         this.periodo = periodo;
+        this.status = status;
     }
-    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo) {
+    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo, char status) {
         this.nomeCurso = nomeCurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
@@ -39,6 +41,7 @@ public class Curso {
         this.valor = valor;
         this.idUnidade = idUnidade;
         this.periodo = periodo;
+        this.status = status;
     }
 
     /**
@@ -143,5 +146,18 @@ public class Curso {
      */
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
+    }
+
+    /**
+     * @return the status
+     */
+    public char getStatus() {
+        return status;
+    }
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(char status) {
+        this.status = status;
     }
 }
