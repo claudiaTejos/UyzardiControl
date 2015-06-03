@@ -181,7 +181,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("listaRelatorio", buscaDadosMatricula());
         request.setAttribute("dadosRelatorioPorUnidade", buscaDadosMatriculasPorUnidades());
-        RequestDispatcher rd = request.getRequestDispatcher("relatorioMatricula.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
         
     }

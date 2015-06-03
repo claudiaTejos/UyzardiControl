@@ -184,7 +184,7 @@ public class RelatorioVendaServlet extends HttpServlet {
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("dadosRelatorioVendaPorUnidade", buscaDadosVendasPorUnidades());
         request.setAttribute("dadosRelatorioVendas", buscaDadosRelatorioVendas());
-        RequestDispatcher rd = request.getRequestDispatcher("relatoriosVendas.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
 
