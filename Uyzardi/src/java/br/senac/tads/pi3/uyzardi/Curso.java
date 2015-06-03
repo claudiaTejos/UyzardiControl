@@ -33,7 +33,7 @@ public class Curso {
         this.periodo = periodo;
         this.status = status;
     }
-    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo, char status) {
+    Curso(String nomeCurso, String modulocurso, int salacurso, double valor, int qtdVagas, int idUnidade, String periodo) {
         this.nomeCurso = nomeCurso;
         this.moduloCurso = modulocurso;
         this.salaCurso = salacurso;
@@ -41,7 +41,6 @@ public class Curso {
         this.valor = valor;
         this.idUnidade = idUnidade;
         this.periodo = periodo;
-        this.status = status;
     }
 
     /**

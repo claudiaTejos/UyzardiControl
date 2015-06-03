@@ -36,6 +36,7 @@
         
         <div id="atualizarCurso" class="atualizarCurso">
             <form  id="controle" action="AlterarDadosCursoServlet" method="POST">
+                <input id="inputHiddenEditar" type="hidden" name="idCurso" value="${curso.idCurso}">
                 <label for="inputNomeCurso" class="form-label">Nome Curso</label>
                 <input type="text" id="inputNomeCurso" class="form-control" placeholder="curso" name="nomeCurso" value="${curso.nomeCurso}" required>
                 <label for="inputModuloCurso" class="form-label">Módulo</label>
@@ -47,7 +48,23 @@
                 <label for="inputVagas" class="form-label">Vagas</label>
                 <input type="text" id="inputVagas" class="form-control" placeholder="vagas" name="vagas" value="${curso.qtdVagas}" required>
                 <label for="unidade" class="form-label unidade">Unidade</label>
-                <input id="inputHiddenEditar" type="hidden" name="idUnidade" value="${curso.idUnidade}">
+                <select class="form-control" id="unidade" name="idUnidade" value="${curso.idUnidade}" required>
+                    <c:if test="${not empty listaUnidades}">
+                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                            <option value="${unidade.idUnidade}">${unidade.nome}</option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+                <label for="periodo" class="form-label unidade">Periodo</label>
+                <select class="form-control" id="periodo" name="periodo" value="${curso.periodo}" required>
+                    <option value=""> </option>
+                    <option value="1">Manha 9h30</option>
+                    <option value="2">Manha 11h30</option>
+                    <option value="3">Tarde 14h45</option>
+                    <option value="4">Tarde 16h50</option>
+                    <option value="5">Noite 18h</option>
+                    <option value="6">Noite 20h</option>
+                </select>  
                 <h4 class="genero">Status</h4>
                 <label for="inputStatusCurso" class="genero">   
                 <input type="radio" id="inlineRadioA" name="inlineRadioOptionsCurso" value="A" <c:if test="${curso.status eq 'A'}"> checked </c:if> required>Ativo</label>

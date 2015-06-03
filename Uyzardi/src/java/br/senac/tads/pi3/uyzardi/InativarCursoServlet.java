@@ -1,80 +1,70 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.senac.tads.pi3.uyzardi;
 
 import br.senac.tads.pi3.comum.ConnMysql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
- * @author Cauê Camargo
+ * Cauê Camargo
  */
-@WebServlet(name = "ListarCursosServlet", urlPatterns = {"/ListarCursosServlet"})
-public class ListarCursosServlet extends HttpServlet {
-    
-        public ArrayList<Curso> pesquisaCurso (String pesquisa){
-        ArrayList<Curso> listaCurso = new ArrayList<>();
-        ResultSet resultados = null;
-        Statement stmt = null;
+@WebServlet(name = "InativarCursoServlet", urlPatterns = {"/InativarCursoServlet"})
+public class InativarCursoServlet extends HttpServlet {
+
+     private void alterarStatus(int idCurso, String status){
+        
+        String novoStatus;
+        
+        if(status.equalsIgnoreCase("A"))
+            novoStatus = "I";
+        else if(status.equalsIgnoreCase("I"))
+            novoStatus = "A";
+        else 
+            throw new RuntimeException(String.format("Status inválido: %s", status));
+         
+        PreparedStatement stmt = null;
         Connection conn = null;
         
-        String sql;
-        if (pesquisa.equals("")) {
-             sql = "SELECT * FROM `Curso`";
-        }
-        else{
-            sql = "SELECT * FROM `Curso` WHERE `nomeCurso` LIKE '%"+pesquisa+"%'";
-        }
+        String sql = "UPDATE `Curso` SET `Status`= ? WHERE `idCurso` = ?";
+        
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
-            resultados = stmt.executeQuery(sql);
-            
-            if (resultados != null) {
-                while (resultados.next()){
-                    Curso curso = new Curso(
-                        resultados.getInt("idCurso"),
-                        resultados.getString("nomeCurso"),
-                        resultados.getString("moduloCurso"),
-                        resultados.getInt("salaCurso"),
-                        resultados.getDouble("valorCurso"),
-                        resultados.getInt("vagasCurso"),
-                        resultados.getInt("idUnidade"),
-                        resultados.getString("periodo"),
-                        resultados.getString("Status").charAt(0)
-                    );
-                    listaCurso.add(curso);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ListarCursosServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+            stmt.setString(1,novoStatus);
+            stmt.setInt(2, idCurso);
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            throw new RuntimeException(ex);
+        } finally {
             if(stmt != null){
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if(conn != null){
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(InativarCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        return listaCurso;
+        }  
     }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,19 +83,15 @@ public class ListarCursosServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListarCursosServlet</title>");            
+            out.println("<title>Servlet InativarCursoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            ArrayList<Curso> lista = pesquisaCurso("");
-            for (int i = 0; i < lista.size(); i++) {
-                //out.print(lista.get(i).getIdPessoa());
-                out.print(lista.get(i).getIdCurso());
-                out.print(lista.get(i).getNomeCurso());
-            }
+            out.println("<h1>Servlet InativarCursoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -120,6 +106,7 @@ public class ListarCursosServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -131,13 +118,18 @@ public class ListarCursosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaCurso", pesquisaCurso((String)request.getParameter("nomeCurso")));
-        request.setAttribute("clickBtnPesquisaCurso","true");
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        
+        int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+        String statusCurso = request.getParameter("status");
+        
+        alterarStatus(idCurso, statusCurso);
+        
+        request.setAttribute("confirmacao", "alteracao");
+        
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
     }
+
     /**
      * Returns a short description of the servlet.
      *

@@ -20,10 +20,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  *
- * @author Claudia Tejos
+ * @author Cauê Camrgo
  */
 @WebServlet(name = "AlterarDadosCursoServlet", urlPatterns = {"/AlterarDadosCursoServlet"})
 public class AlterarDadosCursoServlet extends HttpServlet {
@@ -35,7 +34,7 @@ public class AlterarDadosCursoServlet extends HttpServlet {
 
         String sql = "UPDATE `Curso` SET `nomeCurso` = ?, `moduloCurso` = ?,"
                 + "`salaCurso` = ?, `valorCurso`= ?, `vagasCurso`= ?, `idUnidade`= ?,"
-                + "`periodo`= ? WHERE `idCurso` = ?";
+                + "`periodo`= ?, `Status`= ? WHERE `idCurso` = ?";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -47,7 +46,7 @@ public class AlterarDadosCursoServlet extends HttpServlet {
             stmt.setObject(6, curso.getIdUnidade());
             stmt.setString(7 ,curso.getPeriodo());
             stmt.setObject(8, curso.getStatus(), java.sql.Types.VARCHAR);
-            stmt.setInt(5, idCurso);
+            stmt.setInt(9, idCurso);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AlterarDadosCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,7 +73,7 @@ public class AlterarDadosCursoServlet extends HttpServlet {
         Connection conn = null;
         Curso curso = null;
         
-        String sql = "SELECT * FROM `Curso` WHERE `idCurso` LIKE '%"+idCurso+"%'";
+        String sql = "SELECT * FROM `Curso` WHERE `idCurso`= '"+idCurso+"'";
         try {
             conn = ConnMysql.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -113,7 +112,6 @@ public class AlterarDadosCursoServlet extends HttpServlet {
                 }
             }
         }
-        
         return curso;
     }
     /**
@@ -129,7 +127,7 @@ public class AlterarDadosCursoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-         int idCurso = Integer.parseInt(request.getParameter("idCurso")); 
+        int idCurso = Integer.parseInt(request.getParameter("idCurso")); 
         request.setAttribute("curso", pesquisarCurso(idCurso));
         request.setAttribute("idCurso", idCurso);
         
@@ -168,16 +166,17 @@ public class AlterarDadosCursoServlet extends HttpServlet {
         int salacurso = Integer.parseInt(request.getParameter("salaCurso"));
         double valor = Double.parseDouble(request.getParameter("valor"));
         int qtdVagas = Integer.parseInt(request.getParameter("vagas"));
-        int unidade = Integer.parseInt(request.getParameter("unidade"));
+        int unidade = Integer.parseInt(request.getParameter("idUnidade"));
         String periodo = request.getParameter("periodo");
-        char status = request.getParameter("inlineRadioOptionsStatus").charAt(0);
+        char status = request.getParameter("inlineRadioOptionsCurso").charAt(0);
             
         Curso curso = new Curso(idCurso, nomecurso, modulocurso, salacurso, valor, qtdVagas, unidade, periodo, status);
         alteraDadosCurso(idCurso,curso);
         
         request.setAttribute("confirmacao", "alteracao");
-        
-        RequestDispatcher rd = request.getRequestDispatcher("ListarCursoServlet");
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        RequestDispatcher rd = request.getRequestDispatcher("ListarCursosServlet");
         rd.forward(request, response);
     }
     /**

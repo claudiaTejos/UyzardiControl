@@ -575,6 +575,7 @@
                 </select>
                 <label for="periodo" class="form-label unidade">Periodo</label>
                     <select class="form-control" id="periodo" name="periodo">
+                        <option value=""> </option>
                         <option value="1">Manha 9h30</option>
                         <option value="2">Manha 11h30</option>
                         <option value="3">Tarde 14h45</option>
@@ -589,19 +590,28 @@
             <c:if test="${not empty listaCurso}">
             <table class="table table-striped">
                 <tr class="tabelaInicio">
-                    <td>Curso</td>
-                    <td>Modulo</td>
-                    <td> </td>
+                    <td align="center" valign="middle"> Curso </td>
+                    <td align="center" valign="middle"> Modulo </td>
+                    <td align="center" valign="middle"> Status </td>
+                    <td align="center" valign="middle"> Ações </td>
                 </tr>
                 <c:forEach items="${listaCurso}" var="curso" varStatus="stat">
                     <tr>
                         <form>
                             <input type="hidden" value="${curso.idCurso}" name="idCurso">
-                            <td><c:out value="${curso.nomeCurso}" /></td>
-                            <td><c:out value="${curso.moduloCurso}" /></td>
-                            <td>
+                            <td align="center" valign="middle"><c:out value="${curso.nomeCurso}" /></td>
+                            <td align="center" valign="middle"><c:out value="${curso.moduloCurso}" /></td>
+                            <input type="hidden" value="${curso.status}" name="status">
+                            <td align="center" valign="middle">
+                                <c:if test="${curso.status eq 'A'}" ><c:out value="Ativo"/></c:if>
+                                <c:if test="${curso.status eq 'I'}" ><c:out value="Inativo"/></c:if>
+                            </td>
+                            <td align="center" valign="middle">
                                 <button id="btnCursoAtualizaID" class="btn btn-info btnAtualiza" formaction="AlterarDadosCursoServlet" formmethod="GET">Atualizar</button>
-                                <button  class="btn btn-danger glyphicon glyphicon-trash" id="remover" formaction="removerCursoServlet" formmethod="POST"></button>
+                                <button  formmethod="POST" formaction="InativarCursoServlet" class="btn btn-primary" id="remover">
+                                    <c:if test="${curso.status eq 'A'}" >Desativar</c:if>
+                                    <c:if test="${curso.status eq 'I'}" >Ativar</c:if>
+                                </button>
                             </td>
                         </form>
                     </tr>
