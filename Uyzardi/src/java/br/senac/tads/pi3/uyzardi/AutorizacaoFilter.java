@@ -26,12 +26,16 @@ import javax.servlet.http.HttpSession;
  */
 @WebFilter(filterName = "AutorizacaoFilter", urlPatterns = {"*.jsp"}, 
         servletNames = {
-            "AlteraDadosFuncionarioServlet", 
+            "AlteraDadosFuncionarioServlet",
+            "AlterarDadosCursoServlet",
             "AlterarDadosUnidadeServlet",
             "AlterarQuantidadeProduto",
             "atualizarCliente",
             "CriarCarrinhoServlet",
             "desativarMatricula",
+            "InativarCursoServlet",
+            "InativerFuncionarioServlet",
+            "InativarUnidadeServlet",
             "incluirCliente",
             "IncluirCursoServlet",
             "IncluirFuncionarioServlet",
@@ -111,8 +115,8 @@ public class AutorizacaoFilter implements Filter {
         
         String uri = request.getRequestURI();
         String[] servletsExclusivaGerente = {"AlteraDadosFuncionarioServlet", "AlterarDadosUnidadeServlet",
-        "AlterarQuantidadeProduto", "InativerFuncionarioServlet", "InativarUnidadeServlet", 
-        "IncluirCursoServlet", "IncluirFuncionarioServlet", "IncluirProdutoServlet",
+        "AlterarDadosCursoServlet","AlterarQuantidadeProduto", "InativerFuncionarioServlet", "InativarUnidadeServlet", 
+        "InativarCursoServlet","IncluirCursoServlet", "IncluirFuncionarioServlet", "IncluirProdutoServlet",
         "IncluirUnidadeServlet", "ListarFuncionariosServlet", "ListarUnidadeServlet",
         "RelatorioMatriculaServlet"};
         
