@@ -49,7 +49,8 @@ import javax.servlet.http.HttpSession;
             "selecionaCliente",
             "removerFuncionarioServlet",
             "removerUnidadeServlet",
-            "RelatorioMatriculaServlet"
+            "RelatorioMatriculaServlet",
+            "RelatorioVendaServlet"
         })
 public class AutorizacaoFilter implements Filter {
 

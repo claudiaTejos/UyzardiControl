@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -27,63 +26,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author User
  */
-@WebServlet(name = "RelatorioMatriculaServlet", urlPatterns = {"/RelatorioMatriculaServlet"})
-public class RelatorioMatriculaServlet extends HttpServlet {
-    
-    public ArrayList<Relatorio> buscaDadosMatricula (){
-        String sql ="SELECT nomeUnidade, nomeCurso, moduloCurso, valorCurso, Matricula.idCurso, COUNT(*) Total "
-                + "FROM Matricula "
-                + "JOIN Curso ON Curso.idCurso = Matricula.idCurso "
-                + "JOIN Unidade ON Unidade.idUnidade = Matricula.idUnidade "
-                + "WHERE Matricula.StatusMatricula = 'A' "
-                + "GROUP BY idCurso";
-        ArrayList<Relatorio> listaRelatorio = new ArrayList<>();
-        ResultSet resultados = null;
-        Statement stmt = null;
-        Connection conn = null;
-        
-        try {
-            conn = ConnMysql.getConnection();
-            stmt = conn.prepareStatement(sql);
-            resultados = stmt.executeQuery(sql);
-            if (resultados != null) {
-                while (resultados.next()){
-                    Relatorio linhaRelatorio = new Relatorio(resultados.getString("nomeUnidade"),
-                            resultados.getString("nomeCurso"),
-                            resultados.getString("moduloCurso"),
-                            resultados.getDouble("valorCurso"),
-                            resultados.getInt("total")
-                    );
-                    listaRelatorio.add(linhaRelatorio);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        
-        return listaRelatorio;
-    }
-    
-    public ArrayList<Relatorio> buscaDadosMatriculasPorUnidades (){
-        String sql ="SELECT nomeUnidade, COUNT(*) Total " +
-                " FROM Matricula " +
-                "JOIN Unidade ON Unidade.idUnidade = Matricula.idUnidade " +
-                "WHERE Matricula.StatusMatricula = 'A' " +
+@WebServlet(name = "RelatorioVendaServlet", urlPatterns = {"/RelatorioVendaServlet"})
+public class RelatorioVendaServlet extends HttpServlet {
+    public ArrayList<Relatorio> buscaDadosVendasPorUnidades(){
+        String sql ="SELECT nomeUnidade, SUM(valor) Total " +
+                "FROM Venda " +
+                "JOIN Unidade ON Unidade.idUnidade = Venda.idUnidade " +
+                "WHERE Venda.Status = 'A' " +
                 "GROUP BY nomeUnidade";
         ArrayList<Relatorio> listaRelatorio = new ArrayList<>();
         ResultSet resultados = null;
@@ -97,7 +46,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
             if (resultados != null) {
                 while (resultados.next()){
                     Relatorio linhaRelatorio = new Relatorio(resultados.getString("nomeUnidade"),
-                            resultados.getInt("total")
+                            resultados.getDouble("total")
                     );
                     listaRelatorio.add(linhaRelatorio);
                 }
@@ -123,7 +72,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
         
         return listaRelatorio;
     }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -141,10 +90,10 @@ public class RelatorioMatriculaServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RelatorioMatriculaServlet</title>");            
+            out.println("<title>Servlet RelatorioVendaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RelatorioMatriculaServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RelatorioVendaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -162,7 +111,11 @@ public class RelatorioMatriculaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("dadosRelatorioVendaPorUnidade", buscaDadosVendasPorUnidades());
+        RequestDispatcher rd = request.getRequestDispatcher("relatoriosVendas.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -176,14 +129,7 @@ public class RelatorioMatriculaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
-        request.setAttribute("listaRelatorio", buscaDadosMatricula());
-        request.setAttribute("dadosRelatorioPorUnidade", buscaDadosMatriculasPorUnidades());
-        RequestDispatcher rd = request.getRequestDispatcher("relatorioMatricula.jsp");
-        rd.forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**

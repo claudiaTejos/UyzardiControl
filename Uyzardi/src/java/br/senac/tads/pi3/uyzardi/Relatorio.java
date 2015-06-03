@@ -15,10 +15,16 @@ public class Relatorio {
     private String moduloCurso;
     private double valorCurso;
     private int total;
+    private double valorVenda;
     
     public Relatorio (String nomeUnidade, int total){
         this.nomeUnidade = nomeUnidade;
         this.total = total;
+    }
+    
+    public Relatorio (String nomeUnidade, double valorVenda){
+        this.nomeUnidade = nomeUnidade;
+        this.valorVenda = valorVenda;
     }
     
     public Relatorio (String nomeUnidade, String nomeCurso, String moduloCurso, 
@@ -63,6 +69,13 @@ public class Relatorio {
      */
     public int getTotal() {
         return total;
+    }
+
+    /**
+     * @return the valorVenda
+     */
+    public double getValorVenda() {
+        return valorVenda;
     }
     
 }

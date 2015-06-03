@@ -17,14 +17,14 @@
     <title>Uizardy Control</title>
 </head>
 <body>
-    <form><button formaction="RelatorioMatriculaServlet" formmethod="POST">Teste</button></form>
+    <form><button formaction="RelatorioVendaServlet" formmethod="POST">Teste</button></form>
     
     <script>      
         var chartData = [
-            <c:forEach items="${dadosRelatorioPorUnidade}" var="relatorio" varStatus="stat">
+            <c:forEach items="${dadosRelatorioVendaPorUnidade}" var="relatorio" varStatus="stat">
                 {
                     "unidade":"${relatorio.nomeUnidade}",
-                    "total":"${relatorio.total}",
+                    "total":"${relatorio.valor}",
                     "color": "#04D215"
                 },
             </c:forEach>
@@ -83,7 +83,7 @@
         });
     </script>
     
-    <h4>Clientes Matriculados por Unidade</h4>
+    <h4>Vendas por Unidade</h4>
     <div id="chartdiv" style="width: 75%; height: 400px;"></div>
     
     <table class="table table-striped" id="tabela">
