@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RelatorioVendaServlet", urlPatterns = {"/RelatorioVendaServlet"})
 public class RelatorioVendaServlet extends HttpServlet {
+    
     public ArrayList<Relatorio> buscaDadosVendasPorUnidades(){
         String sql ="SELECT nomeUnidade, SUM(valor) Total " +
                 "FROM Venda " +
@@ -115,7 +116,7 @@ public class RelatorioVendaServlet extends HttpServlet {
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("dadosRelatorioVendaPorUnidade", buscaDadosVendasPorUnidades());
         RequestDispatcher rd = request.getRequestDispatcher("relatoriosVendas.jsp");
-        rd.forward(request, response);
+        rd.forward(request, response);        
     }
 
     /**
@@ -129,7 +130,11 @@ public class RelatorioVendaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
+        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("dadosRelatorioVendaPorUnidade", buscaDadosVendasPorUnidades());
+        RequestDispatcher rd = request.getRequestDispatcher("relatoriosVendas.jsp");
+        rd.forward(request, response);
     }
 
     /**

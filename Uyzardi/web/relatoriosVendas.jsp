@@ -1,13 +1,12 @@
 <%-- 
-    Document   : relatorioMatricula
-    Created on : 27/05/2015, 21:08:36
+    Document   : relatoriosVendas
+    Created on : 02/06/2015, 22:35:30
     Author     : User
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
