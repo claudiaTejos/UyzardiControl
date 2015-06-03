@@ -57,14 +57,13 @@
                 </select>
                 <label for="periodo" class="form-label unidade">Periodo</label>
                 <select class="form-control" id="periodo" name="periodo" value="${curso.periodo}" required>
-                    <option value=""> </option>
                     <option value="1">Manha 9h30</option>
                     <option value="2">Manha 11h30</option>
                     <option value="3">Tarde 14h45</option>
                     <option value="4">Tarde 16h50</option>
                     <option value="5">Noite 18h</option>
                     <option value="6">Noite 20h</option>
-                </select>  
+                </select>
                 <h4 class="genero">Status</h4>
                 <label for="inputStatusCurso" class="genero">   
                 <input type="radio" id="inlineRadioA" name="inlineRadioOptionsCurso" value="A" <c:if test="${curso.status eq 'A'}"> checked </c:if> required>Ativo</label>

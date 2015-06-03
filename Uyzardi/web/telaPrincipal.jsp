@@ -778,7 +778,6 @@
                 </select>
                 <label for="periodo" class="form-label unidade">Periodo</label>
                     <select class="form-control" id="periodo" name="periodo">
-                        <option value=""> </option>
                         <option value="1">Manha 9h30</option>
                         <option value="2">Manha 11h30</option>
                         <option value="3">Tarde 14h45</option>
