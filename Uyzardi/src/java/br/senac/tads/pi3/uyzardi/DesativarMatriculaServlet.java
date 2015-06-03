@@ -126,8 +126,7 @@ public class DesativarMatriculaServlet extends HttpServlet {
         String statusMatricula = request.getParameter("statusMatriculaMudar");
         request.setAttribute("controleDesativaMatricula", desativarMatricula(idMatricula, statusMatricula));
         
-        ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
-        request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
+        request.setAttribute("confirmacao", "alteracao");
         request.setAttribute("clickBtnDesativaMatricula", "true");
         RequestDispatcher rd = request.getRequestDispatcher("telaPrincipal.jsp");
         rd.forward(request, response);
