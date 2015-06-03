@@ -167,7 +167,7 @@
                 </c:if>
                 <form action="atualizarCliente" method="POST" id="controle">
                     <input type="hidden" name="idAlunoAtualizar" value="${cliente.idPessoa}">
-                    <label for="inputNomeAtualizar" class="form-label">Nome</label>
+                    <label for="inputNomeAtualizar" class="nomeLabel">Nome</label>
                     <input type="text" name="nomeAlunoAtualizar" id="inputNomeAtualizar" placeholder="Nome Completo" class="form-control" required value="${cliente.nome}"></input>
                     <label for="inputDtNascimentoAtualizar" class="form-label">Data de nascimento</label>
                     <input type="date" id="inputDtNascimentoAtualizar" class="form-control" placeholder="Data de nascimento" name="dtNascimentoAtualizar" required value="${cliente.dtNasc}">
@@ -190,7 +190,7 @@
                             </c:forEach>
                         </c:if>
                     </select>
-                    <button  class="btn btn-success" id="concluirAtualizar">Concluir</button>
+                    <button  class="btn btn-success" id="concluir">Concluir</button>
                 </form>
             </div>
         </c:if>

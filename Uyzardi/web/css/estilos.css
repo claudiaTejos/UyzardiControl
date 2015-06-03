@@ -181,9 +181,14 @@ div#botoesGerenciamento{
 }
 #chartdiv{
     margin-left: 15%;
-}
-h3{
+}.titulo{
     font-family: Arial;
     font-weight: bold;
     text-align: center;
+}
+
+.nomeLabel{
+    display: block;
+    margin-top: 10px;
+    margin-left: 25%;
 }
