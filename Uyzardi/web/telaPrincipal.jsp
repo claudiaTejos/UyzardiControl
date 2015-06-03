@@ -319,14 +319,14 @@
         </div>
         
         <div id="relatorios" class="relatorios oculto">
+            <div class="btn-group-vertical" role="group" id="btnRelatoriosTipo">
+                <form>
+                    <button id="btnRelatorioMatricula" formmethod="POST" formaction="RelatorioMatriculaServlet" class="btn btn-info">Relatorio Matriculas</button><br>
+                    <button id="btnRelatorioVendas" formaction="RelatorioVendaServlet" formmethod="POST" class="btn btn-info">Relatorio Vendas</button>
+                </form>
+            </div>
             <div class="botoesDeGerencia">
-                <ul class="nav nav-pills nav-justified">
-                  <li role="presentation" class="active"><a href="#">Data de Inicio</a></li>
-                  <li role="presentation"><a href="#">Data de Fim</a></li>
-                  <li role="presentation"><a href="#">Unidade</a></li>
-                  <li role="presentation"><a href="#">Curso</a></li>
-                  <li role="presentation"><a href="#">Modulo</a></li>
-                </ul>
+
             </div>
         </div>
         

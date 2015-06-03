@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
             <c:forEach items="${dadosRelatorioVendaPorUnidade}" var="relatorio" varStatus="stat">
                 {
                     "unidade":"${relatorio.nomeUnidade}",
-                    "total":"${relatorio.valor}",
+                    "total":"${relatorio.valorVenda}",
                     "color": "#04D215"
                 },
             </c:forEach>
@@ -89,7 +90,8 @@
         <thead>
             <tr>
                 <th id="cellUnidade">Unidade</th>
-                <th id="cellCurso">Curso</th>
+                <th id="cellIdioma">Idioma</th>
+                <th id="cellProduto">Produto</th>
                 <th id="cellModulo">Modulo</th>
                 <th id="cellTotal">Total</th>
             </tr>
@@ -99,25 +101,18 @@
 	<tbody>
     </table>
 
-    <script type="text/javascript">
-    var dadosUnidades=[
-            <c:forEach items="${listaRelatorio}" var="relatorio" varStatus="stat">
+    <script type="text/javascript">        
+    var dados=[
+            <c:forEach items="${dadosRelatorioVendas}" var="relatorio" varStatus="stat">
                     {"unidade":"${relatorio.nomeUnidade}",
-                        "nomeCurso":"${relatorio.nomeCurso}",
-                        "moduloCurso":"${relatorio.moduloCurso}",
-                        "total":"${relatorio.total}"
+                        "idiomaProduto":"${relatorio.idiomaProduto}",
+                        "nomeProduto":"${relatorio.nomeProduto}",
+                        "moduloProduto":"${relatorio.moduloProduto}",
+                        "total":"${relatorio.valorVenda}"
                     },
             </c:forEach>
         ];
-        
-    var data = [
-            <c:forEach items="${dadosRelatorioPorUnidade}" var="relatorio" varStatus="stat">
-                {"unidade":"${relatorio.nomeUnidade}",
-                    "total":"${relatorio.total}"
-                },
-            </c:forEach>
-    ]; 
     </script>
-    <script src="js/relatorio.js"></script>
+    <script src="js/relatorioVendas.js"></script>
 </body>
 </html>

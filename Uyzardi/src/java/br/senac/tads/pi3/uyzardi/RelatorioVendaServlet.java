@@ -74,6 +74,56 @@ public class RelatorioVendaServlet extends HttpServlet {
         return listaRelatorio;
     }
     
+    public ArrayList<Relatorio> buscaDadosRelatorioVendas(){
+        String sql ="SELECT nomeUnidade, idiomaProduto, nomeProduto, moduloProduto, SUM(valor) Total " +
+                "FROM Venda " +
+                "JOIN Produto ON Produto.idProduto = Venda.idProduto " +
+                "JOIN Unidade ON Unidade.idUnidade = Venda.idUnidade " +
+                "WHERE Venda.Status = 'A' " +
+                "GROUP BY nomeUnidade, nomeProduto, Produto.idProduto";
+        ArrayList<Relatorio> listaRelatorio = new ArrayList<>();
+        ResultSet resultados = null;
+        Statement stmt = null;
+        Connection conn = null;
+        
+        try {
+            conn = ConnMysql.getConnection();
+            stmt = conn.prepareStatement(sql);
+            resultados = stmt.executeQuery(sql);
+            if (resultados != null) {
+                while (resultados.next()){
+                    Relatorio linhaRelatorio = new Relatorio(
+                            resultados.getString("nomeUnidade"),
+                            resultados.getString("idiomaProduto"),
+                            resultados.getString("nomeProduto"),
+                            resultados.getString("moduloProduto"),
+                            resultados.getDouble("total")
+                    );
+                    listaRelatorio.add(linhaRelatorio);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnMysql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        return listaRelatorio;
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -133,6 +183,7 @@ public class RelatorioVendaServlet extends HttpServlet {
         ListarUnidadeServlet listaUnidades = new ListarUnidadeServlet();
         request.setAttribute("listaUnidades", listaUnidades.pesquisarUnidade(""));
         request.setAttribute("dadosRelatorioVendaPorUnidade", buscaDadosVendasPorUnidades());
+        request.setAttribute("dadosRelatorioVendas", buscaDadosRelatorioVendas());
         RequestDispatcher rd = request.getRequestDispatcher("relatoriosVendas.jsp");
         rd.forward(request, response);
     }

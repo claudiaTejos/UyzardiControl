@@ -16,6 +16,9 @@ public class Relatorio {
     private double valorCurso;
     private int total;
     private double valorVenda;
+    private String nomeProduto;
+    private String idiomaProduto;
+    private String moduloProduto;
     
     public Relatorio (String nomeUnidade, int total){
         this.nomeUnidade = nomeUnidade;
@@ -25,6 +28,14 @@ public class Relatorio {
     public Relatorio (String nomeUnidade, double valorVenda){
         this.nomeUnidade = nomeUnidade;
         this.valorVenda = valorVenda;
+    }
+    
+    public Relatorio (String nomeUnidade, String idiomaProduto, String nomeProduto, String moduloProduto, double total){
+        this.nomeUnidade = nomeUnidade;
+        this.idiomaProduto = idiomaProduto;
+        this.nomeProduto = nomeProduto;
+        this.moduloProduto = moduloProduto;
+        this.valorVenda = total;
     }
     
     public Relatorio (String nomeUnidade, String nomeCurso, String moduloCurso, 
@@ -76,6 +87,27 @@ public class Relatorio {
      */
     public double getValorVenda() {
         return valorVenda;
+    }
+
+    /**
+     * @return the nomeProduto
+     */
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    /**
+     * @return the idiomaProduto
+     */
+    public String getIdiomaProduto() {
+        return idiomaProduto;
+    }
+
+    /**
+     * @return the moduloProduto
+     */
+    public String getModuloProduto() {
+        return moduloProduto;
     }
     
 }
