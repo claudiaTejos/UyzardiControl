@@ -83,7 +83,7 @@
         });
     </script>
     
-    <h4>Vendas por Unidade</h4>
+    <h3>Vendas por Unidade</h3>
     <div id="chartdiv" style="width: 75%; height: 400px;"></div>
     
     <table class="table table-striped" id="tabela">

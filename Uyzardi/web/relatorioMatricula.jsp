@@ -83,7 +83,7 @@
         });
     </script>
     
-    <h4>Clientes Matriculados por Unidade</h4>
+    <h3>Clientes Matriculados por Unidade</h3>
     <div id="chartdiv" style="width: 75%; height: 400px;"></div>
     
     <table class="table table-striped" id="tabela">

@@ -182,3 +182,8 @@ div#botoesGerenciamento{
 #chartdiv{
     margin-left: 15%;
 }
+h3{
+    font-family: Arial;
+    font-weight: bold;
+    text-align: center;
+}
