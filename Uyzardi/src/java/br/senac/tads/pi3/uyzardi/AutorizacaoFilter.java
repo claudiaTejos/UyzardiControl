@@ -117,7 +117,7 @@ public class AutorizacaoFilter implements Filter {
         String[] servletsExclusivaGerente = {"AlteraDadosFuncionarioServlet", "AlterarDadosUnidadeServlet",
         "AlterarDadosCursoServlet","AlterarQuantidadeProduto", "InativerFuncionarioServlet", "InativarUnidadeServlet", 
         "InativarCursoServlet","IncluirCursoServlet", "IncluirFuncionarioServlet", "IncluirProdutoServlet",
-        "IncluirUnidadeServlet", "ListarFuncionariosServlet", "ListarUnidadeServlet",
+        "IncluirUnidadeServlet", "ListarFuncionariosServlet",
         "RelatorioMatriculaServlet"};
         
         for(String servletGerente: servletsExclusivaGerente){

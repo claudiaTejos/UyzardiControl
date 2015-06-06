@@ -42,6 +42,7 @@
             <c:if test='${funcionario.cargo == "gerente" || funcionario.cargo == "Gerente"}'>
                 <li><a id="btnGerenciamento">Gerenciamento</a></li>
             </c:if>
+                <input id="btnGerenciamento" type="hidden">
         </ul>
     </div>
 
